@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFB452"/>
+      <stop offset="100%" stop-color="#A615FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="16" fill="url(#bg)"/>
+  <text x="20" y="95" font-family="'Space Grotesk', 'Arial Black', sans-serif" font-weight="900" font-size="42" fill="#000">THE</text>
+  <text x="20" y="138" font-family="'Space Grotesk', 'Arial Black', sans-serif" font-weight="900" font-size="42" fill="#000">AWESOME</text>
+  <text x="20" y="181" font-family="'Space Grotesk', 'Arial Black', sans-serif" font-weight="900" font-size="42" fill="#000">MARKETERS</text>
+</svg>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Awesome Marketers | Finland's Largest Marketing Community</title>
+  <meta name="description" content="Finland's largest international marketing community on Slack. 1,787 members sharing jobs, advice, and honest career support. Free events, salary data, and tools for marketers in Finland.">
+  <meta property="og:title" content="The Awesome Marketers | Finland's Largest Marketing Community">
+  <meta property="og:description" content="Finland's largest international marketing community on Slack. 1,787 members, free events, salary data, and career tools.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://awesomemarketers.fi">
+  <meta property="og:image" content="https://awesomemarketers.fi/logo.jpg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="The Awesome Marketers | Finland's Largest Marketing Community">
+  <meta name="twitter:description" content="Finland's largest international marketing community on Slack. 1,787 members, free events, and career tools.">
+  <link rel="canonical" href="https://awesomemarketers.fi/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="logo.jpg" alt="The Awesome Marketers" class="nav__logo-img">
+        <span class="nav__logo-text">The Awesome Marketers</span>
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="people.html">Who We Are</a></li>
+        <li><a href="manifesto.html">Manifesto</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li class="nav__dropdown">
+          <button class="nav__dropdown-toggle" aria-expanded="false">Other important things <span class="nav__dropdown-arrow">▾</span></button>
+          <div class="nav__dropdown-menu">
+            <a href="events.html" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🎪</span>
+              <div><span class="nav__dropdown-title">Events</span><span class="nav__dropdown-desc">Meetups, webinars, afterworks</span></div>
+            </a>
+            <a href="videos.html" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🎬</span>
+              <div><span class="nav__dropdown-title">Videos</span><span class="nav__dropdown-desc">Recorded webinars and talks</span></div>
+            </a>
+            <a href="marketing-salaries-finland.html" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">📊</span>
+              <div><span class="nav__dropdown-title">Salary Reports</span><span class="nav__dropdown-desc">What marketers in Finland earn</span></div>
+            </a>
+            <a href="firstjob.html" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🎯</span>
+              <div><span class="nav__dropdown-title">First Job Guide</span><span class="nav__dropdown-desc">Land your first marketing job</span></div>
+            </a>
+            <a href="freelance-calculator.html" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🧮</span>
+              <div><span class="nav__dropdown-title">Freelance Rate Calculator</span><span class="nav__dropdown-desc">Figure out your daily rate</span></div>
+            </a>
+            <a href="partners.html" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🤝</span>
+              <div><span class="nav__dropdown-title">Partners & Affiliates</span><span class="nav__dropdown-desc">Tools we use and recommend</span></div>
+            </a>
+          </div>
+        </li>
+        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfyjguXFCgPrUyPbQ4mBCfclsmtTqfpHeGxoVPj0baR7Tj9NA/viewform" target="_blank" class="btn btn--nav">Join us on Slack</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero__bg">
+      <div class="hero__gradient"></div>
+      <div class="hero__grid"></div>
+    </div>
+    <div class="hero__content">
+      <div class="hero__badge">Finland's Largest Marketing Community on Slack</div>
+      <h1 class="hero__title">
+        Where <span class="gradient-text">awesome marketers</span> hang out.
+      </h1>
+      <p class="hero__subtitle">
+        We've been around since 2019, helping marketers in Finland 🇫🇮 share jobs, give honest advice, and genuinely root for each other. Come say hi 👋
+      </p>
+      <div class="hero__actions">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfyjguXFCgPrUyPbQ4mBCfclsmtTqfpHeGxoVPj0baR7Tj9NA/viewform" target="_blank" class="btn btn--primary btn--lg">Join for the first time</a>
+        <a href="https://awesome-marketers.slack.com" target="_blank" class="btn btn--outline btn--lg">Log in back to Slack</a>
+      </div>
+      <div class="hero__stats hero__stats--single">
+        <div class="hero__stat">
+          <span class="hero__stat-number" data-count="1787">0</span>
+          <span class="hero__stat-label hero__stat-label--rotate" id="rotatingLabel">marketers on Slack</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section section--dark" id="about">
+    <div class="container">
+      <div class="about__story">
+        <h2 class="about__headline">A Slack full of marketers who actually talk to each other.</h2>
+        <div class="about__prose">
+          <div class="about__col">
+            <p>Someone posts a job opening, three people reply with referrals. Someone's stuck on a campaign, five people jump in with ideas. Someone lands their first marketing gig in Finland and the whole channel celebrates. That's a normal Tuesday for us.</p>
+            <p>We do events too. Mostly Helsinki, but we've been to Oulu (2026) and Tampere (2023). Afterworks, webinars on everything from SEO to salary negotiation, side events at Slush. You'll leave with new friends and real answers to stuff you've been stuck on.</p>
+          </div>
+          <div class="about__col">
+            <p>Along the way, we built a <a href="freelance-calculator.html" class="link--subtle">freelance rate calculator</a>, ran <a href="marketing-salaries-finland.html" class="link--subtle">salary surveys</a>, put together a <a href="firstjob.html" class="link--subtle">first-job guide</a>, and recorded a bunch of webinars. We keep making things because it's fun and someone out there will find it useful.</p>
+            <p>English-speaking, immigrant-friendly, zero tolerance for discrimination. No corporate agenda. Just 50+ volunteers who run this in their spare time because it makes them happy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Join CTA -->
+  <section class="section section--cta" id="join">
+    <div class="container">
+      <div class="cta__content">
+        <h2 class="cta__title">Come hang out with <span class="gradient-text">awesome marketers</span></h2>
+        <p class="cta__text">A warm, friendly group of marketers in Finland who genuinely want to help each other out.</p>
+        <div class="cta__actions">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfyjguXFCgPrUyPbQ4mBCfclsmtTqfpHeGxoVPj0baR7Tj9NA/viewform" target="_blank" class="btn btn--primary btn--lg">Join us on Slack →</a>
+          <a href="https://www.linkedin.com/company/71179342/" target="_blank" class="btn btn--outline btn--lg btn--outline-light">Follow on LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <img src="logo.jpg" alt="The Awesome Marketers" class="nav__logo-img"> The Awesome Marketers
+        </div>
+        <div class="footer__links">
+          <a href="people.html">People behind the community</a>
+          <a href="manifesto.html">Manifesto</a>
+          <a href="events.html">Events</a>
+          <a href="resources.html">Resources</a>
+        </div>
+        <p class="footer__copy">Made with ❤️ in Helsinki. © 2019–2026 by <a href="https://awesomemarketer.fi" target="_blank" class="link--subtle">Anna Pogrebniak</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

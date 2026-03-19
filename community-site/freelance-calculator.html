@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marketing Freelancer Rate Calculator | The Awesome Marketers</title>
+  <meta name="description" content="Calculate your daily and hourly rate as a marketing freelancer in Finland. Accounts for YEL pension, holiday pay, and billable hours.">
+  <meta property="og:title" content="Marketing Freelancer Rate Calculator | The Awesome Marketers">
+  <meta property="og:description" content="Figure out your daily and hourly rate as a marketing freelancer in Finland.">
+  <link rel="canonical" href="https://awesomemarketers.fi/freelance-calculator.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="logo.jpg" alt="The Awesome Marketers" class="nav__logo-img">
+        <span class="nav__logo-text">The Awesome Marketers</span>
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="people.html">Who We Are</a></li>
+        <li><a href="manifesto.html">Manifesto</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li class="nav__dropdown">
+          <button class="nav__dropdown-toggle active" aria-expanded="false">Other important things <span class="nav__dropdown-arrow">▾</span></button>
+          <div class="nav__dropdown-menu">
+            <a href="events.html" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🎪</span>
+              <div><span class="nav__dropdown-title">Events</span><span class="nav__dropdown-desc">Meetups, webinars, afterworks</span></div>
+            </a>
+            <a href="videos.html" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🎬</span>
+              <div><span class="nav__dropdown-title">Videos</span><span class="nav__dropdown-desc">Recorded webinars and talks</span></div>
+            </a>
+            <a href="marketing-salaries-finland.html" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">📊</span>
+              <div><span class="nav__dropdown-title">Salary Reports</span><span class="nav__dropdown-desc">What marketers in Finland earn</span></div>
+            </a>
+            <a href="firstjob.html" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🎯</span>
+              <div><span class="nav__dropdown-title">First Job Guide</span><span class="nav__dropdown-desc">Land your first marketing job</span></div>
+            </a>
+            <a href="freelance-calculator.html" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🧮</span>
+              <div><span class="nav__dropdown-title">Freelance Rate Calculator</span><span class="nav__dropdown-desc">Figure out your daily rate</span></div>
+            </a>
+            <a href="partners.html" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🤝</span>
+              <div><span class="nav__dropdown-title">Partners & Affiliates</span><span class="nav__dropdown-desc">Tools we use and recommend</span></div>
+            </a>
+          </div>
+        </li>
+        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfyjguXFCgPrUyPbQ4mBCfclsmtTqfpHeGxoVPj0baR7Tj9NA/viewform" target="_blank" class="btn btn--nav">Join us on Slack</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section__tag">For Marketing Freelancers</span>
+      <h1 class="page-hero__title">Freelance Marketing Rate <span class="gradient-text">Calculator</span></h1>
+      <p class="page-hero__desc">Find out what you need to charge per day and hour to actually earn what you want as a freelance marketer. This calculator is specifically built for Finland.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="calc__wrapper">
+        <div class="calc__input-section">
+          <div class="form__group">
+            <label for="rcSalary">Desired monthly gross salary</label>
+            <p class="form__helper">What you'd earn in-house as an employee, before taxes.</p>
+            <div class="form__input-wrap">
+              <input type="number" id="rcSalary" placeholder="4 000" min="1000" max="50000">
+              <span class="form__input-suffix">€</span>
+            </div>
+          </div>
+
+          <div class="form__group">
+            <label>Freelancing experience</label>
+            <div class="form__radio-group">
+              <label class="form__radio">
+                <input type="radio" name="rcExp" value="new" checked>
+                <span class="form__radio-custom"></span>
+                <span class="form__radio-label">Newly self-employed</span>
+                <span class="form__radio-desc">Eligible for YEL discount</span>
+              </label>
+              <label class="form__radio">
+                <input type="radio" name="rcExp" value="established">
+                <span class="form__radio-custom"></span>
+                <span class="form__radio-label">Established</span>
+                <span class="form__radio-desc">No YEL discount</span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="calc__results" id="rcResults" style="display:none;">
+          <p class="calc__recommend">We recommend you charge at least:</p>
+          <div class="calc__rate-cards">
+            <div class="calc__rate-card">
+              <span class="calc__rate-label">Daily rate</span>
+              <span class="calc__rate-value" id="rcDaily">0</span>
+              <span class="calc__rate-unit">€ / day</span>
+            </div>
+            <div class="calc__rate-card">
+              <span class="calc__rate-label">Hourly rate</span>
+              <span class="calc__rate-value" id="rcHourly">0</span>
+              <span class="calc__rate-unit">€ / hour</span>
+            </div>
+          </div>
+
+          <div class="calc__breakdown">
+            <h3>How we got there</h3>
+            <div class="calc__breakdown-grid">
+              <div class="calc__breakdown-item">
+                <span class="calc__breakdown-label">Desired gross salary</span>
+                <span class="calc__breakdown-value" id="bkGross">0 €</span>
+              </div>
+              <div class="calc__breakdown-item">
+                <span class="calc__breakdown-label">Holiday-adjusted (x13.5 / 11)</span>
+                <span class="calc__breakdown-value" id="bkHoliday">0 €</span>
+              </div>
+              <div class="calc__breakdown-item">
+                <span class="calc__breakdown-label" id="bkYelLabel">+ YEL pension (÷ 0.81)</span>
+                <span class="calc__breakdown-value" id="bkYel">0 €</span>
+              </div>
+              <div class="calc__breakdown-item calc__breakdown-item--highlight">
+                <span class="calc__breakdown-label">Monthly rate to charge</span>
+                <span class="calc__breakdown-value" id="bkMonthly">0 €</span>
+              </div>
+              <div class="calc__breakdown-item">
+                <span class="calc__breakdown-label">Avg. work days / month</span>
+                <span class="calc__breakdown-value" id="bkWorkdays">21 days</span>
+              </div>
+              <div class="calc__breakdown-item">
+                <span class="calc__breakdown-label">- sick, admin & public holidays</span>
+                <span class="calc__breakdown-value" id="bkDeductions">−3 days</span>
+              </div>
+              <div class="calc__breakdown-item calc__breakdown-item--highlight">
+                <span class="calc__breakdown-label">Billable days / month</span>
+                <span class="calc__breakdown-value" id="bkBillable">18 days</span>
+              </div>
+              <div class="calc__breakdown-item">
+                <span class="calc__breakdown-label">Hours per day (Finland standard)</span>
+                <span class="calc__breakdown-value" id="bkHours">7.5 h</span>
+              </div>
+              <div class="calc__breakdown-item calc__breakdown-item--highlight">
+                <span class="calc__breakdown-label">Billable hours / month</span>
+                <span class="calc__breakdown-value" id="bkHoursMonth">135 h</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="calc__disclaimer">Based on ~21 work days/month, minus ~1 public holiday, 1 sick day, and 1 admin day. YEL: ~19% for new freelancers (starter discount), ~24% for 4+ years. Holiday pay: 13.5 months over 11 working months. All figures exclude VAT. Business expenses (accounting, tools, courses) typically run around 1 500 €/year, but since they are tax-deductible, they mostly balance out and are not included in this calculation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <img src="logo.jpg" alt="The Awesome Marketers" class="nav__logo-img"> The Awesome Marketers
+        </div>
+        <div class="footer__links">
+          <a href="people.html">People behind the community</a>
+          <a href="manifesto.html">Manifesto</a>
+          <a href="events.html">Events</a>
+          <a href="resources.html">Resources</a>
+        </div>
+        <p class="footer__copy">Made with ❤️ in Helsinki. © 2019–2026 by <a href="https://awesomemarketer.fi" target="_blank" class="link--subtle">Anna Pogrebniak</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    function rcCalc() {
+      const salary = parseFloat(document.getElementById('rcSalary').value);
+      if (!salary || salary < 100) {
+        document.getElementById('rcResults').style.display = 'none';
+        return;
+      }
+
+      const exp = document.querySelector('input[name="rcExp"]:checked').value;
+      const yelFactor = exp === 'new' ? 0.81 : 0.76;
+
+      const holidayAdjusted = (salary * 13.5) / 11;
+      const yelAmount = holidayAdjusted / yelFactor - holidayAdjusted;
+      const monthlyTarget = holidayAdjusted / yelFactor;
+
+      const workDays = 21;
+      const deductions = 3;
+      const billableDays = workDays - deductions;
+      const hoursPerDay = 7.5;
+      const billableHours = billableDays * hoursPerDay;
+
+      const dailyRate = monthlyTarget / billableDays;
+      const hourlyRate = dailyRate / hoursPerDay;
+
+      const dailyRounded = Math.ceil(dailyRate / 5) * 5;
+      const hourlyRounded = Math.ceil(hourlyRate / 5) * 5;
+
+      document.getElementById('rcDaily').textContent = dailyRounded.toLocaleString();
+      document.getElementById('rcHourly').textContent = hourlyRounded.toLocaleString();
+
+      document.getElementById('bkGross').textContent = salary.toLocaleString() + ' €';
+      document.getElementById('bkHoliday').textContent = Math.round(holidayAdjusted).toLocaleString() + ' €';
+      document.getElementById('bkYelLabel').textContent = '+ YEL pension (÷ ' + yelFactor + ')';
+      document.getElementById('bkYel').textContent = Math.round(yelAmount).toLocaleString() + ' €';
+      document.getElementById('bkMonthly').textContent = Math.round(monthlyTarget).toLocaleString() + ' €';
+      document.getElementById('bkWorkdays').textContent = workDays + ' days';
+      document.getElementById('bkDeductions').textContent = '−' + deductions + ' days';
+      document.getElementById('bkBillable').textContent = billableDays + ' days';
+      document.getElementById('bkHours').textContent = hoursPerDay + ' h';
+      document.getElementById('bkHoursMonth').textContent = billableHours + ' h';
+
+      document.getElementById('rcResults').style.display = 'block';
+    }
+
+    document.getElementById('rcSalary').addEventListener('input', rcCalc);
+    document.querySelectorAll('input[name="rcExp"]').forEach(function(r) {
+      r.addEventListener('change', rcCalc);
+    });
+  </script>
+</body>
+</html>
