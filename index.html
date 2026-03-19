@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>anna pogrebniak · fractional growth marketer</title>
+<style>
+  :root {
+    --pink: #FF0F6C;
+    --orange: #F05A28;
+    --yellow: #FFAE00;
+    --green: #7FAD5C;
+    --teal: #2BBFB3;
+    --sky: #29B8DC;
+    --cyan: #00AEEF;
+  }
+
+  [data-theme="dark"] {
+    --bg: #0A0A0A;
+    --text: #FFFFFF;
+    --border: rgba(255,255,255,0.07);
+    --border-strong: rgba(255,255,255,0.13);
+    --hero-stroke: #1a1a1a;
+    --step-watermark: rgba(255,255,255,0.04);
+    --divider: rgba(255,255,255,0.08);
+    --scrollbar-thumb: rgba(255,255,255,0.2);
+    --toggle-bg: rgba(255,255,255,0.08);
+    --toggle-hover: rgba(255,255,255,0.15);
+    --header-bg: rgba(10,10,10,0.88);
+    --tint-pink: rgba(255, 15, 108, 0.07);
+    --tint-pink-hover: rgba(255, 15, 108, 0.12);
+    --tint-teal: rgba(43, 191, 179, 0.07);
+    --tint-teal-hover: rgba(43, 191, 179, 0.12);
+    --tint-orange: rgba(240, 90, 40, 0.07);
+    --tint-orange-hover: rgba(240, 90, 40, 0.12);
+    --tint-yellow: rgba(255, 174, 0, 0.07);
+    --tint-yellow-hover: rgba(255, 174, 0, 0.12);
+    --tint-green: rgba(127, 173, 92, 0.07);
+    --tint-green-hover: rgba(127, 173, 92, 0.12);
+    --tint-sky: rgba(41, 184, 220, 0.07);
+    --tint-sky-hover: rgba(41, 184, 220, 0.12);
+    --tint-cyan: rgba(0, 174, 239, 0.07);
+    --tint-cyan-hover: rgba(0, 174, 239, 0.12);
+  }
+
+  [data-theme="light"] {
+    --bg: #FFFFFF;
+    --text: #0A0A0A;
+    --border: rgba(0,0,0,0.06);
+    --border-strong: rgba(0,0,0,0.12);
+    --hero-stroke: #eee;
+    --step-watermark: rgba(0,0,0,0.04);
+    --divider: rgba(0,0,0,0.08);
+    --scrollbar-thumb: rgba(0,0,0,0.2);
+    --toggle-bg: rgba(0,0,0,0.05);
+    --toggle-hover: rgba(0,0,0,0.10);
+    --header-bg: rgba(255,255,255,0.88);
+    --tint-pink: rgba(255, 15, 108, 0.05);
+    --tint-pink-hover: rgba(255, 15, 108, 0.09);
+    --tint-teal: rgba(43, 191, 179, 0.05);
+    --tint-teal-hover: rgba(43, 191, 179, 0.09);
+    --tint-orange: rgba(240, 90, 40, 0.05);
+    --tint-orange-hover: rgba(240, 90, 40, 0.09);
+    --tint-yellow: rgba(255, 174, 0, 0.06);
+    --tint-yellow-hover: rgba(255, 174, 0, 0.10);
+    --tint-green: rgba(127, 173, 92, 0.06);
+    --tint-green-hover: rgba(127, 173, 92, 0.10);
+    --tint-sky: rgba(41, 184, 220, 0.05);
+    --tint-sky-hover: rgba(41, 184, 220, 0.09);
+    --tint-cyan: rgba(0, 174, 239, 0.05);
+    --tint-cyan-hover: rgba(0, 174, 239, 0.09);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Graphik', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  /* === HEADER === */
+  .site-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 32px;
+    background: var(--header-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .header-name {
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--pink);
+    text-transform: lowercase;
+    letter-spacing: 0.04em;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .header-cta {
+    display: inline-block;
+    padding: 8px 20px;
+    background: var(--pink);
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: lowercase;
+    letter-spacing: 0.06em;
+    border-radius: 4px;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .header-cta:hover {
+    background: #e00d60;
+    transform: translateY(-1px);
+  }
+
+  .theme-toggle {
+    background: var(--toggle-bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 100px;
+    padding: 7px 12px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: lowercase;
+    color: var(--text);
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .theme-toggle:hover {
+    background: var(--toggle-hover);
+  }
+
+  /* === HERO === */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 900;
+    font-size: clamp(100px, 16vw, 220px);
+    color: transparent;
+    -webkit-text-stroke: 1px var(--hero-stroke);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -0.04em;
+    opacity: 0.5;
+    text-transform: lowercase;
+  }
+
+  .hero-tag {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: lowercase;
+    color: var(--pink);
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 2;
+    font-weight: 600;
+  }
+
+  .hero h1 {
+    font-weight: 900;
+    font-size: clamp(44px, 7.5vw, 88px);
+    line-height: 0.93;
+    letter-spacing: -0.03em;
+    text-transform: lowercase;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--pink);
+    display: block;
+  }
+
+  .hero-sub {
+    margin-top: 32px;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+    max-width: 520px;
+    line-height: 1.7;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+    margin-top: 56px;
+    padding-top: 36px;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 2;
+    flex-wrap: wrap;
+  }
+
+  .hero-stat label {
+    display: block;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .hero-stat span {
+    font-weight: 800;
+    font-size: 26px;
+    color: var(--pink);
+    letter-spacing: -0.01em;
+  }
+
+  /* === SECTIONS === */
+  section {
+    padding: 80px 48px;
+    border-top: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section-title {
+    font-weight: 800;
+    font-size: clamp(30px, 4.5vw, 52px);
+    letter-spacing: -0.025em;
+    text-transform: lowercase;
+    line-height: 1.05;
+    margin-bottom: 48px;
+  }
+
+  .section-title .pink { color: var(--pink); }
+
+  /* === WHAT I DO === */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .service-card {
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+
+  .service-card:nth-child(1) { background: var(--tint-pink); }
+  .service-card:nth-child(1):hover { background: var(--tint-pink-hover); }
+  .service-card:nth-child(2) { background: var(--tint-teal); }
+  .service-card:nth-child(2):hover { background: var(--tint-teal-hover); }
+  .service-card:nth-child(3) { background: var(--tint-orange); }
+  .service-card:nth-child(3):hover { background: var(--tint-orange-hover); }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 3px;
+  }
+
+  .service-card:nth-child(1)::before { background: var(--pink); }
+  .service-card:nth-child(2)::before { background: var(--teal); }
+  .service-card:nth-child(3)::before { background: var(--orange); }
+
+  .service-card .service-icon {
+    font-size: 28px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .service-card h3 {
+    font-weight: 700;
+    font-size: 20px;
+    text-transform: lowercase;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+
+  .service-card p {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .service-card .service-includes {
+    margin-top: 18px;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  .service-card .service-includes span {
+    color: var(--pink);
+    margin-right: 4px;
+  }
+
+  /* === SKILLS STRIP === */
+  .skills-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 48px;
+  }
+
+  .skill-tag {
+    padding: 8px 16px;
+    border: 1px solid var(--border-strong);
+    border-radius: 100px;
+    font-size: 14px;
+    color: var(--text);
+    letter-spacing: 0.04em;
+    text-transform: lowercase;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+
+  .skill-tag:hover {
+    border-color: var(--pink);
+    color: var(--pink);
+    background: var(--tint-pink);
+  }
+
+  /* === HOW I ACTUALLY WORK STRIP === */
+  .work-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-top: 48px;
+  }
+
+  .work-strip-item {
+    background: var(--tint-pink);
+    padding: 24px 20px;
+    text-align: center;
+    transition: background 0.2s;
+  }
+
+  .work-strip-item:hover { background: var(--tint-pink-hover); }
+
+  .work-strip-item .ws-icon {
+    font-size: 20px;
+    margin-bottom: 10px;
+    display: block;
+    color: var(--pink);
+  }
+
+  .work-strip-item p {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* === RESULTS === */
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .result-card {
+    padding: 40px 32px;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 3px;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+
+  .result-card:hover::before { opacity: 1; }
+
+  /* featured card (1st) */
+  .result-card:nth-child(1) { background: var(--tint-pink); }
+  .result-card:nth-child(1):hover { background: var(--tint-pink-hover); }
+  .result-card:nth-child(1)::before { background: linear-gradient(90deg, var(--pink), var(--orange)); }
+
+  /* 2nd card */
+  .result-card:nth-child(2) { background: var(--tint-teal); }
+  .result-card:nth-child(2):hover { background: var(--tint-teal-hover); }
+  .result-card:nth-child(2)::before { background: var(--teal); }
+
+  /* 3rd card */
+  .result-card:nth-child(3) { background: var(--tint-orange); }
+  .result-card:nth-child(3):hover { background: var(--tint-orange-hover); }
+  .result-card:nth-child(3)::before { background: var(--orange); }
+
+  /* 4th card */
+  .result-card:nth-child(4) { background: var(--tint-yellow); }
+  .result-card:nth-child(4):hover { background: var(--tint-yellow-hover); }
+  .result-card:nth-child(4)::before { background: var(--yellow); }
+
+  /* 5th card */
+  .result-card:nth-child(5) { background: var(--tint-green); }
+  .result-card:nth-child(5):hover { background: var(--tint-green-hover); }
+  .result-card:nth-child(5)::before { background: var(--green); }
+
+  .result-card.featured {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    padding: 48px 40px;
+  }
+
+  .result-card.featured .result-numbers-row {
+    display: flex;
+    gap: 32px;
+  }
+
+  .result-card.featured .result-number-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .result-card.featured .result-number {
+    font-size: clamp(36px, 5vw, 56px);
+  }
+
+  .result-card.featured .result-unit {
+    font-size: 14px;
+    color: var(--text);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .result-card.featured .result-divider {
+    width: 1px;
+    background: var(--divider);
+    align-self: stretch;
+  }
+
+  .result-card.featured .result-story {
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  .result-card.featured .result-story .result-context {
+    margin-top: 16px;
+  }
+
+  .result-number {
+    font-weight: 900;
+    font-size: clamp(32px, 4vw, 48px);
+    letter-spacing: -0.03em;
+    display: block;
+    margin-bottom: 10px;
+    line-height: 1;
+  }
+
+  .result-card:nth-child(1) .result-number { color: var(--pink); }
+  .result-card:nth-child(2) .result-number { color: var(--teal); }
+  .result-card:nth-child(3) .result-number { color: var(--orange); }
+  .result-card:nth-child(4) .result-number { color: var(--yellow); }
+  .result-card:nth-child(5) .result-number { color: var(--green); }
+
+  .result-label {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.6;
+    text-transform: lowercase;
+  }
+
+  .result-context {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--text);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .results-note {
+    margin-top: 24px;
+    font-size: 14px;
+    color: var(--text);
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* === BRANDS === */
+  .brands-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+
+  .brand-card {
+    padding: 24px 20px;
+    transition: background 0.2s;
+  }
+
+  .brand-card:nth-child(1) { background: var(--tint-pink); }
+  .brand-card:nth-child(1):hover { background: var(--tint-pink-hover); }
+  .brand-card:nth-child(2) { background: var(--tint-teal); }
+  .brand-card:nth-child(2):hover { background: var(--tint-teal-hover); }
+  .brand-card:nth-child(3) { background: var(--tint-orange); }
+  .brand-card:nth-child(3):hover { background: var(--tint-orange-hover); }
+  .brand-card:nth-child(4) { background: var(--tint-yellow); }
+  .brand-card:nth-child(4):hover { background: var(--tint-yellow-hover); }
+  .brand-card:nth-child(5) { background: var(--tint-green); }
+  .brand-card:nth-child(5):hover { background: var(--tint-green-hover); }
+  .brand-card:nth-child(6) { background: var(--tint-sky); }
+  .brand-card:nth-child(6):hover { background: var(--tint-sky-hover); }
+  .brand-card:nth-child(7) { background: var(--tint-cyan); }
+  .brand-card:nth-child(7):hover { background: var(--tint-cyan-hover); }
+  .brand-card:nth-child(8) { background: var(--tint-pink); }
+  .brand-card:nth-child(8):hover { background: var(--tint-pink-hover); }
+
+  .brand-card .brand-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .brand-card .flag {
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .brand-card .brand-name {
+    font-weight: 700;
+    font-size: 17px;
+    text-transform: lowercase;
+  }
+
+  .brand-card .brand-desc {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--pink);
+    margin-bottom: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 3px 10px;
+    border: 1px solid var(--pink);
+    border-radius: 100px;
+    opacity: 0.7;
+  }
+
+  .brand-card .brand-scope {
+    display: block;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    margin-top: 4px;
+  }
+
+  /* === HOW I WORK === */
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+
+  .process-step {
+    padding: 36px 28px;
+    position: relative;
+    transition: background 0.2s;
+  }
+
+  .process-step:nth-child(1) { background: var(--tint-pink); }
+  .process-step:nth-child(1):hover { background: var(--tint-pink-hover); }
+  .process-step:nth-child(2) { background: var(--tint-teal); }
+  .process-step:nth-child(2):hover { background: var(--tint-teal-hover); }
+  .process-step:nth-child(3) { background: var(--tint-orange); }
+  .process-step:nth-child(3):hover { background: var(--tint-orange-hover); }
+  .process-step:nth-child(4) { background: var(--tint-green); }
+  .process-step:nth-child(4):hover { background: var(--tint-green-hover); }
+
+  .step-num {
+    font-weight: 900;
+    font-size: 48px;
+    color: var(--step-watermark);
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    letter-spacing: -0.03em;
+  }
+
+  .process-step h3 {
+    font-weight: 700;
+    font-size: 19px;
+    text-transform: lowercase;
+    margin-bottom: 12px;
+    color: var(--pink);
+  }
+
+  .process-step p {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* === REVIEWS === */
+  .reviews-track {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .review-card {
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .review-card:nth-child(1) { background: var(--tint-pink); }
+  .review-card:nth-child(1):hover { background: var(--tint-pink-hover); }
+  .review-card:nth-child(2) { background: var(--tint-teal); }
+  .review-card:nth-child(2):hover { background: var(--tint-teal-hover); }
+  .review-card:nth-child(3) { background: var(--tint-orange); }
+  .review-card:nth-child(3):hover { background: var(--tint-orange-hover); }
+  .review-card:nth-child(4) { background: var(--tint-yellow); }
+  .review-card:nth-child(4):hover { background: var(--tint-yellow-hover); }
+  .review-card:nth-child(5) { background: var(--tint-green); }
+  .review-card:nth-child(5):hover { background: var(--tint-green-hover); }
+  .review-card:nth-child(6) { background: var(--tint-sky); }
+  .review-card:nth-child(6):hover { background: var(--tint-sky-hover); }
+
+  .review-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 2px;
+  }
+
+  .review-card:nth-child(1)::before { background: var(--pink); }
+  .review-card:nth-child(2)::before { background: var(--teal); }
+  .review-card:nth-child(3)::before { background: var(--orange); }
+  .review-card:nth-child(4)::before { background: var(--yellow); }
+  .review-card:nth-child(5)::before { background: var(--green); }
+  .review-card:nth-child(6)::before { background: var(--sky); }
+
+  .review-quote {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+
+  .review-quote .highlight {
+    color: var(--text);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .review-author {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .review-author .name {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text);
+    text-transform: lowercase;
+  }
+
+  .review-author .role {
+    font-size: 14px;
+    color: var(--text);
+    letter-spacing: 0.04em;
+  }
+
+  /* === COMMUNITY === */
+  .community-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 48px;
+  }
+
+  .community-card {
+    background: var(--tint-yellow);
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+
+  .community-card:hover { background: var(--tint-yellow-hover); }
+
+  .community-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--yellow);
+  }
+
+  .community-card h3 {
+    font-weight: 700;
+    font-size: 22px;
+    text-transform: lowercase;
+    margin-bottom: 10px;
+  }
+
+  .community-card .big-num {
+    font-weight: 900;
+    font-size: 44px;
+    color: var(--yellow);
+    letter-spacing: -0.02em;
+  }
+
+  .community-card p {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-top: 10px;
+  }
+
+  .community-card a {
+    color: var(--yellow);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 174, 0, 0.3);
+    transition: border-color 0.2s;
+  }
+
+  .community-card a:hover {
+    border-color: var(--yellow);
+  }
+
+  /* === CTA === */
+  .cta-section {
+    text-align: center;
+    padding: 100px 48px;
+    border-top: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .cta-title {
+    font-weight: 900;
+    font-size: clamp(34px, 5vw, 60px);
+    text-transform: lowercase;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    margin-bottom: 24px;
+  }
+
+  .cta-sub {
+    font-size: 17px;
+    color: var(--text);
+    margin-bottom: 40px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 18px 44px;
+    background: var(--pink);
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: lowercase;
+    letter-spacing: 0.06em;
+    border-radius: 4px;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .cta-button:hover {
+    background: #e00d60;
+    transform: translateY(-1px);
+  }
+
+  /* === FOOTER === */
+  footer {
+    padding: 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  footer .footer-name {
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--pink);
+    text-transform: lowercase;
+  }
+
+  footer .footer-links {
+    display: flex;
+    gap: 24px;
+  }
+
+  footer .footer-links a {
+    font-size: 14px;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    transition: color 0.2s;
+  }
+
+  footer .footer-links a:hover { color: var(--pink); }
+
+  /* === COLOR STRIP === */
+  .color-strip {
+    display: flex;
+    height: 4px;
+  }
+
+  .color-strip div { flex: 1; }
+
+  /* === SCROLLBAR === */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 900px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .results-grid { grid-template-columns: 1fr; }
+    .result-card.featured { grid-column: span 1; grid-template-columns: 1fr; gap: 24px; }
+    .result-card.featured .result-numbers-row { gap: 24px; }
+    .process-steps { grid-template-columns: repeat(2, 1fr); }
+    .reviews-track { grid-template-columns: 1fr; }
+    .community-bar { grid-template-columns: 1fr; }
+    .brands-grid { grid-template-columns: repeat(2, 1fr); }
+    .work-strip { grid-template-columns: repeat(2, 1fr); }
+    .hero-stats { gap: 32px; }
+  }
+
+  @media (max-width: 600px) {
+    .hero, section, .cta-section, footer { padding-left: 20px; padding-right: 20px; }
+    .site-header { padding: 12px 16px; }
+    .header-name { font-size: 12px; }
+    .process-steps { grid-template-columns: 1fr; }
+    .brands-grid { grid-template-columns: 1fr; }
+    .work-strip { grid-template-columns: 1fr; }
+    .hero-stats { flex-direction: column; gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- sticky header -->
+<header class="site-header">
+  <div class="header-left">
+    <span class="header-name">anna pogrebniak</span>
+  </div>
+  <div class="header-right">
+    <button class="theme-toggle" id="theme-toggle" aria-label="toggle theme">☀ light</button>
+    <a href="https://www.linkedin.com/in/annapogrebniak/" class="header-cta">dm me →</a>
+  </div>
+</header>
+
+<!-- color strip top -->
+<div class="color-strip">
+  <div style="background:var(--pink);"></div>
+  <div style="background:var(--orange);"></div>
+  <div style="background:var(--yellow);"></div>
+  <div style="background:var(--green);"></div>
+  <div style="background:var(--teal);"></div>
+  <div style="background:var(--sky);"></div>
+  <div style="background:var(--cyan);"></div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg">growth</div>
+  <div class="hero-tag">anna pogrebniak · fractional growth marketer · b2b saas</div>
+  <h1>
+    hi, i'm anna<br>
+    <em>i grow b2b saas</em>
+  </h1>
+  <p class="hero-sub">
+    fractional growth marketer who's been doing this for over a decade.
+    i build the marketing engine, run the ads, set up the ops.
+    and honestly? i still love every bit of it. ✨
+  </p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <label>experience</label>
+      <span>11 years</span>
+    </div>
+    <div class="hero-stat">
+      <label>brands worked with</label>
+      <span>13</span>
+    </div>
+    <div class="hero-stat">
+      <label>ad spend managed</label>
+      <span>€1.5M</span>
+    </div>
+    <div class="hero-stat">
+      <label>marketing teams of one</label>
+      <span>too many</span>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT I DO -->
+<section>
+  <div class="section-label">01 · what i do</div>
+  <h2 class="section-title">three ways to <span class="pink">work with me</span></h2>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-icon">■</span>
+      <h3>fractional growth marketing</h3>
+      <p>your full-stack marketing lead. strategy and execution in one person. ideal when you have no marketing team or a tiny one and need someone who can think and do.</p>
+      <div class="service-includes">
+        <span>→</span> growth strategy<br>
+        <span>→</span> demand gen<br>
+        <span>→</span> hubspot & ops setup<br>
+        <span>→</span> content & seo<br>
+        <span>→</span> linkedin thought leadership
+      </div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">■</span>
+      <h3>fractional performance marketing</h3>
+      <p>i take over your paid ads. strategy, execution, optimisation. linkedin, google, meta, reddit, wherever your buyers actually are. budgets from €3k to €50k/month.</p>
+      <div class="service-includes">
+        <span>→</span> paid ads strategy<br>
+        <span>→</span> campaign management<br>
+        <span>→</span> multi-market funnels<br>
+        <span>→</span> retargeting & abm<br>
+        <span>→</span> reporting & iteration
+      </div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">■</span>
+      <h3>fractional gtm</h3>
+      <p>cold outreach that doesn't make people cringe. i set up your prospecting engine: email, linkedin, multi-channel automation. so your pipeline doesn't depend on luck.</p>
+      <div class="service-includes">
+        <span>→</span> icp targeting<br>
+        <span>→</span> outbound sequences<br>
+        <span>→</span> email & linkedin automation<br>
+        <span>→</span> crm & calendar setup<br>
+        <span>→</span> landing pages
+      </div>
+    </div>
+  </div>
+
+  <div class="skills-strip">
+    <div class="skill-tag">hubspot</div>
+    <div class="skill-tag">google ads</div>
+    <div class="skill-tag">linkedin ads</div>
+    <div class="skill-tag">meta ads</div>
+    <div class="skill-tag">reddit ads</div>
+    <div class="skill-tag">seo & geo</div>
+    <div class="skill-tag">email nurture</div>
+    <div class="skill-tag">marketing automation</div>
+    <div class="skill-tag">abm</div>
+    <div class="skill-tag">lead scoring</div>
+    <div class="skill-tag">content strategy</div>
+    <div class="skill-tag">webinars</div>
+    <div class="skill-tag">cold outreach</div>
+    <div class="skill-tag">claude & agentic ai</div>
+  </div>
+
+  <!-- how i actually work strip -->
+  <div class="work-strip">
+    <div class="work-strip-item">
+      <span class="ws-icon">■</span>
+      <p>first marketing hire for 3 brands. i know how to build from zero.</p>
+    </div>
+    <div class="work-strip-item">
+      <span class="ws-icon">■</span>
+      <p>ad budgets from €3k to €50k/month. i scale with you.</p>
+    </div>
+    <div class="work-strip-item">
+      <span class="ws-icon">■</span>
+      <p>built multilingual ad funnels across european markets with ai.</p>
+    </div>
+    <div class="work-strip-item">
+      <span class="ws-icon">■</span>
+      <p>uses agentic ai (claude, automation) daily. always learning what to optimise next.</p>
+    </div>
+    <div class="work-strip-item">
+      <span class="ws-icon">■</span>
+      <p>consistent track record of lowering cost per lead and cost per customer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section>
+  <div class="section-label">02 · results</div>
+  <h2 class="section-title">numbers from <span class="pink">real work</span></h2>
+
+  <div class="results-grid">
+    <div class="result-card featured">
+      <div class="result-numbers-row">
+        <div class="result-number-block">
+          <span class="result-number" style="color:var(--pink);">€250k</span>
+          <span class="result-unit">yearly ad budget</span>
+        </div>
+        <div class="result-divider"></div>
+        <div class="result-number-block">
+          <span class="result-number" style="color:var(--pink);">4.7:1</span>
+          <span class="result-unit">ltv : cac</span>
+        </div>
+      </div>
+      <div class="result-story">
+        managed paid ads across five european markets for an enterprise sales-led tool with a 6+ month sales cycle. built the full funnel from scratch, kept it profitable.
+        <div class="result-context">enterprise sales-led tool</div>
+      </div>
+    </div>
+    <div class="result-card">
+      <span class="result-number">150</span>
+      <span class="result-label">icp leads from one webinar.<br>budget: €2.5k</span>
+      <div class="result-context">enterprise sales tool · zero prior marketing</div>
+    </div>
+    <div class="result-card">
+      <span class="result-number">-40%</span>
+      <span class="result-label">cost per mql.<br>achieved in 3 months.</span>
+      <div class="result-context">plg brand · took over existing ads</div>
+    </div>
+    <div class="result-card">
+      <span class="result-number">15</span>
+      <span class="result-label">icp meetings booked from zero.<br>budget: €400/mo</span>
+      <div class="result-context">pre-pmf startup · no website, no marketing</div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section>
+  <div class="section-label">03 · brands i've worked with</div>
+  <h2 class="section-title">good company, <span class="pink">literally</span></h2>
+
+  <div class="brands-grid">
+    <div class="brand-card">
+      <div class="brand-top">
+        <span class="flag">🇫🇮</span>
+        <span class="brand-name">lumoa</span>
+      </div>
+      <span class="brand-desc">ai customer feedback analytics</span>
+      <span class="brand-scope">growth strategy + execution + seo + paid ads + gtm. in-house as solo marketer.</span>
+    </div>
+    <div class="brand-card">
+      <div class="brand-top">
+        <span class="flag">🇸🇪</span>
+        <span class="brand-name">netigate</span>
+      </div>
+      <span class="brand-desc">survey tech</span>
+      <span class="brand-scope">growth strategy + seo + paid ads across five markets.</span>
+    </div>
+    <div class="brand-card">
+      <div class="brand-top">
+        <span class="flag">🇫🇮</span>
+        <span class="brand-name">addsearch</span>
+      </div>
+      <span class="brand-desc">website search engine</span>
+      <span class="brand-scope">growth strategy + execution + seo + paid ads. in-house as solo marketer.</span>
+    </div>
+    <div class="brand-card">
+      <div class="brand-top">
+        <span class="flag">🇧🇪</span>
+        <span class="brand-name">hello customer</span>
+      </div>
+      <span class="brand-desc">ai voice of customer platform</span>
+      <span class="brand-scope">growth strategy + execution.</span>
+    </div>
+    <div class="brand-card">
+      <div class="brand-top">
+        <span class="flag">🇫🇮</span>
+        <span class="brand-name">trustmary</span>
+      </div>
+      <span class="brand-desc">ai visibility tool</span>
+      <span class="brand-scope">paid ads.</span>
+    </div>
+    <div class="brand-card">
+      <div class="brand-top">
+        <span class="flag">🇫🇮</span>
+        <span class="brand-name">qpr software</span>
+      </div>
+      <span class="brand-desc">business intelligence</span>
+      <span class="brand-scope">growth strategy.</span>
+    </div>
+    <div class="brand-card">
+      <div class="brand-top">
+        <span class="flag">🇫🇮</span>
+        <span class="brand-name">tangently</span>
+      </div>
+      <span class="brand-desc">ai fintech</span>
+      <span class="brand-scope">gtm and cold outreach.</span>
+    </div>
+    <div class="brand-card">
+      <div class="brand-top">
+        <span class="flag">🇫🇷</span>
+        <span class="brand-name">getsharedcontacts</span>
+      </div>
+      <span class="brand-desc">gmail widget</span>
+      <span class="brand-scope">growth strategy + paid ads.</span>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:20px; font-size:14px; color:var(--text);">
+    + more brands across europe
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section>
+  <div class="section-label">04 · recommendations</div>
+  <h2 class="section-title">don't take <span class="pink">my word for it</span></h2>
+
+  <div class="reviews-track">
+    <div class="review-card">
+      <div class="review-quote">"technically speaking, I was Anna's client, but <span class="highlight">it felt more like working together as one team</span> than outsourcing a part of our marketing efforts to her."</div>
+      <div class="review-author">
+        <span class="name">erica ylimäki</span>
+        <span class="role">Growth Marketing, Trustmary</span>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote">"we did some sales calls together where she talked with customers on <span class="highlight">how to take their marketing to a new level.</span> fun times together!"</div>
+      <div class="review-author">
+        <span class="name">samuli salonen</span>
+        <span class="role">Sales, Advance B2B</span>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote">"<span class="highlight">she will turn every stone to get something to work,</span> but once all stones have been turned, she immediately turns her attention to the next thing to move the needle."</div>
+      <div class="review-author">
+        <span class="name">fabrizio trotti</span>
+        <span class="role">Marketing Director, Lumoa & Netigate</span>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote">"Anna's ability to create relevant (and high volume of) leads for our SDR team has been of great help to <span class="highlight">reach and exceed our common goals quarter after quarter!</span>"</div>
+      <div class="review-author">
+        <span class="name">petri grönholm</span>
+        <span class="role">Sales, Netigate</span>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote">"Anna was <span class="highlight">the first marketer in the company and had to figure out things really fast.</span> She set up many of the marketing processes that we didn't have before and got us on great speed."</div>
+      <div class="review-author">
+        <span class="name">helena rebane</span>
+        <span class="role">CEO, AddSearch</span>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote">"you can trust her to <span class="highlight">reach out top influencers for a joint article or webinar.</span> she grew Lumoa online marketing from non-existence to the first page of Google search."</div>
+      <div class="review-author">
+        <span class="name">suvi lindfors</span>
+        <span class="role">Co-founder, Lumoa</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:20px;">
+    <a href="https://www.linkedin.com/in/annapogrebniak/" style="font-size:14px; color:var(--text); text-decoration:none; letter-spacing:0.06em; border-bottom:1px solid var(--border-strong); padding-bottom:2px; transition: color 0.2s;">20+ more recommendations on linkedin →</a>
+  </div>
+</section>
+
+<!-- HOW I WORK -->
+<section>
+  <div class="section-label">05 · how i work</div>
+  <h2 class="section-title">the approach, <span class="pink">in four steps</span></h2>
+
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <h3>define</h3>
+      <p>messaging, audience, icp. who are we talking to, what problem do we solve, and why should anyone care. the boring-sounding step that decides everything.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <h3>build</h3>
+      <p>funnel design from problem-aware to product-aware. lead magnets, content, ads, nurture sequences. the part where things actually get made.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <h3>distribute</h3>
+      <p>find where buyers search and spend time. linkedin, google, email, cold outreach. pick the channels, launch the campaigns, reach actual humans.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <h3>improve</h3>
+      <p>measure, iterate, experiment. influenced pipeline, channel metrics, what's working, what's not. rinse, repeat, get better. the step that never ends (in a good way).</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section>
+  <div class="section-label">06 · side quest</div>
+  <h2 class="section-title">also, i built <span class="pink">a community</span></h2>
+
+  <div class="community-bar">
+    <div class="community-card">
+      <h3><a href="https://awesomemarketers.fi" style="color:inherit; text-decoration:none;">awesome marketers</a> 🧡</h3>
+      <div class="big-num">2,000+</div>
+      <p>members in finland's marketing community. because marketing is lonely and sometimes you just need people who get it.</p>
+      <p style="margin-top:12px;"><a href="https://awesomemarketers.fi">awesomemarketers.fi</a></p>
+    </div>
+    <div class="community-card">
+      <h3>why it matters</h3>
+      <p>everyone has an opinion on marketing because it's visible. you can work on a campaign for weeks and someone in product will casually comment on how it should have been done.</p>
+      <p style="margin-top:12px; color:var(--text);">this community exists so marketers feel less alone. and honestly, it's one of the things i'm most proud of. ✨</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2 class="cta-title">let's grow <span style="color:var(--pink);">your thing</span></h2>
+  <p class="cta-sub">
+    i'm currently taking on fractional clients. if you're a b2b saas company that needs marketing to actually work, hi, i'm anna. ✨
+  </p>
+  <a href="https://www.linkedin.com/in/annapogrebniak/" class="cta-button">send me a dm →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">anna pogrebniak</div>
+  <div class="footer-links">
+    <a href="https://awesomemarketer.fi">awesomemarketer.fi</a>
+    <a href="https://www.linkedin.com/in/annapogrebniak/">linkedin</a>
+  </div>
+</footer>
+
+<!-- color strip bottom -->
+<div class="color-strip">
+  <div style="background:var(--pink);"></div>
+  <div style="background:var(--orange);"></div>
+  <div style="background:var(--yellow);"></div>
+  <div style="background:var(--green);"></div>
+  <div style="background:var(--teal);"></div>
+  <div style="background:var(--sky);"></div>
+  <div style="background:var(--cyan);"></div>
+</div>
+
+<!-- cheeky arrow that follows cursor and points toward CTA -->
+<div id="nudge-arrow" style="
+  position: fixed;
+  pointer-events: none;
+  z-index: 999;
+  font-size: 24px;
+  transition: transform 0.15s ease-out, opacity 0.3s;
+  opacity: 0;
+  filter: drop-shadow(0 0 6px rgba(255, 15, 108, 0.4));
+">
+  <span style="display:inline-block;" id="nudge-icon">↓</span>
+  <span id="nudge-text" style="
+    font-family: 'Graphik', -apple-system, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: lowercase;
+    color: var(--pink);
+    position: absolute;
+    white-space: nowrap;
+    left: 32px;
+    top: 6px;
+    transition: opacity 0.2s;
+  ">psst. dm me.</span>
+</div>
+
+<script>
+// theme toggle
+(function() {
+  const toggle = document.getElementById('theme-toggle');
+  const html = document.documentElement;
+
+  const saved = localStorage.getItem('theme');
+  if (saved) {
+    html.setAttribute('data-theme', saved);
+  } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+    html.setAttribute('data-theme', 'light');
+  }
+
+  function updateButton() {
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    toggle.textContent = isDark ? '☀ light' : '● dark';
+  }
+
+  updateButton();
+
+  toggle.addEventListener('click', function() {
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateButton();
+  });
+
+  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+    if (!localStorage.getItem('theme')) {
+      html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+      updateButton();
+    }
+  });
+})();
+
+// cheeky arrow - points to the BOTTOM cta button, not the header one
+(function() {
+  const arrow = document.getElementById('nudge-arrow');
+  const icon = document.getElementById('nudge-icon');
+  const nudgeText = document.getElementById('nudge-text');
+  const cta = document.querySelector('.cta-button');
+  let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+  let hasScrolledPastHero = false;
+  let idleTimer = null;
+
+  const messages = [
+    'psst. dm me.',
+    'you know you want to.',
+    'just one click.',
+    'i don\'t bite.',
+    'still scrolling?',
+    'the button is down there.',
+    'come on.',
+    'free marketing advice awaits.',
+    'do it for the pipeline.',
+    'i see you reading.',
+    'the cta is right there.',
+    'just saying.',
+  ];
+  let msgIndex = 0;
+
+  function updateArrow() {
+    if (!hasScrolledPastHero) {
+      arrow.style.opacity = '0';
+      return;
+    }
+
+    const ctaRect = cta.getBoundingClientRect();
+    const ctaCenterX = ctaRect.left + ctaRect.width / 2;
+    const ctaCenterY = ctaRect.top + ctaRect.height / 2;
+
+    const dx = ctaCenterX - mouseX;
+    const dy = ctaCenterY - mouseY;
+    const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+
+    arrow.style.left = (mouseX + 20) + 'px';
+    arrow.style.top = (mouseY - 12) + 'px';
+    icon.style.transform = 'rotate(' + (angle - 90) + 'deg)';
+    arrow.style.opacity = '1';
+
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < 120) {
+      arrow.style.opacity = '0';
+    }
+  }
+
+  function cycleMessage() {
+    msgIndex = (msgIndex + 1) % messages.length;
+    nudgeText.style.opacity = '0';
+    setTimeout(function() {
+      nudgeText.textContent = messages[msgIndex];
+      nudgeText.style.opacity = '1';
+    }, 200);
+  }
+
+  document.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    updateArrow();
+
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(cycleMessage, 3000);
+  });
+
+  window.addEventListener('scroll', function() {
+    hasScrolledPastHero = window.scrollY > window.innerHeight * 0.5;
+    updateArrow();
+  });
+
+  setInterval(function() {
+    if (hasScrolledPastHero) cycleMessage();
+  }, 5000);
+
+  if ('ontouchstart' in window) {
+    arrow.style.display = 'none';
+  }
+})();
+</script>
+
+</body>
+</html>
