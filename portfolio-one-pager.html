@@ -151,6 +151,8 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: rainbowText 4s linear infinite;
+    padding: 8px 14px;
+    margin: -8px -14px;
   }
 
   @keyframes rainbowText {
@@ -178,15 +180,25 @@
     50% { filter: hue-rotate(60deg); }
   }
 
-  [data-theme="party"] .service-card,
   [data-theme="party"] .result-card,
   [data-theme="party"] .brand-card,
   [data-theme="party"] .review-card,
   [data-theme="party"] .process-step,
   [data-theme="party"] .community-card {
-    border: 1px solid rgba(255,15,108,0.2);
+    border: 1px solid rgba(255,255,255,0.15);
     border-radius: 8px;
   }
+
+  [data-theme="party"] .service-card {
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+  }
+  [data-theme="party"] .service-card:nth-child(1) { background: linear-gradient(135deg, #FF0F6C, #F05A28) !important; }
+  [data-theme="party"] .service-card:nth-child(1):hover { background: linear-gradient(135deg, #e00d60, #d44f22) !important; }
+  [data-theme="party"] .service-card:nth-child(2) { background: linear-gradient(135deg, #2BBFB3, #29B8DC) !important; }
+  [data-theme="party"] .service-card:nth-child(2):hover { background: linear-gradient(135deg, #24a89d, #23a2c2) !important; }
+  [data-theme="party"] .service-card:nth-child(3) { background: linear-gradient(135deg, #F05A28, #FFAE00) !important; }
+  [data-theme="party"] .service-card:nth-child(3):hover { background: linear-gradient(135deg, #d44f22, #e09a00) !important; }
 
   [data-theme="party"] .cta-button {
     background: linear-gradient(90deg, var(--pink), var(--orange), var(--yellow), var(--teal));
@@ -1240,7 +1252,6 @@
 
   <div class="services-grid">
     <div class="service-card">
-      <span class="service-icon">■</span>
       <h3>fractional growth marketing</h3>
       <p>your full-stack marketing lead. strategy and execution in one person. ideal when you have no marketing team or a tiny one and need someone who can think and do.</p>
       <div class="service-includes">
@@ -1252,7 +1263,6 @@
       </div>
     </div>
     <div class="service-card">
-      <span class="service-icon">■</span>
       <h3>fractional performance marketing</h3>
       <p>i take over your paid ads. strategy, execution, optimisation. linkedin, google, meta, reddit, wherever your buyers actually are. budgets from €3k to €50k/month.</p>
       <div class="service-includes">
@@ -1264,7 +1274,6 @@
       </div>
     </div>
     <div class="service-card">
-      <span class="service-icon">■</span>
       <h3>fractional gtm</h3>
       <p>cold outreach that doesn't make people cringe. i set up your prospecting engine: email, linkedin, multi-channel automation. so your pipeline doesn't depend on luck.</p>
       <div class="service-includes">
