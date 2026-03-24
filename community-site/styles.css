@@ -1002,6 +1002,43 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; font-weight
   color: var(--gray-400);
 }
 
+/* Checkboxes */
+.form__checkbox-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.form__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  min-width: 160px;
+}
+.form__checkbox:hover { border-color: var(--gray-300); }
+.form__checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--purple);
+  cursor: pointer;
+}
+.form__checkbox-custom { display: none; }
+.form__checkbox-label {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+}
+.form__checkbox:has(input:checked) {
+  border-color: var(--purple);
+  background: var(--gradient-subtle);
+}
+
 /* Tags */
 .form__tags {
   display: flex;
