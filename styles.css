@@ -927,6 +927,12 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; font-weight
   margin-bottom: 8px;
   color: var(--gray-700);
 }
+.form__hint {
+  font-size: 0.82rem;
+  color: var(--gray-400);
+  margin: -4px 0 12px;
+  line-height: 1.5;
+}
 .form__group input[type="text"],
 .form__group input[type="email"],
 .form__group input[type="url"],
