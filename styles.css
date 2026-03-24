@@ -1736,6 +1736,27 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; font-weight
   .timeline__text { font-size: 0.75rem; max-width: 110px; }
 }
 
+/* ===== ABOUT TEXT (LLM-friendly) ===== */
+.about-text {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.about-text__title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+.about-text p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--gray-600);
+  margin-bottom: 20px;
+}
+.about-text p:last-child {
+  margin-bottom: 0;
+}
+
 /* ===== FORM HELPERS ===== */
 .form__helper {
   font-size: 0.9rem;
