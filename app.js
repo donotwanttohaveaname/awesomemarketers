@@ -88,8 +88,8 @@ if (rotatingLabel) {
       labelIndex = (labelIndex + 1) % labels.length;
       rotatingLabel.textContent = labels[labelIndex];
       rotatingLabel.classList.remove('fade-out');
-    }, 300);
-  }, 2500);
+    }, 500);
+  }, 4000);
 }
 
 // ===== FIREWORK ON JOIN BUTTON HOVER =====
