@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Remote Job Salary Calculator Finland | The Awesome Marketers</title>
+  <meta name="description" content="Self-employed in Finland, working remotely for a company abroad? Calculate what annual salary to ask for — or check what an offer really means compared to a Finnish employment contract.">
+  <meta property="og:title" content="Remote Job Salary Calculator Finland | The Awesome Marketers">
+  <meta property="og:description" content="Self-employed in Finland, working for a company abroad? Figure out what salary to ask for.">
+  <meta property="og:image" content="https://awesomemarketers.fi/thumbnail.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://awesomemarketers.fi/thumbnail.png">
+  <link rel="canonical" href="https://awesomemarketers.fi/remote-salary-calculator/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="03433979-1ae8-4c85-9096-8b4da9cf02b3"></script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav__banner">
+      <span class="nav__banner-emoji">📊</span>
+      <span class="nav__banner-text">Salary Report 2026 is open — how much do marketers &amp; freelancers in Finland make?</span>
+      <a href="https://forms.gle/tmbxqGbhUBQXcjTq7" target="_blank" class="nav__banner-btn">Take the survey →</a>
+    </div>
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">
+        <img src="../logo.jpg" alt="The Awesome Marketers" class="nav__logo-img">
+        <span class="nav__logo-text">The Awesome Marketers</span>
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="/people/">Who We Are</a></li>
+        <li><a href="/manifesto/">Manifesto</a></li>
+        <li><a href="/events/">Events</a></li>
+        <li class="nav__dropdown">
+          <button class="nav__dropdown-toggle active" aria-expanded="false">Other important things <span class="nav__dropdown-arrow">▾</span></button>
+          <div class="nav__dropdown-menu">
+            <a href="/events/" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🎪</span>
+              <div><span class="nav__dropdown-title">Events</span><span class="nav__dropdown-desc">Meetups, webinars, afterworks</span></div>
+            </a>
+            <a href="/videos/" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🎬</span>
+              <div><span class="nav__dropdown-title">Videos</span><span class="nav__dropdown-desc">Recorded webinars and talks</span></div>
+            </a>
+            <a href="/marketing-salaries-finland/" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">📊</span>
+              <div><span class="nav__dropdown-title">Salary Reports</span><span class="nav__dropdown-desc">What marketers in Finland earn</span></div>
+            </a>
+            <a href="/firstjob/" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🎯</span>
+              <div><span class="nav__dropdown-title">First Job Guide</span><span class="nav__dropdown-desc">Land your first marketing job</span></div>
+            </a>
+            <a href="/freelance-calculator/" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🧮</span>
+              <div><span class="nav__dropdown-title">Freelance Rate Calculator</span><span class="nav__dropdown-desc">Figure out your daily rate</span></div>
+            </a>
+            <a href="/remote-salary-calculator/" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🌍</span>
+              <div><span class="nav__dropdown-title">Remote Job Salary Calculator</span><span class="nav__dropdown-desc">What to charge remote companies</span></div>
+            </a>
+            <a href="/partners/" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🤝</span>
+              <div><span class="nav__dropdown-title">Partners & Affiliates</span><span class="nav__dropdown-desc">Tools we use and recommend</span></div>
+            </a>
+          </div>
+        </li>
+        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfyjguXFCgPrUyPbQ4mBCfclsmtTqfpHeGxoVPj0baR7Tj9NA/viewform" target="_blank" class="btn btn--nav">Join us on Slack</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <style>
+    .rc { max-width: 640px; margin: 0 auto; padding: 130px 24px 60px; text-align: center; }
+    .rc__title { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; margin: 0 0 4px; }
+    .rc__sub { color: var(--gray-400); font-size: 0.88rem; margin: 0 0 28px; }
+    .rc__tabs { display: inline-flex; background: var(--gray-100); border-radius: 100px; padding: 3px; margin-bottom: 28px; }
+    .rc__tab { padding: 8px 20px; border-radius: 100px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; background: none; color: var(--gray-400); transition: all 0.2s; font-family: var(--font-body); }
+    .rc__tab.active { background: white; color: var(--gray-900); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+    .rc__input-big { font-family: var(--font-heading); font-size: 2.8rem; font-weight: 700; border: none; border-bottom: 3px solid var(--gray-200); text-align: center; width: 100%; max-width: 300px; padding: 8px 0; outline: none; background: none; color: var(--gray-900); transition: border-color 0.2s; -moz-appearance: textfield; }
+    .rc__input-big:focus { border-color: var(--purple); }
+    .rc__input-big::-webkit-outer-spin-button, .rc__input-big::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .rc__input-label { font-size: 0.82rem; color: var(--gray-400); margin-top: 6px; display: block; }
+    .rc__options-grid { display: flex; flex-direction: column; gap: 14px; margin: 24px auto; max-width: 440px; text-align: left; }
+    .rc__opt-row { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--gray-700); font-weight: 500; }
+    .rc__opt-row input[type="number"] { width: 42px; border: none; border-bottom: 1.5px solid var(--gray-300); padding: 2px 0; font-size: 0.85rem; text-align: center; font-family: var(--font-heading); font-weight: 600; color: var(--gray-900); background: none; outline: none; -moz-appearance: textfield; }
+    .rc__opt-row input[type="number"]:focus { border-color: var(--purple); }
+    .rc__opt-row input[type="number"]::-webkit-outer-spin-button, .rc__opt-row input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .rc__opt-row label { cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 400; }
+    .rc__opt-row input[type="checkbox"] { accent-color: var(--purple); width: 14px; height: 14px; }
+    .rc__opt-hint { font-size: 0.72rem; color: var(--gray-400); margin-top: 2px; display: block; }
+    .rc__pill { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 600; cursor: pointer; border: 1.5px solid var(--gray-200); color: var(--gray-500); background: white; transition: all 0.15s; font-family: var(--font-body); }
+    .rc__pill.active { border-color: var(--purple); color: var(--purple); background: var(--gradient-subtle); }
+    .rc__pill input { display: none; }
+    .rc__divider { width: 40px; height: 1px; background: var(--gray-200); margin: 28px auto; }
+    .rc__result { opacity: 0; transition: opacity 0.3s; }
+    .rc__result.visible { opacity: 1; }
+    .rc__result-label { font-size: 0.82rem; color: var(--gray-400); margin: 0 0 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .rc__result-value { font-family: var(--font-heading); font-size: 3rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0; line-height: 1.1; }
+    .rc__result-range { font-size: 0.85rem; color: var(--gray-400); margin: 6px 0 0; }
+    .rc__result-secondary { font-size: 0.82rem; color: var(--gray-400); margin: 16px 0 0; }
+    .rc__details { margin-top: 28px; }
+    .rc__details summary { font-size: 0.82rem; color: var(--gray-400); cursor: pointer; list-style: none; }
+    .rc__details summary::-webkit-details-marker { display: none; }
+    .rc__details summary::before { content: '▸ '; }
+    .rc__details[open] summary::before { content: '▾ '; }
+    .rc__breakdown-mini { text-align: left; margin-top: 12px; font-size: 0.8rem; color: var(--gray-500); }
+    .rc__breakdown-mini div { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--gray-100); }
+    .rc__breakdown-mini span:last-child { font-weight: 500; color: var(--gray-700); }
+    @media (max-width: 768px) {
+      .rc { padding-top: 180px; }
+      .rc__input-big { font-size: 2.2rem; max-width: 240px; }
+      .rc__result-value { font-size: 2.4rem; }
+      .rc__options { gap: 12px; }
+    }
+  </style>
+
+  <div class="rc">
+    <h1 class="rc__title">Remote Job Salary <span class="gradient-text">Calculator</span></h1>
+    <p class="rc__sub">Self-employed in Finland, working for a company abroad?</p>
+
+    <!-- Tabs -->
+    <div class="rc__tabs">
+      <button class="rc__tab active" data-dir="toRemote">I know what I want</button>
+      <button class="rc__tab" data-dir="toLocal">I got an offer</button>
+    </div>
+
+    <!-- Input -->
+    <div>
+      <input type="number" class="rc__input-big" id="rwSalary" placeholder="5 500">
+      <span class="rc__input-label" id="rwInputLabel">€ / month — what you'd earn as a full-time employee on a Finnish contract</span>
+    </div>
+
+    <!-- Options -->
+    <div class="rc__options-grid">
+      <div class="rc__opt">
+        <div class="rc__opt-row">
+          <span>Paid days off</span>
+          <input type="number" id="rwDaysOff" placeholder="0" min="0" max="120">
+        </div>
+        <span class="rc__opt-hint">Public holidays + vacation the company gives you. Leave empty = 0</span>
+      </div>
+      <div class="rc__opt">
+        <div class="rc__opt-row" style="gap: 4px;">
+          <span>YEL pension</span>
+          <label class="rc__pill active"><input type="radio" name="rwYel" value="new" checked>19%</label>
+          <label class="rc__pill"><input type="radio" name="rwYel" value="established">24%</label>
+        </div>
+        <span class="rc__opt-hint">Self-employed pension. 19% for first 4 years, then 24%</span>
+      </div>
+      <div class="rc__opt">
+        <div class="rc__opt-row">
+          <label><input type="checkbox" id="rwLaptop" checked> Laptop & phone</label>
+          <label><input type="checkbox" id="rwOffice" checked> Office costs</label>
+        </div>
+        <span class="rc__opt-hint">Uncheck if you pay for these yourself (+50 €/mo each)</span>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="rc__divider"></div>
+
+    <!-- Result -->
+    <div class="rc__result" id="rwResult">
+      <p class="rc__result-label" id="rwResultLabel">Ask the company for</p>
+      <p class="rc__result-value" id="rwResultMain">—</p>
+      <p class="rc__result-range" id="rwResultRange"></p>
+      <p class="rc__result-secondary" id="rwResultSecondary"></p>
+
+      <details class="rc__details">
+        <summary>How we calculated this</summary>
+        <div class="rc__breakdown-mini" id="rwBreakdown"></div>
+      </details>
+    </div>
+
+    <div id="rwPlaceholder" style="color: var(--gray-300); font-size: 0.9rem; margin-top: 8px;">
+      Type a number above
+    </div>
+
+    <!-- Negotiation tips -->
+    <div style="margin-top: 48px; text-align: left; border-top: 1px solid var(--gray-100); padding-top: 32px;">
+      <h2 style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; margin: 0 0 16px;">Things to negotiate before signing a remote contract</h2>
+      <div style="font-size: 0.85rem; color: var(--gray-500); line-height: 1.7;">
+        <p style="margin: 0 0 12px;"><strong style="color: var(--gray-700);">Annual compensation.</strong> Agree on a yearly number, not just monthly. It removes ambiguity about how many invoices per year.</p>
+        <p style="margin: 0 0 12px;"><strong style="color: var(--gray-700);">Paid days off.</strong> How many vacation days do you get? Are they paid or unpaid? This changes the math significantly.</p>
+        <p style="margin: 0 0 12px;"><strong style="color: var(--gray-700);">Public holidays.</strong> Are they paid? Which country's holidays apply — yours or theirs? Finland has 9, but the employer's country might have different ones.</p>
+        <p style="margin: 0 0 12px;"><strong style="color: var(--gray-700);">Sick days.</strong> What happens when you're sick? As a contractor you're not automatically covered. Get this in writing.</p>
+        <p style="margin: 0 0 12px;"><strong style="color: var(--gray-700);">Equipment.</strong> Laptop, phone, monitors, software licenses. If they don't provide them, factor that into your rate.</p>
+        <p style="margin: 0 0 12px;"><strong style="color: var(--gray-700);">Office costs.</strong> Co-working space, home office stipend, internet. Some companies offer a monthly allowance.</p>
+        <p style="margin: 0 0 12px;"><strong style="color: var(--gray-700);">In-person meetups.</strong> Many remote companies fly the team together a few times a year. Clarify who pays for travel and accommodation.</p>
+        <p style="margin: 0 0 12px;"><strong style="color: var(--gray-700);">Bonuses and equity.</strong> Some remote companies offer performance bonuses or stock options even to contractors. Worth asking about.</p>
+        <p style="margin: 0 0 12px;"><strong style="color: var(--gray-700);">Trial period.</strong> How long is the trial, and what's the notice period during it? Some companies do 1–3 months with shorter notice on both sides.</p>
+        <p style="margin: 0;"><strong style="color: var(--gray-700);">Notice period.</strong> After the trial, how much warning does either side need to give? 30 days is common, but make sure it works for both parties — not just the company.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <img src="../logo.jpg" alt="The Awesome Marketers" class="nav__logo-img"> The Awesome Marketers
+        </div>
+        <div class="footer__links">
+          <a href="/people/">People behind the community</a>
+          <a href="/manifesto/">Manifesto</a>
+          <a href="/events/">Events</a>
+          <a href="/resources/">Resources</a>
+        </div>
+        <p class="footer__copy">Made with ❤️ in Helsinki. © 2019–2026 by <a href="https://awesomemarketer.fi" target="_blank" class="link--subtle">Anna Pogrebniak</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../app.js"></script>
+  <script>
+    var direction = 'toRemote';
+
+    function rwCalc() {
+      var input = parseFloat(document.getElementById('rwSalary').value);
+      var result = document.getElementById('rwResult');
+      var placeholder = document.getElementById('rwPlaceholder');
+
+      if (!input || input < 100) {
+        result.classList.remove('visible');
+        placeholder.style.display = 'block';
+        return;
+      }
+      placeholder.style.display = 'none';
+      result.classList.add('visible');
+
+      var yelRate = document.querySelector('input[name="rwYel"]:checked').value === 'new' ? 0.19 : 0.24;
+      var daysOffVal = document.getElementById('rwDaysOff').value;
+      var daysOff = daysOffVal === '' ? 0 : parseInt(daysOffVal);
+      var hasLaptop = document.getElementById('rwLaptop').checked;
+      var hasOffice = document.getElementById('rwOffice').checked;
+
+      var accountingCost = 50;
+      var equipmentCost = 0;
+      if (!hasLaptop) equipmentCost += 50;
+      if (!hasOffice) equipmentCost += 50;
+
+      var workingDays = 260 - daysOff;
+      var multiplier = 14 - (daysOff / 21);
+      if (multiplier < 12) multiplier = 12;
+
+      var label = document.getElementById('rwResultLabel');
+      var main = document.getElementById('rwResultMain');
+      var range = document.getElementById('rwResultRange');
+      var secondary = document.getElementById('rwResultSecondary');
+      var bd = document.getElementById('rwBreakdown');
+
+      if (direction === 'toRemote') {
+        var salary = input;
+        var annualBaseline = salary * multiplier;
+        var dailyRate = annualBaseline / workingDays;
+        var bufferLow = (dailyRate * 6) / 12;
+        var bufferHigh = (dailyRate * 12) / 12;
+        var monthlyBase = annualBaseline / 12;
+        var adjustedLow = monthlyBase + bufferLow;
+        var adjustedHigh = monthlyBase + bufferHigh;
+        var invoiceLow = adjustedLow * (1 + yelRate) + accountingCost + equipmentCost;
+        var invoiceHigh = adjustedHigh * (1 + yelRate) + accountingCost + equipmentCost;
+        var yLow = Math.ceil(invoiceLow * 12 / 100) * 100;
+        var yHigh = Math.ceil(invoiceHigh * 12 / 100) * 100;
+        var mLow = Math.ceil(invoiceLow / 50) * 50;
+        var mHigh = Math.ceil(invoiceHigh / 50) * 50;
+        var mid = Math.round((yLow + yHigh) / 2 / 100) * 100;
+
+        label.textContent = 'Ask the company for';
+        main.textContent = '~' + mid.toLocaleString() + ' €';
+        range.textContent = yLow.toLocaleString() + ' – ' + yHigh.toLocaleString() + ' € per year';
+        secondary.textContent = 'That\'s ' + mLow.toLocaleString() + ' – ' + mHigh.toLocaleString() + ' € per month to invoice';
+
+        bd.innerHTML =
+          '<div><span>Desired salary</span><span>' + salary.toLocaleString() + ' €/mo</span></div>' +
+          '<div><span>Annual baseline (×' + multiplier.toFixed(1) + ')</span><span>' + Math.round(annualBaseline).toLocaleString() + ' €</span></div>' +
+          '<div><span>Working days</span><span>' + workingDays + '</span></div>' +
+          '<div><span>Daily rate</span><span>' + Math.round(dailyRate).toLocaleString() + ' €</span></div>' +
+          '<div><span>Sick/admin buffer</span><span>' + Math.round(bufferLow).toLocaleString() + '–' + Math.round(bufferHigh).toLocaleString() + ' €/mo</span></div>' +
+          '<div><span>YEL (' + (yelRate*100) + '%)</span><span>' + Math.round(adjustedLow*yelRate).toLocaleString() + '–' + Math.round(adjustedHigh*yelRate).toLocaleString() + ' €/mo</span></div>' +
+          '<div><span>Accounting</span><span>' + accountingCost + ' €/mo</span></div>' +
+          (equipmentCost > 0 ? '<div><span>Equipment</span><span>' + equipmentCost + ' €/mo</span></div>' : '') +
+          '<div style="font-weight:600;border-top:2px solid var(--gray-200);padding-top:6px;margin-top:4px;"><span>Annual range</span><span>' + yLow.toLocaleString() + '–' + yHigh.toLocaleString() + ' €</span></div>';
+
+      } else {
+        var annualOffer = input;
+        var monthlyOffer = annualOffer / 12;
+        var afterCosts = monthlyOffer - accountingCost - equipmentCost;
+        var afterYel = afterCosts / (1 + yelRate);
+        var dailyRateRev = (afterYel * 12) / workingDays;
+        var bufLow = (dailyRateRev * 6) / 12;
+        var bufHigh = (dailyRateRev * 12) / 12;
+        var equivLow = ((afterYel - bufHigh) * 12) / multiplier;
+        var equivHigh = ((afterYel - bufLow) * 12) / multiplier;
+        var eLow = Math.round(equivLow / 50) * 50;
+        var eHigh = Math.round(equivHigh / 50) * 50;
+        var eMid = Math.round((eLow + eHigh) / 2 / 50) * 50;
+
+        label.textContent = 'That offer feels like';
+        main.textContent = '~' + eMid.toLocaleString() + ' €';
+        range.textContent = eLow.toLocaleString() + ' – ' + eHigh.toLocaleString() + ' € per month on a Finnish employment contract';
+        secondary.textContent = '';
+
+        bd.innerHTML =
+          '<div><span>Offered annual</span><span>' + annualOffer.toLocaleString() + ' €/yr</span></div>' +
+          '<div><span>Monthly</span><span>' + Math.round(monthlyOffer).toLocaleString() + ' €</span></div>' +
+          '<div><span>Accounting</span><span>−' + accountingCost + ' €</span></div>' +
+          (equipmentCost > 0 ? '<div><span>Equipment</span><span>−' + equipmentCost + ' €</span></div>' : '') +
+          '<div><span>After YEL (÷' + (1+yelRate) + ')</span><span>' + Math.round(afterYel).toLocaleString() + ' €</span></div>' +
+          '<div><span>Sick/admin buffer</span><span>−' + Math.round(bufLow).toLocaleString() + ' to −' + Math.round(bufHigh).toLocaleString() + ' €</span></div>' +
+          '<div style="font-weight:600;border-top:2px solid var(--gray-200);padding-top:6px;margin-top:4px;"><span>Equivalent salary</span><span>' + eLow.toLocaleString() + '–' + eHigh.toLocaleString() + ' €/mo</span></div>';
+      }
+    }
+
+    // Tab switching
+    document.querySelectorAll('.rc__tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.rc__tab').forEach(function(t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        direction = tab.dataset.dir;
+        var inp = document.getElementById('rwSalary');
+        var lbl = document.getElementById('rwInputLabel');
+        if (direction === 'toRemote') {
+          inp.placeholder = '5 500';
+          lbl.textContent = '€ / month — what you\'d earn as a full-time employee on a Finnish contract';
+        } else {
+          inp.placeholder = '95 000';
+          lbl.textContent = '€ / year — the annual amount offered';
+        }
+        inp.value = '';
+        document.getElementById('rwResult').classList.remove('visible');
+        document.getElementById('rwPlaceholder').style.display = 'block';
+      });
+    });
+
+    // YEL pill switching
+    document.querySelectorAll('.rc__pill').forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        document.querySelectorAll('.rc__pill').forEach(function(p) { p.classList.remove('active'); });
+        pill.classList.add('active');
+        pill.querySelector('input').checked = true;
+        rwCalc();
+      });
+    });
+
+    document.getElementById('rwSalary').addEventListener('input', rwCalc);
+    document.getElementById('rwDaysOff').addEventListener('input', rwCalc);
+    document.getElementById('rwLaptop').addEventListener('change', rwCalc);
+    document.getElementById('rwOffice').addEventListener('change', rwCalc);
+  </script>
+</body>
+</html>

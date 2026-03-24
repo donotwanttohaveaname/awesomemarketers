@@ -625,6 +625,9 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; font-weight
 .section {
   padding: 100px 0;
 }
+.page-hero + .section {
+  padding-top: 20px;
+}
 .section--dark {
   background: var(--gray-900);
   color: var(--white);
