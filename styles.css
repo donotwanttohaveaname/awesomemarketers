@@ -1732,8 +1732,45 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; font-weight
   font-weight: 600;
 }
 @media (max-width: 768px) {
-  .timeline__item { min-width: 110px; }
-  .timeline__text { font-size: 0.75rem; max-width: 110px; }
+  .timeline { overflow-x: visible; }
+  .timeline__track {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    min-width: unset;
+    padding: 0 0 0 24px;
+  }
+  .timeline__track::before {
+    top: 0;
+    bottom: 0;
+    left: 29px;
+    right: unset;
+    width: 2px;
+    height: auto;
+  }
+  .timeline__item {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+    min-width: unset;
+    text-align: left;
+    padding-bottom: 28px;
+  }
+  .timeline__item:last-child { padding-bottom: 0; }
+  .timeline__year {
+    min-width: 60px;
+    margin-bottom: 0;
+    padding-top: 2px;
+  }
+  .timeline__dot {
+    margin-bottom: 0;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+  .timeline__text {
+    font-size: 0.85rem;
+    max-width: none;
+  }
 }
 
 /* ===== ABOUT TEXT (LLM-friendly) ===== */
