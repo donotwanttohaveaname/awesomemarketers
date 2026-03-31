@@ -245,7 +245,7 @@
       text-align: center;
     }
     .events-community__inner {
-      max-width: 600px;
+      max-width: 900px;
       margin: 0 auto;
     }
     .events-community__title {
@@ -255,14 +255,33 @@
       color: var(--white);
       margin-bottom: 12px;
     }
-    .events-community .about__card h3 {
+    .events-types {
+      display: flex;
+      gap: 24px;
+      margin-top: 32px;
+      text-align: left;
+    }
+    .events-types__item {
+      flex: 1;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .events-types__emoji {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .events-types__item strong {
+      display: block;
       color: var(--white);
+      font-size: 0.95rem;
+      margin-bottom: 4px;
     }
-    .events-community .about__card p {
-      color: rgba(255,255,255,0.6);
-    }
-    .events-community .about__card .link--subtle {
-      color: rgba(255,255,255,0.8);
+    .events-types__item span {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
     }
     .events-community__desc {
       color: rgba(255,255,255,0.6);
@@ -341,6 +360,10 @@
       }
       .events__posts-grid {
         columns: 1;
+      }
+      .events-types {
+        flex-direction: column;
+        gap: 20px;
       }
       .event-card {
         gap: 14px;
@@ -551,21 +574,27 @@
       </div>
       <h2 class="events-community__title">Our community events</h2>
       <p class="events-community__desc">We aim to do regular events in Helsinki and occasionally show up in other cities. Here's what we typically run:</p>
-      <div class="about__grid about__grid--3" style="margin-top: 32px; text-align: left;">
-        <div class="about__card">
-          <div class="about__icon">🍻</div>
-          <h3>Afterworks</h3>
-          <p>Casual drinks and conversations at Helsinki spots. No agenda, just good people and good talk.</p>
+      <div class="events-types">
+        <div class="events-types__item">
+          <span class="events-types__emoji">🍻</span>
+          <div>
+            <strong>Afterworks</strong>
+            <span>Casual drinks and conversations at Helsinki spots. No agenda, just good people.</span>
+          </div>
         </div>
-        <div class="about__card">
-          <div class="about__icon">💻</div>
-          <h3>Webinars</h3>
-          <p>Online sessions with community members and guest speakers on topics from SEO to career pivots. Recorded and shared on our <a href="/videos/" class="link--subtle">YouTube channel</a>.</p>
+        <div class="events-types__item">
+          <span class="events-types__emoji">💻</span>
+          <div>
+            <strong>Webinars</strong>
+            <span>Online sessions on topics from SEO to career pivots. Recorded on our <a href="/videos/" style="color: var(--orange); text-decoration: underline;">YouTube channel</a>.</span>
+          </div>
         </div>
-        <div class="about__card">
-          <div class="about__icon">🎪</div>
-          <h3>Special Events</h3>
-          <p>Slush side events, conference meetups, and collaborative workshops. We go where marketers gather and make it better.</p>
+        <div class="events-types__item">
+          <span class="events-types__emoji">🎪</span>
+          <div>
+            <strong>Special events</strong>
+            <span>Slush side events, conference meetups, and collaborative workshops.</span>
+          </div>
         </div>
       </div>
     </div>
