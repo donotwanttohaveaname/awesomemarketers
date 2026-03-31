@@ -7,10 +7,10 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="shortcut icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Events | The Awesome Marketers</title>
-  <meta name="description" content="Meetups, webinars, and afterworks for marketers in Finland. Helsinki and online.">
-  <meta property="og:title" content="Events | The Awesome Marketers">
-  <meta property="og:description" content="Meetups, webinars, and afterworks for marketers in Finland.">
+  <title>Marketing Events in Finland 2026 | Conferences, Meetups & Workshops</title>
+  <meta name="description" content="Upcoming marketing events in Finland. Conferences, meetups, and workshops for marketers. Community-curated calendar, updated regularly.">
+  <meta property="og:title" content="Marketing Events in Finland 2026">
+  <meta property="og:description" content="Upcoming marketing conferences, meetups, and workshops in Finland. Curated by The Awesome Marketers community.">
   <meta property="og:image" content="https://awesomemarketers.fi/thumbnail.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
@@ -21,6 +21,327 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <script defer src="https://cloud.umami.is/script.js" data-website-id="03433979-1ae8-4c85-9096-8b4da9cf02b3"></script>
+  <style>
+    .events-hero {
+      padding: 160px 24px 40px;
+      text-align: center;
+      position: relative;
+      background:
+        radial-gradient(ellipse 60% 50% at 30% 60%, rgba(255, 180, 82, 0.08), transparent),
+        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(166, 21, 255, 0.06), transparent);
+    }
+    .events-hero__title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      color: var(--gray-800);
+      margin-bottom: 12px;
+    }
+    .events-hero__desc {
+      font-size: 1.1rem;
+      color: var(--gray-500);
+      max-width: 520px;
+      margin: 0 auto 24px;
+      line-height: 1.6;
+    }
+    .events-hero__actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .events-hero__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 24px;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .events-hero__btn--submit {
+      background: var(--gradient);
+      color: var(--white) !important;
+      -webkit-text-fill-color: var(--white);
+    }
+    .events-hero__btn--submit:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    .events-hero__btn--linkedin {
+      background: var(--white);
+      color: var(--gray-700) !important;
+      border: 1px solid var(--gray-200);
+    }
+    .events-hero__btn--linkedin:hover {
+      border-color: var(--purple);
+      color: var(--purple) !important;
+    }
+
+    /* Month filter */
+    .events-months {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      padding: 0 24px 32px;
+      flex-wrap: wrap;
+    }
+    .events-months__btn {
+      padding: 6px 20px;
+      border-radius: 100px;
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--gray-500);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .events-months__btn:hover {
+      border-color: var(--purple);
+      color: var(--purple);
+    }
+    .events-months__btn.active {
+      background: var(--gradient);
+      color: var(--white);
+      border-color: transparent;
+    }
+
+    /* Event list */
+    .events-list {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+    .events-month-label {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 32px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .events-month-label:first-child {
+      margin-top: 0;
+    }
+
+    /* Event card */
+    .event-card {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      margin-bottom: 12px;
+      border-radius: 16px;
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .event-card:hover {
+      border-color: var(--purple);
+      box-shadow: 0 4px 20px rgba(166, 21, 255, 0.08);
+      transform: translateY(-2px);
+    }
+    .event-card__date {
+      flex-shrink: 0;
+      width: 60px;
+      text-align: center;
+    }
+    .event-card__day {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 1;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .event-card__month {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gray-400);
+      margin-top: 2px;
+    }
+    .event-card__weekday {
+      font-size: 0.7rem;
+      color: var(--gray-300);
+      margin-top: 2px;
+    }
+    .event-card__info {
+      flex: 1;
+      min-width: 0;
+    }
+    .event-card__title {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .event-card__desc {
+      font-size: 0.85rem;
+      color: var(--gray-500);
+      line-height: 1.5;
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .event-card__meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .event-card__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: var(--gray-50);
+      color: var(--gray-600);
+    }
+    .event-card__tag--free {
+      background: #ecfdf5;
+      color: #059669;
+    }
+    .event-card__tag--paid {
+      background: #fef3c7;
+      color: #b45309;
+    }
+    .event-card__arrow {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      color: var(--gray-200);
+      font-size: 1.2rem;
+      transition: all 0.2s;
+    }
+    .event-card:hover .event-card__arrow {
+      color: var(--purple);
+      transform: translateX(3px);
+    }
+
+    /* Community events section */
+    .events-community {
+      background: var(--gray-800);
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .events-community__inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .events-community__title {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .events-community__desc {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .events-community__photo {
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    .events-community__photo img {
+      width: 100%;
+      display: block;
+    }
+    .events-community__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 28px;
+      border-radius: 100px;
+      background: var(--gradient);
+      color: var(--white) !important;
+      -webkit-text-fill-color: var(--white);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .events-community__btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    /* What people say */
+    .events-social {
+      padding: 60px 24px;
+    }
+    .events-social__title {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gray-800);
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .events__posts-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      columns: 3;
+      column-gap: 20px;
+    }
+    .events__post {
+      break-inside: avoid;
+      margin-bottom: 20px;
+    }
+    .events__post iframe {
+      width: 100%;
+      min-height: 300px;
+      border-radius: 12px;
+      border: 1px solid var(--gray-100);
+    }
+
+    /* Empty state for community events */
+    .events-empty {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray-300);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .events-hero {
+        padding: 180px 20px 32px;
+      }
+      .events__posts-grid {
+        columns: 1;
+      }
+      .event-card {
+        gap: 14px;
+        padding: 16px;
+      }
+      .event-card__desc {
+        -webkit-line-clamp: 3;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -80,96 +401,181 @@
     </div>
   </nav>
 
-  <section class="page-hero">
+  <!-- Hero -->
+  <section class="events-hero">
     <div class="container">
-      <span class="section__tag">What's Happening</span>
-      <h1 class="page-hero__title">Community <span class="gradient-text">events</span></h1>
-      <p class="page-hero__desc">Meetups, webinars, afterworks. Helsinki and online.</p>
-    </div>
-  </section>
-
-  <!-- Group photo -->
-  <section class="section events__photo-section">
-    <div class="container">
-      <div class="events__hero-photo">
-        <img src="../events-group.jpg" alt="The Awesome Marketers community at our 100th event" class="events__hero-img">
+      <h1 class="events-hero__title">Marketing events in <span class="gradient-text">Finland</span></h1>
+      <p class="events-hero__desc">Conferences, meetups, and workshops for marketers. Community-curated, updated regularly. Know about an event we're missing? DM Anna on LinkedIn and she'll add it here.</p>
+      <div class="events-hero__actions">
+        <a href="https://www.linkedin.com/in/annapogrebniak/" target="_blank" class="events-hero__btn events-hero__btn--submit">DM Anna on LinkedIn to add an event</a>
+        <a href="https://www.linkedin.com/company/the-awesome-marketers/events/" target="_blank" class="events-hero__btn events-hero__btn--linkedin">Our community events on LinkedIn →</a>
       </div>
     </div>
   </section>
 
-  <!-- Upcoming events -->
-  <section class="section">
-    <div class="container">
-      <div class="section__header">
-        <h2 class="section__title">Upcoming <span class="gradient-text">events</span></h2>
-        <p>All our events are posted on LinkedIn. Follow us there to never miss one.</p>
-      </div>
-      <div class="events__cta-centered">
-        <a href="https://www.linkedin.com/company/the-awesome-marketers/events/?viewAsMember=true" target="_blank" class="btn btn--primary btn--lg">View upcoming events on LinkedIn →</a>
-      </div>
-    </div>
-  </section>
+  <!-- Event list -->
+  <div class="events-list" id="eventsList">
 
-  <!-- What to expect -->
-  <section class="section section--dark">
-    <div class="container">
-      <div class="section__header">
-        <h2 class="section__title">What to <span class="gradient-text">expect</span></h2>
+    <p style="text-align: center; font-size: 0.82rem; color: var(--gray-500); margin-bottom: 24px;">These events are not organized by us, unless stated otherwise. We just collect them so you don't have to look everywhere.</p>
+
+    <div class="events-month-label" data-group="apr">April 2026</div>
+
+    <a href="https://www.precis.com/event/hki-b2breakfast-april-2026" target="_blank" class="event-card" data-month="apr" data-date="2026-04-09">
+      <div class="event-card__date">
+        <div class="event-card__day">9</div>
+        <div class="event-card__month">Apr</div>
+        <div class="event-card__weekday">Thu</div>
       </div>
-      <div class="about__grid about__grid--3">
-        <div class="about__card">
-          <div class="about__icon">🍻</div>
-          <h3>Afterworks</h3>
-          <p>Casual drinks and conversations at Helsinki spots like Molly Malone's. No agenda, just good people and good talk.</p>
-        </div>
-        <div class="about__card">
-          <div class="about__icon">💻</div>
-          <h3>Webinars</h3>
-          <p>Online sessions with community members and guest speakers on topics from SEO to career pivots. Recorded and shared on our <a href="/videos/" class="link--subtle">YouTube channel</a>.</p>
-        </div>
-        <div class="about__card">
-          <div class="about__icon">🎪</div>
-          <h3>Special Events</h3>
-          <p>Slush side events, conference meetups, and collaborative workshops. We go where marketers gather and make it better.</p>
+      <div class="event-card__info">
+        <div class="event-card__title">Precis B2Breakfast: AI Search</div>
+        <p class="event-card__desc">B2B marketing breakfast on how AI search tools reshape buyer behavior. Covers AEO, SEO shifts, and dual-channel strategy.</p>
+        <div class="event-card__meta">
+          <span class="event-card__tag">📍 Helsinki</span>
+          <span class="event-card__tag">8:30–11:00</span>
+          <span class="event-card__tag event-card__tag--free">Free</span>
         </div>
       </div>
+      <div class="event-card__arrow">→</div>
+    </a>
+
+    <a href="https://luma.com/wlzykpmo" target="_blank" class="event-card" data-month="apr" data-date="2026-04-14">
+      <div class="event-card__date">
+        <div class="event-card__day">14</div>
+        <div class="event-card__month">Apr</div>
+        <div class="event-card__weekday">Mon</div>
+      </div>
+      <div class="event-card__info">
+        <div class="event-card__title">Comms x Careers: Strategic Brand Playbook</div>
+        <p class="event-card__desc">Personal branding workshop for comms and marketing pros. Covers narrative development, LinkedIn positioning, and career strategy.</p>
+        <div class="event-card__meta">
+          <span class="event-card__tag">📍 Helsinki</span>
+          <span class="event-card__tag">13:00–15:00</span>
+          <span class="event-card__tag event-card__tag--paid">€35</span>
+        </div>
+      </div>
+      <div class="event-card__arrow">→</div>
+    </a>
+
+    <a href="https://luma.com/kw39n6o5" target="_blank" class="event-card" data-month="apr" data-date="2026-04-27">
+      <div class="event-card__date">
+        <div class="event-card__day">27</div>
+        <div class="event-card__month">Apr</div>
+        <div class="event-card__weekday">Mon</div>
+      </div>
+      <div class="event-card__info">
+        <div class="event-card__title">Claude Cowork for Everyone</div>
+        <p class="event-card__desc">Community meetup exploring Claude for non-coding use cases: knowledge management, spreadsheets, sales workflows, and integrations.</p>
+        <div class="event-card__meta">
+          <span class="event-card__tag">📍 Helsinki</span>
+          <span class="event-card__tag">17:00–20:00</span>
+          <span class="event-card__tag event-card__tag--free">Free</span>
+        </div>
+      </div>
+      <div class="event-card__arrow">→</div>
+    </a>
+
+    <div class="events-month-label" data-group="may">May 2026</div>
+
+    <a href="https://kauppakamari.fi/tapahtumat/suuri-brandipaiva-2026/" target="_blank" class="event-card" data-month="may" data-date="2026-05-06">
+      <div class="event-card__date">
+        <div class="event-card__day">6</div>
+        <div class="event-card__month">May</div>
+        <div class="event-card__weekday">Wed</div>
+      </div>
+      <div class="event-card__info">
+        <div class="event-card__title">Suuri Brandipäivä 2026</div>
+        <p class="event-card__desc">Finland's flagship brand strategy conference. Covers brand as growth driver, IP protection, and ecommerce branding.</p>
+        <div class="event-card__meta">
+          <span class="event-card__tag">📍 Helsinki</span>
+          <span class="event-card__tag">Full day</span>
+          <span class="event-card__tag event-card__tag--paid">€295–695</span>
+        </div>
+      </div>
+      <div class="event-card__arrow">→</div>
+    </a>
+
+    <a href="https://digitalcommerce.fi/en/tapahtumat/ecom-summit-awards/" target="_blank" class="event-card" data-month="may" data-date="2026-05-21">
+      <div class="event-card__date">
+        <div class="event-card__day">21</div>
+        <div class="event-card__month">May</div>
+        <div class="event-card__weekday">Thu</div>
+      </div>
+      <div class="event-card__info">
+        <div class="event-card__title">eCom Summit & Awards 2026</div>
+        <p class="event-card__desc">Full-day digital commerce summit with keynote stage and themed breakout rooms on ecommerce marketing. Evening awards gala.</p>
+        <div class="event-card__meta">
+          <span class="event-card__tag">📍 Helsinki</span>
+          <span class="event-card__tag">Full day</span>
+          <span class="event-card__tag event-card__tag--paid">Paid</span>
+        </div>
+      </div>
+      <div class="event-card__arrow">→</div>
+    </a>
+
+    <div class="events-month-label" data-group="oct">October 2026</div>
+
+    <a href="https://www.martechnordic.com/" target="_blank" class="event-card" data-month="oct" data-date="2026-10-21">
+      <div class="event-card__date">
+        <div class="event-card__day">21</div>
+        <div class="event-card__month">Oct</div>
+        <div class="event-card__weekday">Wed</div>
+      </div>
+      <div class="event-card__info">
+        <div class="event-card__title">MarTech Nordic 2026</div>
+        <p class="event-card__desc">Marketing technology conference for CMOs, digital marketers, and ecommerce leaders. Topics: AI in marketing, data integration, customer strategy.</p>
+        <div class="event-card__meta">
+          <span class="event-card__tag">📍 Helsinki</span>
+          <span class="event-card__tag">Full day</span>
+          <span class="event-card__tag event-card__tag--paid">Paid</span>
+        </div>
+      </div>
+      <div class="event-card__arrow">→</div>
+    </a>
+
+  </div>
+
+  <!-- Community events -->
+  <section class="events-community">
+    <div class="events-community__inner">
+      <div class="events-community__photo">
+        <img src="../events-group.jpg" alt="The Awesome Marketers community event">
+      </div>
+      <h2 class="events-community__title">Our community events</h2>
+      <p class="events-community__desc">Afterworks, webinars, Slush side events, and more. We aim to do regular events in Helsinki and occasionally show up in other cities. Follow us on LinkedIn so you don't miss the next one.</p>
+      <a href="https://www.linkedin.com/company/the-awesome-marketers/events/" target="_blank" class="events-community__btn">See our events on LinkedIn →</a>
     </div>
   </section>
 
   <!-- What people say -->
-  <section class="section">
-    <div class="container">
-      <div class="section__header">
-        <h2 class="section__title">What people <span class="gradient-text">say</span></h2>
+  <section class="events-social">
+    <h2 class="events-social__title">What people <span class="gradient-text">say</span></h2>
+    <div class="events__posts-grid">
+      <div class="events__post">
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7438111703864614912" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
       </div>
-      <div class="events__posts-grid">
-        <div class="events__post">
-          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7438111703864614912" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-        </div>
-        <div class="events__post">
-          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7422357704771256320" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-        </div>
-        <div class="events__post">
-          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7422186952583577600" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-        </div>
-        <div class="events__post">
-          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7422186610764447745" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-        </div>
-        <div class="events__post">
-          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7422209421159784448" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-        </div>
-        <div class="events__post">
-          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7437138010971746306" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-        </div>
-        <div class="events__post">
-          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7432500898687442944" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-        </div>
-        <div class="events__post">
-          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7402667328078995456" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-        </div>
-        <div class="events__post">
-          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7422671519044239363" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-        </div>
+      <div class="events__post">
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7422357704771256320" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+      </div>
+      <div class="events__post">
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7422186952583577600" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+      </div>
+      <div class="events__post">
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7422186610764447745" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+      </div>
+      <div class="events__post">
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7422209421159784448" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+      </div>
+      <div class="events__post">
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7437138010971746306" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+      </div>
+      <div class="events__post">
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7432500898687442944" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+      </div>
+      <div class="events__post">
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7402667328078995456" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+      </div>
+      <div class="events__post">
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7422671519044239363" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
       </div>
     </div>
   </section>
@@ -192,5 +598,43 @@
   </footer>
 
   <script src="../app.js"></script>
+  <script>
+    // Auto-hide past events
+    (function() {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const cards = document.querySelectorAll('.event-card[data-date]');
+      const monthGroups = {};
+
+      cards.forEach(card => {
+        const eventDate = new Date(card.dataset.date + 'T23:59:59');
+        const month = card.dataset.month;
+        if (!monthGroups[month]) monthGroups[month] = { total: 0, hidden: 0 };
+        monthGroups[month].total++;
+
+        if (eventDate < today) {
+          card.style.display = 'none';
+          monthGroups[month].hidden++;
+        }
+      });
+
+      // Hide month labels if all events in that month are past
+      document.querySelectorAll('.events-month-label').forEach(label => {
+        const group = label.dataset.group;
+        if (monthGroups[group] && monthGroups[group].hidden === monthGroups[group].total) {
+          label.style.display = 'none';
+        }
+      });
+
+      // Show empty message if all events are past
+      const visibleCards = document.querySelectorAll('.event-card[data-date]:not([style*="display: none"])');
+      if (visibleCards.length === 0) {
+        const msg = document.createElement('p');
+        msg.style.cssText = 'text-align:center; color:var(--gray-300); padding:40px 20px; font-size:0.95rem;';
+        msg.textContent = 'No upcoming events right now. Check back soon or follow us on LinkedIn.';
+        document.getElementById('eventsList').appendChild(msg);
+      }
+    })();
+  </script>
 </body>
 </html>
