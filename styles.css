@@ -1411,11 +1411,15 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; font-weight
   padding: 20px;
   border: 1px solid var(--gray-700);
   border-radius: var(--radius-md);
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-decoration: none;
+  color: inherit;
 }
 .team__member:hover {
-  border-color: var(--purple);
-  background: rgba(166, 21, 255, 0.05);
+  border-color: transparent;
+  background: linear-gradient(135deg, rgba(255, 180, 82, 0.1), rgba(166, 21, 255, 0.1));
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(166, 21, 255, 0.15);
 }
 .team__name {
   font-family: var(--font-heading);
