@@ -99,6 +99,7 @@
     .rc__opt-row label { cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 400; }
     .rc__opt-row input[type="checkbox"] { accent-color: var(--purple); width: 14px; height: 14px; }
     .rc__opt-hint { font-size: 0.72rem; color: var(--gray-400); margin-top: 2px; display: block; }
+    .rc__opt-label { font-size: 0.82rem; color: var(--gray-600); font-weight: 500; margin-bottom: 6px; display: block; }
     .rc__pill { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 600; cursor: pointer; border: 1.5px solid var(--gray-200); color: var(--gray-500); background: white; transition: all 0.15s; font-family: var(--font-body); }
     .rc__pill.active { border-color: var(--purple); color: var(--purple); background: var(--gradient-subtle); }
     .rc__pill input { display: none; }
@@ -159,11 +160,13 @@
         <span class="rc__opt-hint">Self-employed pension. 19% for first 4 years, then 24%</span>
       </div>
       <div class="rc__opt">
+        <span class="rc__opt-label">Is the company offering any of these?</span>
         <div class="rc__opt-row">
-          <label><input type="checkbox" id="rwLaptop" checked> Laptop & phone</label>
-          <label><input type="checkbox" id="rwOffice" checked> Office costs</label>
+          <label><input type="checkbox" id="rwLaptop"> Laptop & phone</label>
+          <label><input type="checkbox" id="rwOffice"> Office costs</label>
+          <label><input type="checkbox" id="rwHealth"> Health insurance</label>
         </div>
-        <span class="rc__opt-hint">Uncheck if you pay for these yourself (+50 €/mo each)</span>
+        <span class="rc__opt-hint">Check what the company covers. Unchecked items add to your costs: laptop/office +50 €/mo each, health insurance ~100 €/mo (rough comparison to OP personal health insurance).</span>
       </div>
     </div>
 
@@ -244,11 +247,13 @@
       var daysOff = daysOffVal === '' ? 0 : parseInt(daysOffVal);
       var hasLaptop = document.getElementById('rwLaptop').checked;
       var hasOffice = document.getElementById('rwOffice').checked;
+      var hasHealth = document.getElementById('rwHealth').checked;
 
       var accountingCost = 50;
       var equipmentCost = 0;
       if (!hasLaptop) equipmentCost += 50;
       if (!hasOffice) equipmentCost += 50;
+      var healthCost = hasHealth ? 0 : 100;
 
       var workingDays = 260 - daysOff;
       var multiplier = 14 - (daysOff / 21);
@@ -269,13 +274,13 @@
         var monthlyBase = annualBaseline / 12;
         var adjustedLow = monthlyBase + bufferLow;
         var adjustedHigh = monthlyBase + bufferHigh;
-        var invoiceLow = adjustedLow * (1 + yelRate) + accountingCost + equipmentCost;
-        var invoiceHigh = adjustedHigh * (1 + yelRate) + accountingCost + equipmentCost;
-        var yLow = Math.ceil(invoiceLow * 12 / 100) * 100;
-        var yHigh = Math.ceil(invoiceHigh * 12 / 100) * 100;
-        var mLow = Math.ceil(invoiceLow / 50) * 50;
-        var mHigh = Math.ceil(invoiceHigh / 50) * 50;
-        var mid = Math.round((yLow + yHigh) / 2 / 100) * 100;
+        var invoiceLow = adjustedLow * (1 + yelRate) + accountingCost + equipmentCost + healthCost;
+        var invoiceHigh = adjustedHigh * (1 + yelRate) + accountingCost + equipmentCost + healthCost;
+        var yLow = Math.ceil(invoiceLow * 12 / 10) * 10;
+        var yHigh = Math.ceil(invoiceHigh * 12 / 10) * 10;
+        var mLow = Math.ceil(invoiceLow / 10) * 10;
+        var mHigh = Math.ceil(invoiceHigh / 10) * 10;
+        var mid = Math.round((yLow + yHigh) / 2 / 10) * 10;
 
         label.textContent = 'Ask the company for';
         main.textContent = '~' + mid.toLocaleString() + ' €';
@@ -284,28 +289,30 @@
 
         bd.innerHTML =
           '<div><span>Desired salary</span><span>' + salary.toLocaleString() + ' €/mo</span></div>' +
-          '<div><span>Annual baseline (×' + multiplier.toFixed(1) + ')</span><span>' + Math.round(annualBaseline).toLocaleString() + ' €</span></div>' +
+          '<div><span>Finnish holiday buffer (×' + multiplier.toFixed(1) + ')</span><span>' + Math.round(annualBaseline).toLocaleString() + ' €/yr</span></div>' +
+          '<div style="font-size:0.75rem;color:var(--gray-400);padding:2px 0 6px;">In Finland you get ~14 salaries/yr: 12 regular + 1 vacation month + 0.5 holiday bonus + 0.5 for public holidays that are often no longer paid days off on a freelance contract.</div>' +
           '<div><span>Working days</span><span>' + workingDays + '</span></div>' +
           '<div><span>Daily rate</span><span>' + Math.round(dailyRate).toLocaleString() + ' €</span></div>' +
-          '<div><span>Sick/admin buffer</span><span>' + Math.round(bufferLow).toLocaleString() + '–' + Math.round(bufferHigh).toLocaleString() + ' €/mo</span></div>' +
+          '<div><span>Sick/admin buffer (0.5–1 day/mo)</span><span>' + Math.round(bufferLow).toLocaleString() + '–' + Math.round(bufferHigh).toLocaleString() + ' €/mo</span></div>' +
           '<div><span>YEL (' + (yelRate*100) + '%)</span><span>' + Math.round(adjustedLow*yelRate).toLocaleString() + '–' + Math.round(adjustedHigh*yelRate).toLocaleString() + ' €/mo</span></div>' +
           '<div><span>Accounting</span><span>' + accountingCost + ' €/mo</span></div>' +
           (equipmentCost > 0 ? '<div><span>Equipment</span><span>' + equipmentCost + ' €/mo</span></div>' : '') +
+          (healthCost > 0 ? '<div><span>Health insurance</span><span>' + healthCost + ' €/mo</span></div>' : '') +
           '<div style="font-weight:600;border-top:2px solid var(--gray-200);padding-top:6px;margin-top:4px;"><span>Annual range</span><span>' + yLow.toLocaleString() + '–' + yHigh.toLocaleString() + ' €</span></div>';
 
       } else {
         var annualOffer = input;
         var monthlyOffer = annualOffer / 12;
-        var afterCosts = monthlyOffer - accountingCost - equipmentCost;
+        var afterCosts = monthlyOffer - accountingCost - equipmentCost - healthCost;
         var afterYel = afterCosts / (1 + yelRate);
         var dailyRateRev = (afterYel * 12) / workingDays;
         var bufLow = (dailyRateRev * 6) / 12;
         var bufHigh = (dailyRateRev * 12) / 12;
         var equivLow = ((afterYel - bufHigh) * 12) / multiplier;
         var equivHigh = ((afterYel - bufLow) * 12) / multiplier;
-        var eLow = Math.round(equivLow / 50) * 50;
-        var eHigh = Math.round(equivHigh / 50) * 50;
-        var eMid = Math.round((eLow + eHigh) / 2 / 50) * 50;
+        var eLow = Math.round(equivLow / 10) * 10;
+        var eHigh = Math.round(equivHigh / 10) * 10;
+        var eMid = Math.round((eLow + eHigh) / 2 / 10) * 10;
 
         label.textContent = 'That offer feels like';
         main.textContent = '~' + eMid.toLocaleString() + ' €';
@@ -317,8 +324,11 @@
           '<div><span>Monthly</span><span>' + Math.round(monthlyOffer).toLocaleString() + ' €</span></div>' +
           '<div><span>Accounting</span><span>−' + accountingCost + ' €</span></div>' +
           (equipmentCost > 0 ? '<div><span>Equipment</span><span>−' + equipmentCost + ' €</span></div>' : '') +
-          '<div><span>After YEL (÷' + (1+yelRate) + ')</span><span>' + Math.round(afterYel).toLocaleString() + ' €</span></div>' +
-          '<div><span>Sick/admin buffer</span><span>−' + Math.round(bufLow).toLocaleString() + ' to −' + Math.round(bufHigh).toLocaleString() + ' €</span></div>' +
+          (healthCost > 0 ? '<div><span>Health insurance</span><span>−' + healthCost + ' €</span></div>' : '') +
+          '<div><span>After YEL (÷' + (1+yelRate) + ')</span><span>' + Math.round(afterYel).toLocaleString() + ' €/mo</span></div>' +
+          '<div><span>Sick/admin buffer (0.5–1 day/mo)</span><span>−' + Math.round(bufLow).toLocaleString() + ' to −' + Math.round(bufHigh).toLocaleString() + ' €</span></div>' +
+          '<div><span>Finnish holiday buffer (÷' + multiplier.toFixed(1) + ')</span><span>×12 ÷ ' + multiplier.toFixed(1) + '</span></div>' +
+          '<div style="font-size:0.75rem;color:var(--gray-400);padding:2px 0 6px;">In Finland you get ~14 salaries/yr: 12 regular + 1 vacation month + 0.5 holiday bonus + 0.5 for public holidays that are often no longer paid days off on a freelance contract.</div>' +
           '<div style="font-weight:600;border-top:2px solid var(--gray-200);padding-top:6px;margin-top:4px;"><span>Equivalent salary</span><span>' + eLow.toLocaleString() + '–' + eHigh.toLocaleString() + ' €/mo</span></div>';
       }
     }
@@ -358,6 +368,7 @@
     document.getElementById('rwDaysOff').addEventListener('input', rwCalc);
     document.getElementById('rwLaptop').addEventListener('change', rwCalc);
     document.getElementById('rwOffice').addEventListener('change', rwCalc);
+    document.getElementById('rwHealth').addEventListener('change', rwCalc);
   </script>
 </body>
 </html>
