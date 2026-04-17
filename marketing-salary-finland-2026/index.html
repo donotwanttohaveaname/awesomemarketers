@@ -4,7 +4,56 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Marketing Salary Survey Finland 2026 | The Awesome Marketers</title>
-<meta name="description" content="113 Finnish marketers shared their pay. The 2026 report shows what marketers earn, what moves pay, and where the gaps are.">
+<meta name="description" content="What Finnish marketers really earn in 2026. Median pay, role-by-role breakdown, AI skill gap, work-setup mismatch, and what actually moves pay. Based on 113 marketers, cross-referenced with MMA palkkatutkimus.">
+<meta name="keywords" content="marketing salary Finland, Finnish marketers pay, marketing salary survey 2026, palkkatutkimus markkinointi, what marketers earn in Finland, Helsinki marketing salaries">
+<meta name="author" content="The Awesome Marketers">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://awesomemarketers.fi/marketing-salary-finland-2026/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Marketing Salary Survey Finland 2026 | The Awesome Marketers">
+<meta property="og:description" content="113 marketers, 14 charts, one honest read on what Finnish marketers earn in 2026 and what moves pay.">
+<meta property="og:url" content="https://awesomemarketers.fi/marketing-salary-finland-2026/">
+<meta property="og:image" content="https://awesomemarketers.fi/thumbnail.png">
+<meta property="og:site_name" content="The Awesome Marketers">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-04-17">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Marketing Salary Survey Finland 2026">
+<meta name="twitter:description" content="What Finnish marketers really earn in 2026. Median pay, AI skill premium, work-setup mismatch, and what moves pay. Based on 113 marketers.">
+<meta name="twitter:image" content="https://awesomemarketers.fi/thumbnail.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Report",
+  "headline": "Marketing Salary Survey Finland 2026",
+  "name": "Marketing Salary Survey Finland 2026",
+  "description": "What Finnish marketers really earn in 2026. Median pay, role-by-role breakdown, AI skill gap, work-setup mismatch, and what actually moves pay. Based on 113 marketers, cross-referenced with MMA palkkatutkimus 2025.",
+  "datePublished": "2026-04-17",
+  "inLanguage": "en",
+  "url": "https://awesomemarketers.fi/marketing-salary-finland-2026/",
+  "image": "https://awesomemarketers.fi/thumbnail.png",
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Awesome Marketers",
+    "url": "https://awesomemarketers.fi",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://awesomemarketers.fi/logo.jpg"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Anna Pogrebniak",
+    "url": "https://awesomemarketer.fi"
+  },
+  "about": [
+    {"@type": "Thing", "name": "Marketing salaries in Finland"},
+    {"@type": "Thing", "name": "Finnish marketing industry"},
+    {"@type": "Thing", "name": "Pay transparency"}
+  ],
+  "spatialCoverage": {"@type": "Place", "name": "Finland"}
+}
+</script>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -56,41 +105,51 @@ a:hover { text-decoration: underline; }
 .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 .wrap-narrow { max-width: 780px; margin: 0 auto; padding: 0 24px; }
 
-/* SECTION ANCHORS (in-page jump nav) */
+/* Push content below fixed site nav */
+:root { --site-nav-h: 113px; }
+body { padding-top: var(--site-nav-h); }
+@media (max-width: 900px) { :root { --site-nav-h: 130px; } }
+@media (max-width: 600px) { :root { --site-nav-h: 175px; } }
+
+/* SECTION ANCHORS (in-page jump nav, sticks below site nav) */
 .section-anchors {
-  background: rgba(249, 250, 251, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  position: sticky; top: var(--site-nav-h); z-index: 90;
+  background: #fff;
   border-bottom: 1px solid var(--grey-line);
 }
 .section-anchors-inner {
-  display: flex; flex-wrap: wrap; gap: 6px 14px;
-  padding: 10px 24px;
+  display: flex; flex-wrap: nowrap; gap: 4px;
+  padding: 8px 16px;
   max-width: 1200px; margin: 0 auto;
   font-size: 13px; font-weight: 500;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-.section-anchors a { color: var(--grey-text); padding: 4px 8px; border-radius: 8px; text-decoration: none; }
+.section-anchors-inner::-webkit-scrollbar { display: none; }
+.section-anchors a { color: var(--grey-text); padding: 4px 10px; border-radius: 8px; text-decoration: none; white-space: nowrap; }
 .section-anchors a:hover { background: var(--purple-soft); color: var(--purple-dark); }
 .section-anchors a.active { background: var(--purple); color: white; }
+section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
 
-/* HERO */
-.hero { padding: 40px 0 20px 0; }
-.hero h1 {
-  font-size: 44px; line-height: 1.05; font-weight: 800; margin: 0 0 12px 0;
+/* HERO (renamed to avoid conflict with site .hero) */
+.dash-hero { padding: 32px 0 12px 0; min-height: 0; display: block; overflow: visible; }
+.dash-hero h1 {
+  font-size: 44px; line-height: 1.05; font-weight: 800; margin: 0 0 10px 0;
   letter-spacing: -0.02em;
 }
-.hero .kicker {
+.dash-hero .kicker {
   display: inline-block;
   padding: 6px 14px;
   background: var(--purple-soft);
   color: var(--purple-dark);
   border-radius: 999px;
   font-size: 13px; font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
-.hero .lede {
-  font-size: 20px; color: var(--grey-text); max-width: 680px;
-  line-height: 1.55;
+.dash-hero .lede {
+  font-size: 18px; color: var(--grey-text); max-width: 680px;
+  line-height: 1.5;
 }
 
 /* SECTION */
@@ -832,7 +891,9 @@ a:hover { text-decoration: underline; }
     </ul>
   </div>
 </nav>
-<section class="hero">
+<nav class="section-anchors" aria-label="Sections"><div class="section-anchors-inner"><a href="#picker">Calculator</a><a href="#headlines">Headlines</a><a href="#pay">Pay grid</a><a href="#unexpected">Unexpected</a><a href="#worksetup">Work setup</a><a href="#skills">Skills</a><a href="#finnish">Does Finnish pay?</a><a href="#career">Career paths</a><a href="#correlations">What moves pay</a><a href="#mood">Mood</a><a href="#means">What it means</a><a href="#compare">2022 vs 2026</a><a href="#mma">MMA context</a><a href="#method">Method</a></div></nav>
+
+<section class="dash-hero">
   <div class="wrap">
     <span class="kicker">Finnish marketing salary survey 2026</span>
     <h1>What Finnish marketers really earn in 2026.</h1>
