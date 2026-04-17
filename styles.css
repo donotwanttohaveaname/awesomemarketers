@@ -2361,3 +2361,19 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; font-weight
   .salary-2026-card__stats { gap: 20px; }
   .salary-2026-card__stat strong { font-size: 22px; }
 }
+
+/* Red banner variant — used on /marketing-salaries-finland/ to recruit survey respondents */
+.nav__banner--red {
+  background: #9D0640;
+  color: #fff;
+}
+.nav__banner--red .nav__banner-text { color: #fff; }
+.nav__banner-btn--on-red {
+  background: #fff;
+  color: #9D0640;
+  border: none;
+}
+.nav__banner-btn--on-red:hover {
+  background: #FBD9E5;
+  color: #9D0640;
+}
