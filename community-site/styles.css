@@ -2240,15 +2240,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; font-weight
 }
 
 @media (max-width: 768px) {
-  .nav__banner {
-    font-size: 0.8rem;
-    padding: 6px 12px;
-    gap: 6px;
-  }
-  .nav__banner-btn {
-    font-size: 0.75rem;
-    padding: 3px 12px;
-  }
+  .nav__banner { display: none !important; }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -2258,4 +2250,130 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; font-weight
   .resources__grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* Featured 2026 salary report card (used on /marketing-salaries-finland/ and /resources/) */
+.salary-2026-card {
+  display: block;
+  position: relative;
+  background: linear-gradient(135deg, #FFF8EC 0%, #FDEBF3 50%, #F0E0FF 100%);
+  border: 2px solid transparent;
+  border-radius: 24px;
+  padding: 36px 40px;
+  text-decoration: none;
+  color: var(--gray-900, #171717);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 4px 28px rgba(166, 21, 255, 0.08);
+}
+.salary-2026-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 44px rgba(166, 21, 255, 0.16);
+  border-color: rgba(166, 21, 255, 0.25);
+}
+.salary-2026-card__badge {
+  display: inline-block;
+  background: #A615FF;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.salary-2026-card__inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+}
+.salary-2026-card__title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 34px;
+  line-height: 1.1;
+  margin: 0 0 12px;
+  background: linear-gradient(135deg, #FFB452, #A615FF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.salary-2026-card__lede {
+  font-size: 16px;
+  line-height: 1.55;
+  color: #404040;
+  margin: 0 0 22px;
+  max-width: 620px;
+}
+.salary-2026-card__stats {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.salary-2026-card__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.salary-2026-card__stat strong {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #7A0FBE;
+  line-height: 1;
+}
+.salary-2026-card__stat span {
+  font-size: 12px;
+  color: #737373;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.salary-2026-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  color: #A615FF;
+  font-size: 16px;
+}
+.salary-2026-card__big {
+  font-size: 120px;
+  opacity: 0.85;
+  line-height: 1;
+}
+.section__sub-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #171717;
+  margin: 0 0 20px;
+}
+@media (max-width: 768px) {
+  .salary-2026-card { padding: 24px 22px; border-radius: 18px; }
+  .salary-2026-card__title { font-size: 26px; }
+  .salary-2026-card__inner { grid-template-columns: 1fr; }
+  .salary-2026-card__right { display: none; }
+  .salary-2026-card__stats { gap: 20px; }
+  .salary-2026-card__stat strong { font-size: 22px; }
+}
+
+/* Red banner variant — used on /marketing-salaries-finland/ to recruit survey respondents */
+.nav__banner--red {
+  background: #9D0640;
+  color: #fff;
+}
+.nav__banner--red .nav__banner-text { color: #fff; }
+.nav__banner-btn--on-red {
+  background: #fff;
+  color: #9D0640;
+  border: none;
+}
+.nav__banner-btn--on-red:hover {
+  background: #FBD9E5;
+  color: #9D0640;
 }
