@@ -70,15 +70,16 @@
   --purple-soft: #F4E5FF;
   --orange: #FFB452;
   --gradient: linear-gradient(135deg, #FFB452, #A615FF);
-  --grey-text: #4B5563;
-  --grey-muted: #9CA3AF;
-  --grey-line: #E5E7EB;
-  --coral: #F87171;
-  --coral-soft: #FEE2E2;
-  --yellow: #FACC15;
-  --yellow-soft: #FEF3C7;
-  --green: #10B981;
-  --green-soft: #D1FAE5;
+  --grey-text: #374151;
+  --grey-muted: #6B7280;
+  --grey-line: #D1D5DB;
+  --grey-track: #9CA3AF;
+  --coral: #B91C1C;
+  --coral-soft: #FECACA;
+  --yellow: #B45309;
+  --yellow-soft: #FDE68A;
+  --green: #047857;
+  --green-soft: #A7F3D0;
   --ink: #111827;
   --bg: #F9FAFB;
   --card: #FFFFFF;
@@ -117,19 +118,57 @@ body { padding-top: var(--site-nav-h); }
   background: #fff;
   border-bottom: 1px solid var(--grey-line);
 }
+.section-anchors-wrap {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+/* fade gradients hint at horizontal scroll */
+.section-anchors-wrap::before,
+.section-anchors-wrap::after {
+  content: '';
+  position: absolute; top: 0; bottom: 0; width: 48px;
+  pointer-events: none; z-index: 2;
+  transition: opacity 0.2s;
+}
+.section-anchors-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, #fff 30%, rgba(255,255,255,0));
+  opacity: 0;
+}
+.section-anchors-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, #fff 30%, rgba(255,255,255,0));
+  opacity: 1;
+}
+.section-anchors-wrap.is-scrolled::before { opacity: 1; }
+.section-anchors-wrap.is-end::after { opacity: 0; }
 .section-anchors-inner {
   display: flex; flex-wrap: nowrap; gap: 4px;
   padding: 8px 16px;
-  max-width: 1200px; margin: 0 auto;
   font-size: 13px; font-weight: 500;
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  scroll-behavior: smooth;
 }
 .section-anchors-inner::-webkit-scrollbar { display: none; }
 .section-anchors a { color: var(--grey-text); padding: 4px 10px; border-radius: 8px; text-decoration: none; white-space: nowrap; }
 .section-anchors a:hover { background: var(--purple-soft); color: var(--purple-dark); }
-.section-anchors a.active { background: var(--purple); color: white; }
+.section-anchors a.active { background: var(--gradient); color: white; }
+/* nudging chevron hint at right edge */
+.section-anchors-hint {
+  position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+  z-index: 3; pointer-events: none;
+  font-size: 16px; line-height: 1; color: var(--purple);
+  background: var(--gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  animation: nudge 1.4s ease-in-out infinite;
+}
+.section-anchors-wrap.is-end .section-anchors-hint { display: none; }
+@keyframes nudge {
+  0%, 100% { transform: translate(0, -50%); }
+  50% { transform: translate(4px, -50%); }
+}
 section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
 
 /* HERO (renamed to avoid conflict with site .hero) */
@@ -156,8 +195,11 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
 .section { padding: 36px 0; }
 .section-head { margin-bottom: 24px; max-width: 780px; }
 .section-kicker {
-  font-size: 12px; font-weight: 700; color: var(--purple);
+  font-size: 12px; font-weight: 700;
   letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;
+  background: var(--gradient); -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  display: inline-block;
 }
 .section h2 {
   font-size: 30px; line-height: 1.1; font-weight: 800; margin: 0 0 10px 0;
@@ -188,7 +230,9 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
 .big-num {
   font-size: 96px; font-weight: 800; line-height: 0.95;
   letter-spacing: -0.03em;
-  color: var(--purple);
+  background: var(--gradient); -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  display: inline-block;
 }
 .big-num.ink { color: var(--ink); }
 .big-num.coral { color: var(--coral); }
@@ -206,7 +250,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
 .fig {
   width: 100%;
   aspect-ratio: 1 / 1.6;
-  background: var(--grey-line);
+  background: var(--grey-track);
   border-radius: 3px 3px 0 0;
   position: relative;
 }
@@ -318,8 +362,10 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
   font-weight: 600;
 }
 .picker-big {
-  font-size: 60px; font-weight: 800; color: var(--purple); line-height: 1; letter-spacing: -0.03em;
+  font-size: 60px; font-weight: 800; line-height: 1; letter-spacing: -0.03em;
   margin: 4px 0 6px 0;
+  background: var(--gradient); -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
 }
 .picker-sub {
   font-size: 15px; color: var(--grey-muted);
@@ -422,8 +468,8 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
 /* BAR ROW */
 .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 .bar-row .bar-label { flex: 0 0 180px; font-size: 14px; font-weight: 600; color: var(--ink); }
-.bar-row .bar-track { flex: 1; height: 32px; background: var(--grey-line); border-radius: 8px; position: relative; overflow: hidden; }
-.bar-row .bar-fill { height: 100%; background: var(--purple); border-radius: 8px; display: flex; align-items: center; padding-left: 12px; color: white; font-weight: 700; font-size: 14px; transition: width 0.4s ease; }
+.bar-row .bar-track { flex: 1; height: 32px; background: var(--grey-track); border-radius: 8px; position: relative; overflow: hidden; }
+.bar-row .bar-fill { height: 100%; background: var(--gradient); border-radius: 8px; display: flex; align-items: center; padding-left: 12px; color: white; font-weight: 700; font-size: 14px; transition: width 0.4s ease; min-width: 48px; }
 .bar-row .bar-fill.grey { background: var(--grey-muted); }
 .bar-row .bar-fill.coral { background: var(--coral); }
 .bar-row .bar-fill.green { background: var(--green); }
@@ -433,7 +479,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
 .dumbbell-chart { padding: 8px 0; }
 .dumbbell-row { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
 .dumbbell-label { flex: 0 0 220px; font-size: 14px; font-weight: 600; color: var(--ink); }
-.dumbbell-track { flex: 1; height: 24px; position: relative; background: var(--grey-line); border-radius: 12px; }
+.dumbbell-track { flex: 1; height: 24px; position: relative; background: var(--grey-track); border-radius: 12px; }
 .dumbbell-range { position: absolute; top: 50%; height: 4px; transform: translateY(-50%); background: var(--purple); border-radius: 2px; }
 .dumbbell-dot { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 18px; height: 18px; border-radius: 50%; border: 3px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
 .dumbbell-dot.d-2022 { background: var(--grey-muted); }
@@ -551,7 +597,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
   background: var(--purple);
   color: white;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  box-shadow: 0 16px 48px rgba(109, 91, 239, 0.3);
+  box-shadow: 0 16px 48px rgba(166, 21, 255, 0.3);
 }
 .orbit-center .n { font-size: 56px; font-weight: 800; line-height: 1; }
 .orbit-center .l { font-size: 12px; margin-top: 6px; opacity: 0.9; letter-spacing: 0.06em; text-transform: uppercase; }
@@ -580,7 +626,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
   background: var(--purple);
   color: white;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  box-shadow: 0 16px 48px rgba(109, 91, 239, 0.3);
+  box-shadow: 0 16px 48px rgba(166, 21, 255, 0.3);
   margin: 24px auto 28px;
 }
 .who-hero-n { font-size: 56px; font-weight: 800; line-height: 1; }
@@ -616,9 +662,13 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
   padding: 14px 18px; border-radius: 14px;
   background: white; border: 1.5px solid var(--grey-line);
 }
-.ladder-step .rung-no { width: 32px; height: 32px; border-radius: 50%; background: var(--purple); color: white; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+.ladder-step .rung-no { width: 36px; height: 36px; border-radius: 50%; background: var(--gradient); color: white; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 16px; }
 .ladder-step .rung-lbl { flex: 1; font-weight: 600; color: var(--ink); }
-.ladder-step .rung-val { font-size: 22px; font-weight: 800; color: var(--purple-dark); }
+.ladder-step .rung-val {
+  font-size: 22px; font-weight: 800;
+  background: var(--gradient); -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
 .ladder-step .rung-n { font-size: 12px; color: var(--grey-muted); margin-left: 10px; }
 
 /* SIDE BY SIDE */
@@ -666,7 +716,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
 .bar-list { display: flex; flex-direction: column; gap: 14px; }
 .bar-list .bar-row { display: grid; grid-template-columns: 280px 1fr; gap: 16px; align-items: center; margin: 0; }
 .bar-row-label { font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.35; }
-.bar-row-track { height: 40px; background: var(--grey-line); border-radius: 10px; overflow: hidden; position: relative; }
+.bar-row-track { height: 40px; background: var(--grey-track); border-radius: 10px; overflow: hidden; position: relative; }
 .bar-row-fill { height: 100%; display: flex; align-items: center; padding: 0 14px; border-radius: 10px; transition: width 0.5s ease; }
 .bar-row-value { color: white; font-weight: 700; font-size: 13px; white-space: nowrap; }
 
@@ -686,7 +736,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
 .compare-row { display: grid; grid-template-columns: 200px 1fr 1fr 90px; gap: 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--grey-line); }
 .compare-row.head { font-size: 12px; font-weight: 700; color: var(--grey-muted); text-transform: uppercase; letter-spacing: 0.6px; border-bottom: 2px solid var(--ink); padding-bottom: 10px; }
 .compare-label { font-size: 14px; font-weight: 700; color: var(--ink); }
-.compare-bar { height: 28px; background: var(--grey-line); border-radius: 6px; position: relative; overflow: hidden; }
+.compare-bar { height: 28px; background: var(--grey-track); border-radius: 6px; position: relative; overflow: hidden; }
 .compare-bar-fill { height: 100%; display: flex; align-items: center; padding: 0 10px; font-size: 12px; font-weight: 700; color: white; border-radius: 6px; }
 .compare-change { font-size: 15px; font-weight: 800; text-align: right; }
 .compare-change.up { color: var(--green); }
@@ -891,7 +941,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
     </ul>
   </div>
 </nav>
-<nav class="section-anchors" aria-label="Sections"><div class="section-anchors-inner"><a href="#picker">Calculator</a><a href="#headlines">Headlines</a><a href="#pay">Pay grid</a><a href="#unexpected">Unexpected</a><a href="#worksetup">Work setup</a><a href="#skills">Skills</a><a href="#finnish">Does Finnish pay?</a><a href="#career">Career paths</a><a href="#correlations">What moves pay</a><a href="#mood">Mood</a><a href="#means">What it means</a><a href="#compare">2022 vs 2026</a><a href="#mma">MMA context</a><a href="#method">Method</a></div></nav>
+<nav class="section-anchors" aria-label="Sections"><div class="section-anchors-wrap"><div class="section-anchors-inner"><a href="#picker">Calculator</a><a href="#headlines">Headlines</a><a href="#pay">Pay grid</a><a href="#unexpected">Unexpected</a><a href="#worksetup">Work setup</a><a href="#skills">Skills</a><a href="#finnish">Does Finnish pay?</a><a href="#career">Career paths</a><a href="#correlations">What moves pay</a><a href="#mood">Mood</a><a href="#means">What it means</a><a href="#compare">2022 vs 2026</a><a href="#mma">MMA context</a><a href="#method">Method</a></div><span class="section-anchors-hint" aria-hidden="true">›</span></div></nav>
 
 <section class="dash-hero">
   <div class="wrap">
@@ -1115,14 +1165,14 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
         </div>
         <div style="padding:24px 0 8px;">
           <div class="ladder-step" style="background: #F9FAFB;">
-            <div class="rung-no" style="background: var(--grey-muted);">NM</div>
+            <div class="rung-no" style="background: var(--gray-300, #d4d4d4);">📍</div>
             <div class="rung-lbl">Senior, no direct reports</div>
             <div class="rung-val" style="color:var(--grey-text);">€5,000</div>
             <div class="rung-n">n=20</div>
           </div>
           <div style="text-align:center;font-size:32px;color:var(--purple);margin:-2px 0;">&#8595;</div>
           <div class="ladder-step" style="background: var(--purple-soft);">
-            <div class="rung-no">LM</div>
+            <div class="rung-no">🧭</div>
             <div class="rung-lbl">Lead / Manager</div>
             <div class="rung-val">€5,355</div>
             <div class="rung-n">n=30</div>
@@ -1183,7 +1233,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
       <div class="heatmap-wrap" style="margin-top: 20px;">
         <table class="heatmap-table worksetup-heatmap">
           <thead><tr class="heat-superhead"><th></th><th colspan="5" class="heat-axis-col">WHAT YOU WOULD PREFER &#8594;</th><th></th></tr><tr><th class="heat-axis-corner">WHAT YOUR EMPLOYER EXPECTS &#8595;</th><th>Fully remote</th><th>Primarily remote</th><th>50/50 hybrid</th><th>Primarily in-office</th><th>Fully in-office</th><th class="heat-total-h">Total</th></tr></thead>
-          <tbody><tr><th class="rowhead">Fully remote (0 days)</th><td><div class="heat-cell" style="background:rgb(196,189,250);color:#111827;">4</div></td><td><div class="heat-cell" style="background:rgb(187,179,249);color:#111827;">5</div></td><td><div class="heat-cell" style="background:rgb(196,189,250);color:#111827;">4</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">13</div></td></tr><tr><th class="rowhead">1 day in office</th><td><div class="heat-cell heat-mismatch" style="background:rgb(222,218,254);color:#111827;">1</div></td><td><div class="heat-cell heat-mismatch" style="background:rgb(153,140,245);color:white;">9</div></td><td><div class="heat-cell" style="background:rgb(214,208,253);color:#111827;">2</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">12</div></td></tr><tr><th class="rowhead">2 days in office</th><td><div class="heat-cell heat-mismatch" style="background:rgb(214,208,253);color:#111827;">2</div></td><td><div class="heat-cell heat-mismatch" style="background:rgb(170,160,247);color:#111827;">7</div></td><td><div class="heat-cell" style="background:rgb(187,179,249);color:#111827;">5</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">14</div></td></tr><tr><th class="rowhead">3 days in office</th><td><div class="heat-cell heat-mismatch" style="background:rgb(222,218,254);color:#111827;">1</div></td><td><div class="heat-cell heat-mismatch" style="background:rgb(170,160,247);color:#111827;">7</div></td><td><div class="heat-cell" style="background:rgb(144,130,244);color:white;">10</div></td><td><div class="heat-cell" style="background:rgb(196,189,250);color:#111827;">4</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">22</div></td></tr><tr><th class="rowhead">4 days in office</th><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">0</div></td></tr><tr><th class="rowhead">Fully in-office (5 days)</th><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell" style="background:rgb(222,218,254);color:#111827;">1</div></td><td><div class="heat-cell" style="background:rgb(222,218,254);color:#111827;">1</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">2</div></td></tr><tr><th class="rowhead">No fixed expectation</th><td><div class="heat-cell" style="background:rgb(214,208,253);color:#111827;">2</div></td><td><div class="heat-cell" style="background:rgb(109,91,239);color:white;">14</div></td><td><div class="heat-cell" style="background:rgb(118,101,240);color:white;">13</div></td><td><div class="heat-cell" style="background:rgb(196,189,250);color:#111827;">4</div></td><td><div class="heat-cell" style="background:rgb(205,199,252);color:#111827;">3</div></td><td><div class="heat-cell heat-total">36</div></td></tr><tr><th class="rowhead" style="color:var(--purple-dark);font-weight:700;">Total</th><td><div class="heat-cell heat-total">10</div></td><td><div class="heat-cell heat-total">42</div></td><td><div class="heat-cell heat-total">35</div></td><td><div class="heat-cell heat-total">9</div></td><td><div class="heat-cell heat-total">3</div></td><td><div class="heat-cell heat-total">99</div></td></tr></tbody>
+          <tbody><tr><th class="rowhead">Fully remote (0 days)</th><td><div class="heat-cell" style="background:rgb(219,161,255);color:#111827;">4</div></td><td><div class="heat-cell" style="background:rgb(214,146,255);color:#111827;">5</div></td><td><div class="heat-cell" style="background:rgb(219,161,255);color:#111827;">4</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">13</div></td></tr><tr><th class="rowhead">1 day in office</th><td><div class="heat-cell heat-mismatch" style="background:rgb(235,202,255);color:#111827;">1</div></td><td><div class="heat-cell heat-mismatch" style="background:rgb(193,92,255);color:white;">9</div></td><td><div class="heat-cell" style="background:rgb(230,189,255);color:#111827;">2</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">12</div></td></tr><tr><th class="rowhead">2 days in office</th><td><div class="heat-cell heat-mismatch" style="background:rgb(230,189,255);color:#111827;">2</div></td><td><div class="heat-cell heat-mismatch" style="background:rgb(203,119,255);color:#111827;">7</div></td><td><div class="heat-cell" style="background:rgb(214,146,255);color:#111827;">5</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">14</div></td></tr><tr><th class="rowhead">3 days in office</th><td><div class="heat-cell heat-mismatch" style="background:rgb(235,202,255);color:#111827;">1</div></td><td><div class="heat-cell heat-mismatch" style="background:rgb(203,119,255);color:#111827;">7</div></td><td><div class="heat-cell" style="background:rgb(187,77,255);color:white;">10</div></td><td><div class="heat-cell" style="background:rgb(219,161,255);color:#111827;">4</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">22</div></td></tr><tr><th class="rowhead">4 days in office</th><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">0</div></td></tr><tr><th class="rowhead">Fully in-office (5 days)</th><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell" style="background:rgb(235,202,255);color:#111827;">1</div></td><td><div class="heat-cell" style="background:rgb(235,202,255);color:#111827;">1</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">2</div></td></tr><tr><th class="rowhead">No fixed expectation</th><td><div class="heat-cell" style="background:rgb(230,189,255);color:#111827;">2</div></td><td><div class="heat-cell" style="background:rgb(166,21,255);color:white;">14</div></td><td><div class="heat-cell" style="background:rgb(172,36,255);color:white;">13</div></td><td><div class="heat-cell" style="background:rgb(219,161,255);color:#111827;">4</div></td><td><div class="heat-cell" style="background:rgb(224,175,255);color:#111827;">3</div></td><td><div class="heat-cell heat-total">36</div></td></tr><tr><th class="rowhead" style="color:var(--purple-dark);font-weight:700;">Total</th><td><div class="heat-cell heat-total">10</div></td><td><div class="heat-cell heat-total">42</div></td><td><div class="heat-cell heat-total">35</div></td><td><div class="heat-cell heat-total">9</div></td><td><div class="heat-cell heat-total">3</div></td><td><div class="heat-cell heat-total">99</div></td></tr></tbody>
         </table>
       </div>
       <div class="headline-caption">Read the diagonal first: those are the matches. The orange-bordered cells in the top-right are the forced-in-office crowd, 27 marketers in total.</div>
@@ -1335,37 +1385,37 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
         <div class="ladder" style="margin-top:24px;">
           
         <div class="ladder-step">
-          <div class="rung-no">J</div>
+          <div class="rung-no">🌱</div>
           <div class="rung-lbl">Junior</div>
           <div class="rung-val">€3,333</div>
           <div class="rung-n">n=10</div>
         </div><div style="text-align:center;font-size:24px;color:var(--purple);margin:-2px 0;">&#8595; <span class="tag green" style="margin-left:10px;">+€867 (26%)</span></div>
         <div class="ladder-step">
-          <div class="rung-no">M</div>
+          <div class="rung-no">🚀</div>
           <div class="rung-lbl">Mid-Level</div>
           <div class="rung-val">€4,200</div>
           <div class="rung-n">n=41</div>
         </div><div style="text-align:center;font-size:24px;color:var(--purple);margin:-2px 0;">&#8595; <span class="tag green" style="margin-left:10px;">+€800 (19%)</span></div>
         <div class="ladder-step">
-          <div class="rung-no">S</div>
+          <div class="rung-no">⭐</div>
           <div class="rung-lbl">Senior</div>
           <div class="rung-val">€5,000</div>
           <div class="rung-n">n=20</div>
         </div><div style="text-align:center;font-size:24px;color:var(--purple);margin:-2px 0;">&#8595; <span class="tag green" style="margin-left:10px;">+€355 (7%)</span></div>
         <div class="ladder-step">
-          <div class="rung-no">L</div>
+          <div class="rung-no">🧭</div>
           <div class="rung-lbl">Lead / Manager</div>
           <div class="rung-val">€5,355</div>
           <div class="rung-n">n=30</div>
         </div><div style="text-align:center;font-size:24px;color:var(--purple);margin:-2px 0;">&#8595; <span class="tag green" style="margin-left:10px;">+€2,978 (56%)</span></div>
         <div class="ladder-step">
-          <div class="rung-no">C</div>
+          <div class="rung-no">👑</div>
           <div class="rung-lbl">Chief / Director / VP</div>
           <div class="rung-val">€8,333</div>
           <div class="rung-n">n=9</div>
         </div><div style="text-align:center;font-size:24px;color:var(--purple);margin:-2px 0;">&#8595; <span class="tag coral" style="margin-left:10px;">€-4,166</span></div>
         <div class="ladder-step">
-          <div class="rung-no">F</div>
+          <div class="rung-no">🛠️</div>
           <div class="rung-lbl">Founder / Co-Founder</div>
           <div class="rung-val">€4,167</div>
           <div class="rung-n">n=3</div>
@@ -1405,7 +1455,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
       
         <div class="card" style="padding: 28px;">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-            <div style="width:40px;height:40px;border-radius:10px;background:var(--purple);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;">EX</div>
+            <div style="width:44px;height:44px;border-radius:12px;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;">🎯</div>
             <div style="font-size:28px;font-weight:800;color:var(--purple-dark);">+€2,583/mo</div>
           </div>
           <div style="font-weight:700;font-size:16px;margin-bottom:8px;">Main expertise: CRM Management &#8594; Marketing Strategy</div>
@@ -1413,7 +1463,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
         </div>
         <div class="card" style="padding: 28px;">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-            <div style="width:40px;height:40px;border-radius:10px;background:var(--purple);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;">TS</div>
+            <div style="width:44px;height:44px;border-radius:12px;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;">👥</div>
             <div style="font-size:28px;font-weight:800;color:var(--purple-dark);">+€1,883/mo</div>
           </div>
           <div style="font-weight:700;font-size:16px;margin-bottom:8px;">Team size: Just me &#8594; 9+ people</div>
@@ -1421,7 +1471,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
         </div>
         <div class="card" style="padding: 28px;">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-            <div style="width:40px;height:40px;border-radius:10px;background:var(--purple);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;">CO</div>
+            <div style="width:44px;height:44px;border-radius:12px;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;">🏢</div>
             <div style="font-size:28px;font-weight:800;color:var(--purple-dark);">+€1,750/mo</div>
           </div>
           <div style="font-weight:700;font-size:16px;margin-bottom:8px;">Company type: Non-profit / Public sector &#8594; Enterprise / Corporate</div>
@@ -1429,7 +1479,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
         </div>
         <div class="card" style="padding: 28px;">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-            <div style="width:40px;height:40px;border-radius:10px;background:var(--purple);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;">MG</div>
+            <div style="width:44px;height:44px;border-radius:12px;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;">👔</div>
             <div style="font-size:28px;font-weight:800;color:var(--purple-dark);">+€1,230/mo</div>
           </div>
           <div style="font-weight:700;font-size:16px;margin-bottom:8px;">Becoming a manager</div>
@@ -1437,7 +1487,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
         </div>
         <div class="card" style="padding: 28px;">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-            <div style="width:40px;height:40px;border-radius:10px;background:var(--purple);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;">LD</div>
+            <div style="width:44px;height:44px;border-radius:12px;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;">🎓</div>
             <div style="font-size:28px;font-weight:800;color:var(--purple-dark);">+€792/mo</div>
           </div>
           <div style="font-weight:700;font-size:16px;margin-bottom:8px;">Learning Leadership</div>
@@ -1445,7 +1495,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
         </div>
         <div class="card" style="padding: 28px;">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-            <div style="width:40px;height:40px;border-radius:10px;background:var(--purple);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;">AI</div>
+            <div style="width:44px;height:44px;border-radius:12px;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;">🤖</div>
             <div style="font-size:28px;font-weight:800;color:var(--purple-dark);">+€625/mo</div>
           </div>
           <div style="font-weight:700;font-size:16px;margin-bottom:8px;">Mastering AI</div>
@@ -1711,7 +1761,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
         </div>
       </div>
 
-      <div style="margin-top:24px;padding-top:24px;border-top:1px solid rgba(109,91,239,0.2);font-size:14px;color:var(--grey-text);line-height:1.6;">
+      <div style="margin-top:24px;padding-top:24px;border-top:1px solid rgba(166,21,255,0.2);font-size:14px;color:var(--grey-text);line-height:1.6;">
         <strong style="color:var(--ink);">Read side by side, not as a replacement.</strong> MMA's marketing-only median is €4,340/mo. Ours is €4,667/mo. The €327/mo gap reflects this survey's heavy tech, English-first, and mid-to-senior skew, plus the fact that MMA's sample is older and more Finnish-speaking. MMA is the authoritative reference for Finnish marketing pay. This survey adds detail MMA does not publish: AI skill uptake, remote-versus-office mismatch, job-hunting behaviour by team size, and expertise-area pay gaps. If you are setting a band for a specific role, anchor on MMA, then adjust for company type and seniority using this report.
       </div>
     </div>
@@ -2144,6 +2194,23 @@ window.addEventListener('DOMContentLoaded', () => {
     links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active));
   });
 });
+</script>
+<script>
+// Section anchors scroll hint: toggle .is-scrolled / .is-end on the wrap
+(function(){
+  var wrap = document.querySelector('.section-anchors-wrap');
+  var inner = document.querySelector('.section-anchors-inner');
+  if (!wrap || !inner) return;
+  function update() {
+    var max = inner.scrollWidth - inner.clientWidth;
+    if (max <= 1) { wrap.classList.add('is-end'); wrap.classList.remove('is-scrolled'); return; }
+    wrap.classList.toggle('is-scrolled', inner.scrollLeft > 4);
+    wrap.classList.toggle('is-end', inner.scrollLeft >= max - 4);
+  }
+  inner.addEventListener('scroll', update, {passive: true});
+  window.addEventListener('resize', update);
+  update();
+})();
 </script>
 <script src="/app.js"></script>
 </body>
