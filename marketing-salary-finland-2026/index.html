@@ -2275,8 +2275,11 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
   /* Spread chart SVG min-height */
   .spread-chart svg { min-height: 160px; }
 
-  /* Hide the interactive pay grid on mobile — too dense for small screens */
-  #pay { display: none !important; }
+  /* On mobile: keep the 1-D pay grid visible but hide the 2-D heatmap and columns control */
+  #pay .paygrid-header .picker-field:nth-child(2) { display: none !important; }
+  #pay .heatmap-scroll-hint { display: none !important; }
+  #pay .heatmap-table { display: none !important; }
+  #pay #dg-table:has(.heatmap-table) { display: none !important; }
 
   /* Hide the full mismatch matrix toggle on mobile — the summary bars above it tell the story */
   #worksetup details { display: none !important; }
