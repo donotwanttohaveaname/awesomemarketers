@@ -144,7 +144,7 @@ body { padding-top: var(--site-nav-h); }
 .section-anchors-wrap.is-scrolled::before { opacity: 1; }
 .section-anchors-wrap.is-end::after { opacity: 0; }
 .section-anchors-inner {
-  display: flex; flex-wrap: nowrap; gap: 4px;
+  display: flex; flex-wrap: nowrap; gap: 2px;
   padding: 8px 16px;
   font-size: 13px; font-weight: 500;
   overflow-x: auto;
@@ -153,9 +153,23 @@ body { padding-top: var(--site-nav-h); }
   scroll-behavior: smooth;
 }
 .section-anchors-inner::-webkit-scrollbar { display: none; }
-.section-anchors a { color: var(--grey-text); padding: 4px 10px; border-radius: 8px; text-decoration: none; white-space: nowrap; }
+.section-anchors a { color: var(--grey-text); padding: 4px 8px; border-radius: 8px; text-decoration: none; white-space: nowrap; }
 .section-anchors a:hover { background: var(--purple-soft); color: var(--purple-dark); }
 .section-anchors a.active { background: var(--purple); color: white; }
+/* On desktop: distribute evenly, no scroll, hide hint + fades */
+@media (min-width: 901px) {
+  .section-anchors-inner {
+    overflow-x: visible;
+    justify-content: space-between;
+    padding: 8px 12px;
+    font-size: 12.5px;
+    gap: 0;
+  }
+  .section-anchors a { padding: 4px 6px; }
+  .section-anchors-wrap::before,
+  .section-anchors-wrap::after,
+  .section-anchors-hint { display: none !important; }
+}
 /* nudging chevron hint at right edge */
 .section-anchors-hint {
   position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
@@ -191,19 +205,55 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
 }
 
 /* SECTION */
-.section { padding: 36px 0; }
-.section-head { margin-bottom: 24px; max-width: 780px; }
+.section { padding: 56px 0; }
+.section-head { margin-bottom: 32px; max-width: 820px; }
 .section-kicker {
-  font-size: 12px; font-weight: 700; color: var(--purple);
-  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;
+  display: inline-block;
+  font-size: 11px; font-weight: 700; color: var(--ink); background: #fff;
+  border: 2px solid var(--ink);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 999px; margin-bottom: 16px;
 }
 .section h2 {
-  font-size: 30px; line-height: 1.1; font-weight: 800; margin: 0 0 10px 0;
-  letter-spacing: -0.015em;
+  font-size: 44px; line-height: 1.05; font-weight: 800; margin: 0 0 12px 0;
+  letter-spacing: -0.022em;
 }
 .section-beat {
-  font-size: 16px; color: var(--grey-text); line-height: 1.5;
+  font-size: 17px; color: var(--grey-text); line-height: 1.5;
 }
+/* Section theming via inline class on <section> */
+.section.theme-yellow { background: var(--yellow-soft); }
+.section.theme-green  { background: var(--green-soft); }
+.section.theme-purple { background: var(--purple-soft); }
+.section.theme-coral  { background: var(--coral-soft); }
+.section.theme-ink    { background: var(--ink); color: #fff; }
+.section.theme-ink h2,
+.section.theme-ink .section-beat,
+.section.theme-ink .headline-chart-title { color: #fff; }
+.section.theme-ink .section-beat { color: rgba(255,255,255,0.78); }
+.section.theme-ink .section-kicker { background: var(--ink); color: var(--yellow); border-color: var(--yellow); }
+
+/* TWO-TONE PER SECTION: charts inside themed sections use the section accent + ink only */
+/* Yellow theme (#pay): keep the heatmap purple (it's the brand pay grid), accent the surrounding chrome */
+.theme-yellow .picker-field label,
+.theme-yellow .mini-kicker { color: var(--ink); }
+/* Green theme (#skills) */
+.theme-green .bar-fill,
+.theme-green .bar-row-fill { background: var(--green) !important; color: #fff; }
+.theme-green .big-num { color: var(--green); -webkit-text-fill-color: var(--green); background: none; }
+.theme-green .tag.purple { background: var(--green-soft); color: var(--green); }
+.theme-green .callout.purple { background: var(--green-soft); border-left-color: var(--green); }
+.theme-green .inline-num { color: var(--green); }
+.theme-green .takeaway-num { color: var(--green); }
+.theme-green .picker-field select:focus { border-color: var(--green); box-shadow: 0 0 0 3px var(--green-soft); }
+/* Purple theme (#career) - already purple, just refine */
+.theme-purple .ladder-step .rung-no { background: var(--purple-dark); }
+/* Coral theme (#mood) */
+.theme-coral .bar-fill,
+.theme-coral .bar-row-fill { background: var(--coral) !important; color: #fff; }
+.theme-coral .big-num { color: var(--coral); -webkit-text-fill-color: var(--coral); background: none; }
+.theme-coral .mini-num { color: var(--coral); }
+.theme-coral .picker-field select:focus { border-color: var(--coral); box-shadow: 0 0 0 3px var(--coral-soft); }
 
 /* CARD */
 .card {
@@ -211,6 +261,698 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 24px;
+}
+
+/* QUAD-TILE COLLAGE (four-numbers headlines) */
+.headlines-section { padding: 56px 0; }
+.headlines-section .section-head h2 {
+  font-size: 56px; line-height: 1.02; letter-spacing: -0.025em; font-weight: 800;
+}
+.headlines-section .section-kicker {
+  display: inline-block; background: var(--ink); color: #fff;
+  padding: 6px 12px; border-radius: 999px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.quad-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+.quad-tile {
+  position: relative;
+  border-radius: 28px;
+  padding: 36px 32px 32px;
+  display: flex; flex-direction: column; gap: 6px;
+  overflow: hidden;
+}
+.quad-tile::before {
+  content: attr(data-num);
+  position: absolute; top: 16px; right: 22px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600; font-size: 11px; letter-spacing: 0.16em;
+  text-transform: uppercase; opacity: 0.55;
+}
+.quad-tile .headline-chart-title {
+  font-size: 26px; line-height: 1.15; font-weight: 800; letter-spacing: -0.015em;
+  margin-top: 12px; margin-bottom: 6px;
+}
+.quad-tile .headline-chart-sub { font-size: 15px; line-height: 1.45; }
+.quad-tile .headline-caption { margin-top: auto; padding-top: 16px; }
+.tile-yellow { background: var(--yellow-soft); color: var(--ink); }
+.tile-yellow::before { color: var(--coral); }
+.tile-purple { background: var(--purple-soft); color: var(--ink); }
+.tile-purple::before { color: var(--purple-dark); }
+.tile-coral  { background: var(--coral-soft); color: var(--ink); }
+.tile-coral::before  { color: var(--coral); }
+.tile-coral .callout.coral {
+  background: rgba(255,255,255,0.55); border-left-color: var(--coral); color: var(--ink);
+}
+.tile-ink    { background: var(--ink); color: #fff; }
+.tile-ink::before { color: var(--yellow); opacity: 0.85; }
+.tile-ink .headline-chart-title { color: #fff; }
+.tile-ink .headline-chart-sub { color: rgba(255,255,255,0.72); }
+.tile-ink .headline-caption { color: rgba(255,255,255,0.6); }
+
+/* Shared tile typography for the new tile content blocks */
+.quad-tile .tile-overline {
+  font-size: 13px; font-weight: 600; line-height: 1.35;
+  opacity: 0.78; letter-spacing: 0.005em;
+  margin-top: 18px;
+}
+.quad-tile .tile-mega {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 104px; font-weight: 700; line-height: 0.9;
+  letter-spacing: -0.04em;
+  margin: 8px 0 22px;
+  display: flex; align-items: baseline; gap: 2px;
+}
+.quad-tile .tile-mega .tile-mega-pre {
+  font-size: 52px; font-weight: 600; opacity: 0.72; align-self: flex-start; margin-top: 8px;
+}
+.quad-tile .tile-mega .tile-mega-suf {
+  font-size: 32px; font-weight: 600; opacity: 0.72; margin-left: 4px;
+}
+.quad-tile .tile-foot {
+  margin-top: auto; padding-top: 18px;
+  font-size: 13px; line-height: 1.5; opacity: 0.78;
+}
+/* Pull-quote highlight (tile 3) */
+.quad-tile .tile-flag {
+  margin-top: auto;
+  background: var(--ink);
+  color: #fff;
+  padding: 16px 18px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  position: relative;
+  border-left: 6px solid var(--coral);
+}
+.quad-tile .tile-flag em {
+  background: var(--coral);
+  color: #fff;
+  font-style: normal;
+  font-weight: 800;
+  padding: 0 6px;
+  border-radius: 4px;
+}
+/* When the new headline title sits above the mega, tighten spacing */
+.quad-tile .headline-chart-title + .headline-chart-sub { margin-bottom: 6px; }
+.quad-tile .headline-chart-sub + .tile-mega { margin-top: 10px; }
+
+/* Tile 1: split bar */
+.tile-split-bar {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-radius: 14px; overflow: hidden;
+  margin: 0 0 6px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+}
+.tile-split-bar .tsb-half {
+  padding: 18px 14px;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
+  display: flex; align-items: center; justify-content: center;
+}
+.tile-split-bar .tsb-less { background: rgba(0,0,0,0.08); color: var(--ink); }
+.tile-split-bar .tsb-more { background: var(--ink); color: var(--yellow); }
+
+/* Tile 1 v3: salary skyline — 113 sorted bars, median highlighted */
+.median-skyline {
+  position: relative;
+  margin: 28px 0 8px;
+  padding-top: 64px;
+}
+.ms-svg {
+  width: 100%;
+  height: 168px;
+  display: block;
+  overflow: visible;
+}
+.ms-band {
+  fill: rgba(157, 6, 64, 0.08);
+}
+.ms-bar {
+  fill: rgba(0, 0, 0, 0.32);
+  transition: fill 0.2s;
+}
+.ms-bar-iqr { fill: rgba(0, 0, 0, 0.45); }
+.ms-bar-median {
+  fill: var(--coral);
+}
+.ms-flag {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+  z-index: 2;
+}
+.ms-flag-amt {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 36px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1;
+}
+.ms-flag-suf {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--grey-muted);
+  margin-left: 2px;
+}
+.ms-flag-cap {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--coral);
+  margin-top: 6px;
+}
+.ms-flag::after {
+  content: '';
+  display: block;
+  width: 2px;
+  height: 12px;
+  background: var(--coral);
+  margin: 4px auto 0;
+}
+.ms-axis {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--grey-muted);
+}
+.ms-axis strong {
+  display: block;
+  font-size: 13px;
+  color: var(--ink);
+  font-weight: 800;
+}
+.ms-axis small {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 9px;
+  margin-top: 1px;
+  opacity: 0.7;
+}
+.ms-axis-r { text-align: right; }
+.ms-axis-band {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(157, 6, 64, 0.78);
+  align-self: center;
+  padding: 0 6px;
+}
+@media (max-width: 700px) {
+  .ms-flag-amt { font-size: 28px; }
+  .ms-svg { height: 140px; }
+  .median-skyline { padding-top: 56px; }
+  .ms-axis-band { display: none; }
+}
+
+/* Worksetup matrix: clean rebuild (no heatmap colors, just check/dot) */
+.worksetup-heatmap .heat-cell.heat-clean {
+  background: #F9FAFB; color: var(--ink);
+  font-weight: 700; font-size: 14px;
+  border: 1px solid #E5E7EB;
+  position: relative;
+}
+.worksetup-heatmap .heat-cell.heat-clean .heat-n {
+  color: var(--grey-muted);
+  opacity: 1;
+}
+.worksetup-heatmap .heat-cell.heat-clean.heat-mismatch {
+  background: #FFF6EC;
+  border: 2px solid var(--coral);
+  color: var(--coral);
+}
+.worksetup-heatmap .heat-cell.heat-clean.heat-mismatch::before {
+  content: '!'; position: absolute; top: 4px; right: 6px;
+  font-size: 11px; font-weight: 800; color: var(--coral);
+  width: 14px; height: 14px; background: rgba(157, 6, 64, 0.12);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  line-height: 1;
+}
+.worksetup-heatmap .heat-cell.heat-total {
+  background: var(--ink) !important; color: #fff !important;
+  font-weight: 800; border: 1px solid var(--ink);
+}
+.worksetup-heatmap .heat-cell.empty { background: #F3F4F6; border: 1px solid #E5E7EB; }
+
+/* Lever rank badge (correlations Six levers) */
+.lever-rank {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--ink); color: var(--yellow);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700; font-size: 18px; letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+/* Card 1 unexpected: AI scatter (race-to-the-top) */
+.ai-scatter { margin: 18px 0 12px; }
+.ais-row { margin-bottom: 22px; }
+.ais-row-label { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink); margin-bottom: 8px; flex-wrap: wrap; }
+.ais-row-label strong { font-weight: 800; }
+.ais-row-label .ais-meta { font-size: 11px; color: var(--grey-muted); font-weight: 600; letter-spacing: 0.02em; }
+.ais-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; }
+.ais-dot-purple { background: var(--purple); }
+.ais-dot-grey { background: var(--grey-muted); }
+.ais-track { position: relative; height: 56px; background: rgba(0,0,0,0.04); border-radius: 8px; overflow: visible; }
+.ais-dots { position: absolute; inset: 0; }
+.ais-dots .ais-pt { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 9px; height: 9px; border-radius: 50%; }
+.ais-dots .ais-pt.purple { background: var(--purple); opacity: 0.55; }
+.ais-dots .ais-pt.grey { background: var(--grey-muted); opacity: 0.55; }
+.ais-median { position: absolute; top: -6px; bottom: -6px; width: 3px; }
+.ais-median-purple { background: var(--purple-dark); }
+.ais-median-grey { background: #4B5563; }
+.ais-median-tag { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: var(--purple-dark); color: #fff; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 6px; white-space: nowrap; margin-bottom: 4px; }
+.ais-median-tag-grey { background: #4B5563; }
+.ais-axis { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--grey-muted); margin-top: 6px; padding: 0 2px; }
+.ais-gap-pill { background: var(--green); color: #fff; padding: 3px 10px; border-radius: 999px; font-weight: 800; font-size: 11px; letter-spacing: 0.03em; }
+
+/* Card 2 unexpected: glass ceiling — range bars with median/P75/P90 ticks */
+/* Stage range: €4,000 (baseline) to €9,000 (top). Span = €5,000. */
+.glass-ceiling { margin: 18px 0 8px; }
+.gc-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  height: 460px;
+  align-items: end;
+  padding: 0 12px;
+}
+/* Ceiling line sits at IC P90 (€6,000 = 40% of €4k–€9k range) */
+.gc-line {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 40%;
+  border-top: 2px dashed var(--coral);
+  pointer-events: none;
+  z-index: 4;
+}
+.gc-line-tag {
+  position: absolute;
+  top: -32px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--coral);
+  color: #fff;
+  padding: 3px 12px;
+  border-radius: 6px;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.gc-bar {
+  position: relative;
+  height: calc(var(--h) * 1%);
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(to top, #9CA3AF 0%, #6B7280 100%);
+}
+.gc-bar-lead {
+  background: linear-gradient(to top, var(--purple-dark) 0%, #5B0E91 100%);
+  box-shadow: 0 -6px 16px -4px rgba(157, 6, 64, 0.45);
+}
+/* tick marks: dashed line inside bar, label OUTSIDE bar */
+.gc-tick {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: var(--y);
+  height: 0;
+  border-top: 1px dashed rgba(255,255,255,0.6);
+  z-index: 2;
+}
+.gc-tick > span {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.96);
+  color: var(--ink);
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700; font-size: 13px;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  display: inline-flex; align-items: baseline; gap: 6px;
+  z-index: 5;
+}
+.gc-tick > span small {
+  font-size: 9px; font-weight: 700; opacity: 0.55;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+/* All tick labels centered INSIDE the bar */
+.gc-tick > span { left: 50%; transform: translate(-50%, -50%); }
+/* P90 tick (top edge): label sits BELOW the line, fully inside the bar */
+.gc-tick-top { border-top-style: solid; border-top-color: rgba(255,255,255,0.85); }
+.gc-tick-top > span {
+  top: 100%; transform: translate(-50%, 6px);
+  background: var(--ink); color: #fff;
+}
+.gc-tick-top > span small { color: #fff; opacity: 0.75; }
+.gc-bar-lead .gc-tick-top > span { background: var(--purple-dark); }
+/* P90 cap — sits INSIDE the bar at the top */
+.gc-cap {
+  position: absolute;
+  left: 50%; top: 8px;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700; font-size: 13px;
+  white-space: nowrap;
+  display: inline-flex; align-items: baseline; gap: 6px;
+  z-index: 2;
+}
+.gc-cap small {
+  font-size: 9px; font-weight: 700; opacity: 0.7;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: #fff;
+}
+.gc-labels { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-top: 14px; padding: 0 12px; text-align: center; }
+.gc-lbl strong { display: block; font-size: 14px; font-weight: 800; color: var(--ink); }
+.gc-lbl small { display: block; font-size: 11px; color: var(--grey-muted); margin-top: 2px; }
+.gc-lbl-lead strong { color: var(--purple-dark); }
+
+/* Career chart: rebuilt pay ladder, fits one screen */
+.career-chart { display: flex; flex-direction: column; gap: 0; padding: 6px 0; }
+.cc-row {
+  display: grid; grid-template-columns: 30px 150px 1fr 56px; gap: 14px; align-items: center;
+  padding: 5px 0;
+}
+.cc-rank { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--purple-dark); opacity: 0.55; font-size: 12px; letter-spacing: 0.06em; }
+.cc-name { font-weight: 700; font-size: 14px; color: var(--ink); line-height: 1.2; }
+.cc-bar { height: 28px; background: rgba(122,15,190,0.1); border-radius: 7px; overflow: hidden; }
+.cc-fill { height: 100%; padding: 0 12px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 13px; display: flex; align-items: center; border-radius: 7px; min-width: 64px; color: #fff; }
+.cc-row[data-rung="1"] .cc-fill { background: rgba(122,15,190,0.45); color: #fff; }
+.cc-row[data-rung="2"] .cc-fill { background: rgba(122,15,190,0.6); }
+.cc-row[data-rung="3"] .cc-fill { background: rgba(122,15,190,0.78); }
+.cc-row[data-rung="4"] .cc-fill { background: var(--purple-dark); }
+.cc-row[data-rung="5"] .cc-fill { background: var(--ink); color: var(--yellow); }
+.cc-row[data-rung="6"] .cc-fill { background: var(--coral); }
+.cc-n { font-size: 11px; color: var(--grey-muted); text-align: right; font-weight: 600; }
+.cc-jump { display: flex; align-items: center; padding-left: 196px; min-height: 18px; padding-top: 2px; padding-bottom: 2px; }
+.cc-jump-pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; }
+.cc-jump-up { background: var(--green-soft); color: var(--green); }
+.cc-jump-big { background: var(--ink); color: var(--yellow); }
+.cc-jump-flat { background: rgba(0,0,0,0.06); color: var(--grey-text); }
+.cc-jump-down { background: var(--coral-soft); color: var(--coral); }
+.cc-takeaway { margin-top: 18px; padding: 14px 18px; background: rgba(122,15,190,0.08); border-radius: 12px; font-size: 13px; line-height: 1.5; color: var(--ink); }
+.cc-takeaway strong { color: var(--purple-dark); }
+@media (max-width: 700px) {
+  .cc-row { grid-template-columns: 28px 1fr; gap: 8px; }
+  .cc-name { grid-column: 2; font-size: 13px; }
+  .cc-bar { grid-column: 2; }
+  .cc-n { display: none; }
+  .cc-jump { padding-left: 36px; }
+}
+
+/* Tile 1 (legacy): median people row */
+.tile-people { margin: 18px 0 8px; }
+.tp-axis-top, .tp-axis-bot { display: flex; justify-content: space-between; font-size: 11px; opacity: 0.72; padding: 0 6px; }
+.tp-axis-top { margin-bottom: 8px; font-weight: 600; letter-spacing: 0.02em; }
+.tp-axis-bot { margin-top: 12px; font-weight: 600; }
+.tp-axis-bot small { display:block; font-size: 9px; opacity: 0.7; font-weight: 500; letter-spacing: 0.02em; text-transform: uppercase; margin-top: 2px; }
+.tp-axis-bot .tp-ax-edge { text-align: center; flex: 0 0 auto; }
+.tp-axis-bot .tp-ax-mid { text-align: center; flex: 1; color: var(--ink); opacity: 1; font-weight: 800; font-size: 12px; }
+.tp-row {
+  display: grid; grid-template-columns: repeat(6, 1fr); column-gap: 10px; row-gap: 38px;
+  align-items: end; padding: 56px 6px 0;
+  position: relative;
+}
+.tp-fig {
+  background: rgba(154, 86, 12, 0.32);
+  height: 60px; min-height: 28px;
+  border-radius: 6px 6px 3px 3px;
+  position: relative;
+  width: 100%; max-width: 38px; justify-self: center;
+}
+.tp-fig::before {
+  content:''; position: absolute;
+  top: -10px; left: 50%; transform: translateX(-50%);
+  width: 70%; aspect-ratio: 1;
+  background: inherit; border-radius: 50%;
+}
+.tp-fig.tp-median {
+  background: var(--ink);
+  height: 80px;
+  box-shadow: 0 0 0 4px rgba(255, 180, 82, 0.45);
+}
+.tp-fig.tp-median::before { background: var(--ink); }
+.tp-flag {
+  position: absolute;
+  bottom: calc(100% + 16px);
+  left: 50%; transform: translateX(-50%);
+  background: var(--ink); color: var(--yellow);
+  padding: 8px 14px; border-radius: 10px;
+  font-weight: 800; font-size: 18px; line-height: 1;
+  white-space: nowrap;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.01em;
+  z-index: 5;
+}
+.tp-flag small { font-size: 10px; opacity: 0.78; margin-left: 2px; font-weight: 600; }
+.tp-flag::after {
+  content:''; position: absolute;
+  top: 100%; left: 50%; transform: translateX(-50%);
+  border: 6px solid transparent; border-top-color: var(--ink);
+}
+@media (max-width: 600px) {
+  .tp-row { grid-template-columns: repeat(6, 1fr); column-gap: 6px; row-gap: 30px; padding: 50px 2px 0; }
+  .tp-fig { max-width: 28px; }
+  .tp-flag { font-size: 14px; padding: 6px 10px; }
+}
+
+/* COMPACT SECTIONS — fit one screen on desktop */
+#skills.section, #finnish.section, #career.section { padding: 32px 0; }
+#skills .section-head, #finnish .section-head, #career .section-head { margin-bottom: 18px; }
+#skills h2, #finnish h2, #career h2 { font-size: 32px; line-height: 1.08; }
+#skills .section-beat, #finnish .section-beat, #career .section-beat { font-size: 15px; }
+#skills .card.feature, #finnish .card.feature, #career .card.feature { padding: 20px; }
+#skills .headline-chart-title,
+#finnish .headline-chart-title,
+#career .headline-chart-title { font-size: 17px; line-height: 1.3; margin-bottom: 4px; }
+#skills .headline-chart-sub,
+#finnish .headline-chart-sub,
+#career .headline-chart-sub { font-size: 13px; line-height: 1.4; margin-bottom: 12px; }
+#skills .grid-2, #finnish .grid-2 { gap: 16px !important; }
+
+/* Skills-specific compaction */
+#skills .big-num[style*="120px"] { font-size: 60px !important; margin: 12px 0 4px !important; }
+#skills .num-label { font-size: 13px; }
+#skills .callout { padding: 10px 14px; font-size: 13px; margin-top: 14px !important; line-height: 1.4; }
+#skills .bar-row { margin-bottom: 0; gap: 8px; min-height: 38px; }
+#skills .bar-row + .bar-row { border-top: 1px solid rgba(0,0,0,0.04); }
+#skills .bar-row .bar-label { flex: 0 0 168px; font-size: 12.5px; line-height: 1.25; }
+#skills .bar-row .bar-track { height: 22px; }
+#skills .bar-row .bar-fill { font-size: 11px; padding-left: 8px; min-width: 38px; }
+#skills .bar-row .bar-meta { flex: 0 0 76px; font-size: 11px; }
+#skills .tag { font-size: 10px; padding: 2px 6px; }
+
+/* Finnish-specific compaction */
+#finnish .bar-row { margin-bottom: 6px; }
+#finnish .bar-row .bar-track { height: 24px; }
+#finnish .big-num { font-size: 56px !important; }
+#finnish .callout { padding: 10px 14px; font-size: 13px; margin-top: 14px !important; line-height: 1.4; }
+
+/* Career ladder compaction */
+#career .ladder-step { padding: 12px 16px !important; gap: 12px !important; }
+#career .ladder-step .rung-no { width: 30px !important; height: 30px !important; font-size: 13px !important; }
+#career .ladder-step .ladder-title { font-size: 14px !important; }
+#career .ladder-step .ladder-meta { font-size: 12px !important; }
+#career .ladder-arrow { font-size: 18px !important; }
+#career .callout { padding: 10px 14px; font-size: 13px; margin-top: 12px !important; }
+
+/* WORKSETUP simplified (replaces matrix) */
+.ws-simple { margin: 18px 0 8px; }
+.ws-row { display: grid; grid-template-columns: 220px 1fr; gap: 14px; align-items: center; margin-bottom: 14px; }
+.ws-row-label { font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.25; }
+.ws-row-bar { height: 36px; background: var(--grey-line); border-radius: 8px; overflow: hidden; position: relative; }
+.ws-row-fill {
+  height: 100%; display: flex; align-items: center;
+  padding: 0 14px; border-radius: 8px; color: white;
+  font-weight: 700; font-size: 13px;
+  transition: width 0.5s ease;
+}
+.ws-row-fill.ws-want { background: var(--green); }
+.ws-row-fill.ws-get  { background: var(--coral); }
+.ws-row-pct { font-size: 18px; font-weight: 800; color: var(--ink); text-align: right; }
+.ws-gap-callout {
+  margin-top: 18px;
+  background: var(--ink); color: #fff;
+  padding: 16px 20px; border-radius: 14px;
+  display: flex; align-items: center; gap: 16px;
+}
+.ws-gap-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 56px; font-weight: 700; line-height: 0.9;
+  color: #F97316;
+}
+.ws-gap-text { font-size: 14px; line-height: 1.4; }
+.ws-gap-text strong { color: #F97316; }
+.ws-detail-toggle {
+  display: inline-block; margin-top: 16px;
+  background: transparent; border: 1px solid var(--grey-line);
+  padding: 6px 14px; border-radius: 999px;
+  font-size: 12px; font-weight: 600; color: var(--grey-text);
+  cursor: pointer;
+}
+.ws-detail-toggle:hover { border-color: var(--ink); color: var(--ink); }
+@media (max-width: 600px) {
+  .ws-row { grid-template-columns: 1fr 56px; row-gap: 4px; }
+  .ws-row-label { grid-column: 1 / -1; }
+  .ws-row-bar { grid-column: 1 / 2; }
+  .ws-row-pct { grid-column: 2 / 3; font-size: 16px; }
+  .ws-gap-callout { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .ws-gap-num { font-size: 44px; }
+}
+
+/* Tile 2: towers */
+.tile-towers {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  align-items: end; gap: 18px;
+  height: 180px;
+  padding: 0 6px;
+  margin-bottom: 6px;
+}
+.tile-towers .tt-col { display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; gap: 6px; }
+.tile-towers .tt-bar {
+  width: 100%; max-width: 70px;
+  background: var(--ink);
+  border-radius: 10px 10px 4px 4px;
+  min-height: 12px;
+  transition: height 0.5s ease;
+}
+.tile-towers .tt-col.tt-low .tt-bar { background: rgba(122, 15, 190, 0.45); }
+.tile-towers .tt-col.tt-mid .tt-bar { background: rgba(122, 15, 190, 0.75); }
+.tile-towers .tt-col.tt-high .tt-bar { background: var(--purple-dark); }
+.tile-towers .tt-amt { font-size: 14px; font-weight: 800; color: var(--ink); margin-top: 6px; }
+.tile-towers .tt-lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.65; }
+
+/* Tile 3: vs-bars */
+.tile-vsbars { display: flex; flex-direction: column; gap: 12px; margin-bottom: 4px; }
+.tile-vsbars .tvb-row {
+  display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: center;
+}
+.tile-vsbars .tvb-lbl { font-size: 13px; font-weight: 700; color: var(--ink); }
+.tile-vsbars .tvb-track {
+  height: 36px; background: rgba(0,0,0,0.06); border-radius: 8px; overflow: hidden;
+}
+.tile-vsbars .tvb-fill {
+  height: 100%; display: flex; align-items: center; padding: 0 12px;
+  border-radius: 8px; font-weight: 800; font-size: 14px;
+  transition: width 0.5s ease;
+}
+.tile-vsbars .tvb-fill-pay { background: var(--ink); color: #fff; }
+.tile-vsbars .tvb-fill-infl { background: var(--coral); color: #fff; }
+.tile-vsbars .tvb-fill span { white-space: nowrap; }
+
+/* Tile-mega color per theme */
+.tile-yellow .tile-mega { color: var(--ink); }
+.tile-purple .tile-mega { color: var(--purple-dark); }
+.tile-coral  .tile-mega { color: var(--coral); }
+
+@media (max-width: 900px) {
+  .quad-tile .tile-mega { font-size: 72px; }
+  .quad-tile .tile-mega .tile-mega-pre { font-size: 38px; }
+  .quad-tile .tile-mega .tile-mega-suf { font-size: 24px; }
+  .tile-towers { height: 140px; gap: 10px; }
+}
+
+/* Hit-list inside the dark tile */
+.hit-hero { margin: 18px 0 14px; display: flex; align-items: baseline; gap: 14px; }
+.hit-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 96px; font-weight: 700; line-height: 0.95; color: var(--yellow);
+  letter-spacing: -0.04em;
+}
+.hit-num .hit-pct { font-size: 56px; margin-left: 2px; opacity: 0.85; }
+.hit-lbl { font-size: 14px; color: rgba(255,255,255,0.78); line-height: 1.35; max-width: 200px; font-weight: 500; }
+.hit-list { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+.hit-row {
+  position: relative;
+  display: grid; grid-template-columns: 1fr auto; align-items: center;
+  padding: 10px 14px; border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  font-size: 13.5px; font-weight: 600;
+  overflow: hidden;
+}
+.hit-row .hit-bar {
+  position: absolute; inset: 0 auto 0 0;
+  background: rgba(255, 180, 82, 0.18);
+  z-index: 0;
+}
+.hit-row .hit-lab, .hit-row .hit-val { position: relative; z-index: 1; }
+.hit-row .hit-val { color: var(--yellow); font-weight: 700; }
+
+/* Tile 4: Career detour — 62% bending their plans */
+.tile-bend { display: flex; flex-direction: column; }
+.bend-hero {
+  display: flex; align-items: baseline; gap: 14px;
+  margin: 18px 0 18px;
+}
+.bend-pct {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 96px; font-weight: 700; line-height: 0.95;
+  color: var(--purple-dark);
+  letter-spacing: -0.04em;
+}
+.bend-pct-suf { font-size: 56px; margin-left: 2px; opacity: 0.78; }
+.bend-lbl {
+  font-size: 14px; color: var(--ink); opacity: 0.78;
+  line-height: 1.35; max-width: 200px; font-weight: 600;
+}
+.bend-stack {
+  display: flex; height: 36px;
+  border-radius: 10px; overflow: hidden;
+  margin-bottom: 14px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5);
+}
+.bend-seg {
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 0.02em;
+  min-width: 0;
+}
+.bend-seg-leave { background: var(--coral); }
+.bend-seg-stuck { background: #C5446F; }
+.bend-seg-down { background: var(--purple-dark); }
+.bend-seg-ok { background: #D1D5DB; color: var(--grey-text); font-weight: 700; }
+.bend-seg span { white-space: nowrap; }
+.bend-seg[style*="14%"] span,
+.bend-seg[style*="22%"] span { font-size: 11px; }
+.bend-legend {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px;
+  font-size: 12px; color: var(--ink); margin-bottom: 14px;
+}
+.bend-leg { display: flex; align-items: center; gap: 8px; line-height: 1.3; }
+.bend-leg-muted { color: var(--grey-muted); }
+.bend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.bend-dot-leave { background: var(--coral); }
+.bend-dot-stuck { background: #C5446F; }
+.bend-dot-down { background: var(--purple-dark); }
+.bend-dot-ok { background: #D1D5DB; }
+.tile-bend .tile-foot { margin-top: auto; }
+
+@media (max-width: 900px) {
+  .quad-grid { grid-template-columns: 1fr; gap: 16px; }
+  .headlines-section .section-head h2 { font-size: 36px; }
+  .quad-tile { padding: 28px 22px 24px; border-radius: 22px; }
+  .quad-tile .headline-chart-title { font-size: 22px; }
+  .hit-num { font-size: 76px; }
+  .hit-num .hit-pct { font-size: 44px; }
+  .bend-pct { font-size: 76px; }
+  .bend-pct-suf { font-size: 44px; }
+  .bend-legend { grid-template-columns: 1fr; }
 }
 .card.feature { padding: 28px; }
 
@@ -220,6 +962,20 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
 .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 @media (max-width: 900px) {
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  /* Prevent grid items from blowing past viewport when text is wide */
+  .grid-2 > *, .grid-3 > *, .grid-4 > *, .quad-grid > * { min-width: 0; }
+}
+/* JS-rendered who-bars rows: collapse to label-on-top on mobile */
+@media (max-width: 600px) {
+  #who-bars > div[style*="grid-template-columns:220px"],
+  #who-bars > div[style*="grid-template-columns: 220px"] {
+    grid-template-columns: 1fr 64px !important;
+    grid-template-rows: auto auto;
+    row-gap: 4px !important;
+  }
+  #who-bars > div > div:nth-child(1) { grid-column: 1 / -1; }
+  #who-bars > div > div:nth-child(2) { grid-column: 1 / 2; }
+  #who-bars > div > div:nth-child(3) { grid-column: 2 / 3; }
 }
 
 /* BIG NUMBER */
@@ -287,6 +1043,11 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
   color: var(--grey-muted);
   font-weight: 600;
   text-align: center;
+}
+@media (max-width: 480px) {
+  .pictogram-deciles { gap: 3px 3px !important; padding-top: 8px; }
+  .pictogram-deciles .fig { max-width: 22px; }
+  .pictogram-deciles .fig-val { font-size: 8px; letter-spacing: -0.02em; }
 }
 .pictogram-deciles .fig.user-pos + .fig-val,
 .pictogram-deciles .fig-wrap:has(.user-pos) .fig-val {
@@ -483,7 +1244,23 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
 .dumbbell-legend .lg-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
 
 /* HEATMAP */
-.heatmap-wrap { overflow-x: auto; padding: 8px 0; }
+.heatmap-wrap {
+  overflow-x: auto; padding: 8px 0;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.heatmap-scroll-hint { display: none; }
+@media (max-width: 760px) {
+  .heatmap-scroll-hint {
+    display: block;
+    text-align: right;
+    font-size: 11px; font-weight: 700;
+    color: var(--purple-dark);
+    letter-spacing: 0.04em;
+    margin: 4px 0 -2px;
+  }
+}
 .heatmap-table { border-collapse: separate; border-spacing: 4px; width: 100%; min-width: 620px; }
 .heatmap-table th, .heatmap-table td { padding: 0; }
 .heatmap-table th {
@@ -931,7 +1708,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
     </ul>
   </div>
 </nav>
-<nav class="section-anchors" aria-label="Sections"><div class="section-anchors-wrap"><div class="section-anchors-inner"><a href="#picker">Calculator</a><a href="#headlines">Headlines</a><a href="#pay">Pay grid</a><a href="#unexpected">Unexpected</a><a href="#worksetup">Work setup</a><a href="#skills">Skills</a><a href="#finnish">Does Finnish pay?</a><a href="#career">Career paths</a><a href="#correlations">What moves pay</a><a href="#mood">Mood</a><a href="#means">What it means</a><a href="#compare">2022 vs 2026</a><a href="#mma">MMA context</a><a href="#method">Method</a></div><span class="section-anchors-hint" aria-hidden="true">›</span></div></nav>
+<nav class="section-anchors" aria-label="Sections"><div class="section-anchors-wrap"><div class="section-anchors-inner"><a href="#picker">Calculator</a><a href="#headlines">Headlines</a><a href="#pay">Pay grid</a><a href="#unexpected">Unexpected</a><a href="#worksetup">Work setup</a><a href="#skills">Skills</a><a href="#finnish">Finnish?</a><a href="#career">Career</a><a href="#correlations">Drivers</a><a href="#mood">Mood</a><a href="#means">Takeaways</a><a href="#compare">2022&rarr;2026</a><a href="#mma">MMA</a><a href="#method">Method</a></div><span class="section-anchors-hint" aria-hidden="true">&rsaquo;</span></div></nav>
 
 <section class="dash-hero">
   <div class="wrap">
@@ -981,112 +1758,101 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
   </div>
 </section>
 
-<section id="headlines" class="section">
+<section id="headlines" class="section headlines-section">
   <div class="wrap">
     <div class="section-head">
       <div class="section-kicker">Headlines</div>
-      <h2>The four numbers that set up everything that follows.</h2>
-      <p class="section-beat">Middle of the pack, the spread, the gap with inflation, and the shape of the room. Every later section zooms into one of these.</p>
+      <h2>Four numbers. The whole story.</h2>
+      <p class="section-beat">The middle, the inflation gap, the year of layoffs, and the careers that got bent to survive. Every later section zooms into one of these.</p>
     </div>
 
-    <div class="grid-2" style="gap: 28px;">
-      <!-- Panel 1: Median + 113 pictogram -->
-      <div class="card feature">
-        <div class="headline-chart-title">The middle Finnish marketer earns €4,667/mo.</div>
-        <div class="headline-chart-sub">Half earn less. Half earn more. You are somewhere in this grid.</div>
-        <div class="pictogram"><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig mid"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div></div>
-        <div style="display:flex;gap:16px;font-size:13px;color:var(--grey-text);margin-top:8px;">
-          <div><span style="display:inline-block;width:10px;height:10px;background:var(--purple-dark);border-radius:50%;margin-right:6px;"></span>The median person</div>
-          <div><span style="display:inline-block;width:10px;height:10px;background:var(--purple);border-radius:50%;margin-right:6px;"></span>Above median</div>
-          <div><span style="display:inline-block;width:10px;height:10px;background:var(--grey-muted);border-radius:50%;margin-right:6px;"></span>Below median</div>
-        </div>
-      </div>
+    <div class="quad-grid">
+      <!-- Panel 1: Median - skyline of all 113 respondents -->
+      <div class="quad-tile tile-yellow tile-median-viz" data-num="01 / Middle">
+        <div class="headline-chart-title">Half the field earns less. Half earn more.</div>
+        <div class="headline-chart-sub">All 113 respondents, lined up shortest to tallest by pay. The bar in the middle is the typical Finnish marketer.</div>
 
-      <!-- Panel 2: Spread (clean SVG-based chart) -->
-      <div class="card feature">
-        <div class="headline-chart-title">The top earner makes 8x the bottom earner.</div>
-        <div class="headline-chart-sub">Same country. Same industry. Different pay universe.</div>
-        <div class="spread-chart" style="margin-top: 32px; margin-bottom: 24px;">
-          <svg viewBox="0 0 600 180" width="100%" preserveAspectRatio="xMidYMid meet" aria-label="Pay distribution from minimum to maximum monthly salary">
-            <!-- Full range track -->
-            <line x1="40" y1="100" x2="560" y2="100" stroke="#E5E7EB" stroke-width="6" stroke-linecap="round"/>
-            <!-- Middle 50% band (P25 to P75) -->
-            <line x1="198.2" y1="100" x2="317.1" y2="100" stroke="#A78BFA" stroke-width="14" stroke-linecap="round"/>
-            <!-- Median tick -->
-            <line x1="255.1" y1="78" x2="255.1" y2="122" stroke="#4C1D95" stroke-width="4" stroke-linecap="round"/>
-            <!-- Min dot -->
-            <circle cx="40" cy="100" r="6" fill="#9CA3AF"/>
-            <!-- Max dot -->
-            <circle cx="560" cy="100" r="6" fill="#9CA3AF"/>
-            <!-- Labels: min below -->
-            <text x="40" y="146" font-size="13" fill="#374151" font-weight="700" text-anchor="middle">€1,200</text>
-            <text x="40" y="164" font-size="11" fill="#6B7280" text-anchor="middle">lowest</text>
-            <!-- Labels: max below -->
-            <text x="560" y="146" font-size="13" fill="#374151" font-weight="700" text-anchor="middle">€9,583</text>
-            <text x="560" y="164" font-size="11" fill="#6B7280" text-anchor="middle">highest</text>
-            <!-- P25 above -->
-            <text x="198.2" y="62" font-size="12" fill="#6B7280" text-anchor="middle">25th</text>
-            <text x="198.2" y="48" font-size="13" fill="#374151" font-weight="700" text-anchor="middle">€3,750</text>
-            <!-- P75 above -->
-            <text x="317.1" y="62" font-size="12" fill="#6B7280" text-anchor="middle">75th</text>
-            <text x="317.1" y="48" font-size="13" fill="#374151" font-weight="700" text-anchor="middle">€5,667</text>
-            <!-- Median below the line, prominent -->
-            <text x="255.1" y="146" font-size="12" fill="#4C1D95" font-weight="700" text-anchor="middle">MEDIAN</text>
-            <text x="255.1" y="164" font-size="13" fill="#4C1D95" font-weight="800" text-anchor="middle">€4,667</text>
-          </svg>
-          <div style="display:flex;justify-content:center;gap:24px;font-size:12px;color:var(--grey-text);margin-top:8px;">
-            <div style="display:flex;align-items:center;gap:6px;"><span style="display:inline-block;width:24px;height:8px;background:#A78BFA;border-radius:4px;"></span>Middle 50% of marketers</div>
-            <div style="display:flex;align-items:center;gap:6px;"><span style="display:inline-block;width:4px;height:14px;background:#4C1D95;border-radius:2px;"></span>Median</div>
+        <div class="median-skyline">
+          <div class="ms-flag">
+            <div class="ms-flag-amt">€4,667<span class="ms-flag-suf">/mo</span></div>
+            <div class="ms-flag-cap">the median &middot; person #57 of 113</div>
+          </div>
+          <svg viewBox="0 0 565 200" class="ms-svg" id="medianSkyline" preserveAspectRatio="none" aria-hidden="true"></svg>
+          <div class="ms-axis">
+            <span class="ms-axis-l"><strong>€1,200</strong><small>lowest</small></span>
+            <span class="ms-axis-band">middle 50%: €3,750–€5,667</span>
+            <span class="ms-axis-r"><strong>€9,583</strong><small>highest</small></span>
           </div>
         </div>
-        <div class="headline-caption">Half of the field sits between €3,750 and €5,667 per month. If you earn inside that band, you are normal. Below it, your company is probably underpaying. Above it, congratulations, you are in the top quarter.</div>
+
+        <div class="tile-foot">The middle 50% sit between €3,750 and €5,667 &mdash; that band is &ldquo;normal&rdquo;. Below, you&rsquo;re probably underpaid. Above, you&rsquo;re in the top quarter.</div>
       </div>
 
-      <!-- Panel 3: Pay vs inflation -->
-      <div class="card feature">
-        <div class="headline-chart-title">Pay went up. Purchasing power went down.</div>
-        <div class="headline-chart-sub">The headline number marketers will tell their recruiter.</div>
-        <div style="display:flex;justify-content:space-around;align-items:flex-end;padding:24px 0;gap:16px;">
-          <div style="text-align:center;">
-            <div class="big-num green" style="font-size:76px;">+11%</div>
-            <div class="num-label">pay, 2022 to 2026</div>
+      <!-- Panel 2: Pay vs inflation - real -8% as hero -->
+      <div class="quad-tile tile-coral" data-num="02 / Inflation gap">
+        <div class="headline-chart-title">The raise you got was a pay cut.</div>
+        <div class="headline-chart-sub">Pay went up 11%. Inflation went up 19%. Real change since 2022:</div>
+        <div class="tile-mega"><span class="tile-mega-pre">−</span>8<span class="tile-mega-suf">%</span></div>
+        <div class="tile-vsbars">
+          <div class="tvb-row">
+            <div class="tvb-lbl">Pay raise</div>
+            <div class="tvb-track"><div class="tvb-fill tvb-fill-pay" style="width:58%;"><span>+11%</span></div></div>
           </div>
-          <div style="align-self:center;font-size:48px;color:var(--grey-muted);font-weight:300;">vs.</div>
-          <div style="text-align:center;">
-            <div class="big-num coral" style="font-size:76px;">+19%</div>
-            <div class="num-label">Finnish inflation, same period</div>
+          <div class="tvb-row">
+            <div class="tvb-lbl">Inflation</div>
+            <div class="tvb-track"><div class="tvb-fill tvb-fill-infl" style="width:100%;"><span>+19%</span></div></div>
           </div>
         </div>
-        <div class="callout coral">In real terms, Finnish marketers earn less today than they did in 2022. The raise you got was a pay cut.</div>
+        <div class="tile-flag">Finnish marketers earn <em>less</em> in real terms than they did in 2022. The raise you got was a pay cut.</div>
       </div>
 
-      <!-- Panel 4: Who -->
-      <div class="card feature">
-        <div class="headline-chart-title">Who answered, in one picture.</div>
-        <div class="headline-chart-sub">The shape of the sample tells you how to read the rest.</div>
-        <div class="who-hero">
-          <div class="who-hero-n">113</div>
-          <div class="who-hero-l">marketers</div>
+      <!-- Panel 3: Layoffs / The year that was -->
+      <div class="quad-tile tile-ink" data-num="03 / The year of layoffs">
+        <div class="headline-chart-title">7 in 10 marketers were hit by a layoff, budget cut, or restructure.</div>
+        <div class="headline-chart-sub">The economy already touched almost everyone you work with. This is why the mood is what it is.</div>
+        <div class="hit-hero">
+          <div class="hit-num">70<span class="hit-pct">%</span></div>
+          <div class="hit-lbl">were hit by at least one in the past 12 months</div>
         </div>
-        <div class="who-chips">
-          <div class="who-chip"><span class="wc-v">85%</span><span class="wc-l">Finnish-HQ employer</span></div>
-          <div class="who-chip"><span class="wc-v">84%</span><span class="wc-l">in-house, not agency</span></div>
-          <div class="who-chip"><span class="wc-v">82%</span><span class="wc-l">work in English</span></div>
-          <div class="who-chip"><span class="wc-v">75%</span><span class="wc-l">don't manage people</span></div>
-          <div class="who-chip"><span class="wc-v">69%</span><span class="wc-l">female</span></div>
-          <div class="who-chip"><span class="wc-v">58%</span><span class="wc-l">master's degree</span></div>
-          <div class="who-chip"><span class="wc-v">53%</span><span class="wc-l">in Helsinki</span></div>
-          <div class="who-chip"><span class="wc-v">42%</span><span class="wc-l">in tech companies</span></div>
-          <div class="who-chip"><span class="wc-v">36%</span><span class="wc-l">are mid-level</span></div>
-          <div class="who-chip"><span class="wc-v">21%</span><span class="wc-l">considered leaving Finland</span></div>
+        <div class="hit-list">
+          <div class="hit-row"><span class="hit-bar" style="width:42%;"></span><span class="hit-lab">Company had layoffs</span><span class="hit-val">42%</span></div>
+          <div class="hit-row"><span class="hit-bar" style="width:30%;"></span><span class="hit-lab">Marketing budget cut</span><span class="hit-val">30%</span></div>
+          <div class="hit-row"><span class="hit-bar" style="width:24%;"></span><span class="hit-lab">Team downsized</span><span class="hit-val">24%</span></div>
+          <div class="hit-row"><span class="hit-bar" style="width:20%;"></span><span class="hit-lab">Role restructured</span><span class="hit-val">20%</span></div>
         </div>
-        <div class="headline-caption" style="margin-top:24px;">Mostly female, mostly English-speaking, mostly mid-level, mostly in tech, and one in four has one foot out the door. Keep that in mind as you read.</div>
+        <div class="headline-caption">Many marketers picked more than one. Only 30% got through the year untouched.</div>
+      </div>
+
+      <!-- Panel 4: Career detour - 62% bending their plans -->
+      <div class="quad-tile tile-purple tile-bend" data-num="04 / Career detour">
+        <div class="headline-chart-title">62% are bending their career plans to survive.</div>
+        <div class="headline-chart-sub">Three different ways marketers are settling for less than they wanted.</div>
+
+        <div class="bend-hero">
+          <div class="bend-pct">62<span class="bend-pct-suf">%</span></div>
+          <div class="bend-lbl">are compromising their career plans</div>
+        </div>
+
+        <div class="bend-stack" aria-label="Compromise breakdown: 26% considered leaving Finland, 22% staying in jobs they would otherwise leave, 14% accepted a role below their level. 38% on track.">
+          <div class="bend-seg bend-seg-leave" style="width:26%;" title="Considered leaving Finland · 26%"><span>26%</span></div>
+          <div class="bend-seg bend-seg-stuck" style="width:22%;" title="Staying in a job they would otherwise leave · 22%"><span>22%</span></div>
+          <div class="bend-seg bend-seg-down" style="width:14%;" title="Accepted a role below their level · 14%"><span>14%</span></div>
+          <div class="bend-seg bend-seg-ok" style="width:38%;" title="No, plans unchanged · 38%"><span>38%</span></div>
+        </div>
+
+        <div class="bend-legend">
+          <div class="bend-leg"><span class="bend-dot bend-dot-leave"></span>Considered leaving Finland</div>
+          <div class="bend-leg"><span class="bend-dot bend-dot-stuck"></span>Stuck in a job they&rsquo;d quit</div>
+          <div class="bend-leg"><span class="bend-dot bend-dot-down"></span>Took a role below their level</div>
+          <div class="bend-leg bend-leg-muted"><span class="bend-dot bend-dot-ok"></span>Plans unchanged</div>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
 
-<section id="pay" class="section" style="background: white; border-radius: 32px; margin: 24px 0;">
+<section id="pay" class="section theme-yellow" style="border-radius: 32px; margin: 24px 0;">
   <div class="wrap">
     <div class="section-head">
       <div class="section-kicker">The pay picture</div>
@@ -1107,7 +1873,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
           <select id="dg-col"><option value="Seniority">Seniority</option><option value="Years of experience">Years of experience</option><option value="Education">Education</option><option value="Main expertise">Main expertise</option><option value="Team size">Team size</option><option value="Manager">Manager</option><option value="Company type" selected>Company type</option><option value="Working language">Working language</option><option value="Gender">Gender</option><option value="AI usage">AI usage</option></select>
         </div>
       </div>
-      <div class="heatmap-wrap" id="dg-table"></div>
+      <div class="heatmap-scroll-hint">Swipe horizontally to see more &rsaquo;</div><div class="heatmap-wrap" id="dg-table"></div>
       <div style="font-size:13px;color:var(--grey-muted);margin-top:16px;">Empty cells mean nobody (or only one person) in the sample matched that combination. We hide those to avoid misleading you.</div>
     </div>
   </div>
@@ -1122,24 +1888,46 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
     </div>
 
     <div class="grid-2" style="gap: 28px; margin-bottom: 24px;">
-      <!-- AI learners pay gap -->
+      <!-- AI learners pay gap - dot scatter -->
       <div class="card feature">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
           <span class="tag green">+€625/mo</span>
         </div>
         <div class="headline-chart-title">AI learners already out-earn their peers.</div>
-        <div class="headline-chart-sub">Not in 2030. In 2026. Right now, in this sample.</div>
-        <div style="display:flex;gap:32px;margin:24px 0;">
-          <div>
-            <div class="big-num" style="font-size:56px;">€4,900</div>
-            <div class="num-label">Mastering AI (n=72)</div>
+        <div class="headline-chart-sub">Each dot is one marketer in this survey, plotted by salary. Two groups, two medians.</div>
+        <div class="ai-scatter">
+          <div class="ais-row ais-learners">
+            <div class="ais-row-label">
+              <span class="ais-dot ais-dot-purple"></span>
+              <strong>AI learners</strong>
+              <span class="ais-meta">n=72 · median €4,900</span>
+            </div>
+            <div class="ais-track">
+              <div class="ais-dots" id="ais-dots-ai"></div>
+              <div class="ais-median ais-median-purple" style="left:48.6%;">
+                <span class="ais-median-tag">€4,900</span>
+              </div>
+            </div>
           </div>
-          <div>
-            <div class="big-num" style="color:var(--grey-muted);font-size:56px;">€4,275</div>
-            <div class="num-label">Not investing in AI (n=41)</div>
+          <div class="ais-row ais-non">
+            <div class="ais-row-label">
+              <span class="ais-dot ais-dot-grey"></span>
+              <strong>Not investing in AI</strong>
+              <span class="ais-meta">n=41 · median €4,275</span>
+            </div>
+            <div class="ais-track">
+              <div class="ais-dots" id="ais-dots-non"></div>
+              <div class="ais-median ais-median-grey" style="left:41.1%;">
+                <span class="ais-median-tag ais-median-tag-grey">€4,275</span>
+              </div>
+            </div>
+          </div>
+          <div class="ais-axis">
+            <span>€1,200</span>
+            <span class="ais-gap-pill">+€625/mo gap</span>
+            <span>€9,583</span>
           </div>
         </div>
-        <div class="pictogram" style="grid-template-columns:repeat(15, 1fr);"><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig hi"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div></div>
         <div class="headline-caption">64% of the survey is already investing in AI skills. The 36% who are not are earning less <em>today</em>, not tomorrow. The gap is €625/mo. Over a year that is roughly €7,500.</div>
       </div>
 
@@ -1148,27 +1936,36 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
           <span class="tag coral">Pay ceiling</span>
         </div>
-        <div class="headline-chart-title">Senior non-managers hit a ceiling. Lead/Manager punches through it.</div>
-        <div class="headline-chart-sub">The jump is not about experience. It is about people-management.</div>
-        <div style="background:#F3F0FF;border-radius:10px;padding:10px 14px;font-size:13px;color:var(--purple-dark);margin-top:8px;">
-          We compare two groups at the same seniority label (Senior). Left bar: Seniors with no direct reports. Right bar: people whose title is Lead or Manager. Same experience band, different job scope.
-        </div>
-        <div style="padding:24px 0 8px;">
-          <div class="ladder-step" style="background: #F9FAFB;">
-            <div class="rung-no" style="background: var(--gray-300, #d4d4d4);">📍</div>
-            <div class="rung-lbl">Senior, no direct reports</div>
-            <div class="rung-val" style="color:var(--grey-text);">€5,000</div>
-            <div class="rung-n">n=20</div>
+        <div class="headline-chart-title">ICs cap at €6,000. Managers blow past it.</div>
+        <div class="headline-chart-sub">9 in 10 marketers without direct reports earn at most €6,000/mo. Adding people management opens a much higher ceiling.</div>
+        <div class="glass-ceiling">
+          <div class="gc-stage">
+            <div class="gc-line">
+              <span class="gc-line-tag">Non-managerial ceiling &middot; €6,000</span>
+            </div>
+            <div class="gc-bar gc-bar-senior" style="--h: 40;">
+              <div class="gc-tick gc-tick-top" style="--y: 100%;"><span>€6,000<small>P90</small></span></div>
+              <div class="gc-tick" style="--y: 70.8%;"><span>€5,416<small>P75</small></span></div>
+              <div class="gc-tick" style="--y: 22.9%;"><span>€4,458<small>median</small></span></div>
+            </div>
+            <div class="gc-bar gc-bar-lead" style="--h: 89.16;">
+              <div class="gc-tick gc-tick-top" style="--y: 100%;"><span>€8,458<small>P90</small></span></div>
+              <div class="gc-tick" style="--y: 59.81%;"><span>€6,666<small>P75</small></span></div>
+              <div class="gc-tick" style="--y: 37.84%;"><span>€5,687<small>median</small></span></div>
+            </div>
           </div>
-          <div style="text-align:center;font-size:32px;color:var(--purple);margin:-2px 0;">&#8595;</div>
-          <div class="ladder-step" style="background: var(--purple-soft);">
-            <div class="rung-no">🧭</div>
-            <div class="rung-lbl">Lead / Manager</div>
-            <div class="rung-val">€5,355</div>
-            <div class="rung-n">n=30</div>
+          <div class="gc-labels">
+            <div class="gc-lbl">
+              <strong>Without direct reports</strong>
+              <small>n=85</small>
+            </div>
+            <div class="gc-lbl gc-lbl-lead">
+              <strong>With direct reports</strong>
+              <small>n=28</small>
+            </div>
           </div>
         </div>
-        <div class="headline-caption">If you are a senior without direct reports staring at year 9 hoping pay catches up to your experience, the data says it will not. The path up is through people-management, not more years.</div>
+        <div class="headline-caption">P75 = top 25% start here. P90 = the realistic top, ignoring single outliers. ICs cap at €6,000/mo; managers&rsquo; median already lives near that ceiling, and their top 10% reach €8,458.</div>
       </div>
     </div>
 
@@ -1179,7 +1976,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
       </div>
       <div class="headline-chart-title">The best-paid, best-resourced marketers are also the ones most likely to leave.</div>
       <div class="headline-chart-sub">58% of marketers on teams of 9 or more are job hunting right now.</div>
-      <div class="pictogram" style="grid-template-columns: repeat(15, 1fr); margin-top:24px;"><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div></div>
+      <div class="pictogram" style="grid-template-columns: repeat(16, 1fr); margin-top:24px;"><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig warn"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div><div class="fig lo"></div></div>
       <div style="display:flex;gap:20px;font-size:13px;color:var(--grey-text);margin-top:12px;">
         <div><span style="display:inline-block;width:10px;height:10px;background:var(--coral);border-radius:50%;margin-right:6px;"></span>Looking for a new job (18 of 31)</div>
         <div><span style="display:inline-block;width:10px;height:10px;background:var(--grey-muted);border-radius:50%;margin-right:6px;"></span>Staying (13 of 31)</div>
@@ -1197,33 +1994,33 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
       <p class="section-beat">Rows are what your employer expects. Columns are what you actually want. The cells on the diagonal are the happy marketers. Everything off-diagonal is friction.</p>
     </div>
 
-    <!-- Big mismatch number card -->
-    <div class="card feature mismatch-hero" style="margin-bottom:28px;">
-      <div class="mismatch-row">
-        <div class="mismatch-big">
-          <div class="mismatch-num">27</div>
-          <div class="mismatch-denom">of 99 marketers</div>
-          <div class="mismatch-pct">27%</div>
-        </div>
-        <div class="mismatch-copy">
-          <div class="headline-chart-title" style="margin-bottom:6px;">Pulled into the office when they would rather be remote.</div>
-          <div class="mismatch-sub">27 marketers are expected in the office at least one day a week but would prefer to work fully remote or primarily remote. That is 27% of everyone who answered the work-setup question.</div>
-          <div class="mismatch-note">These are the orange-bordered cells in the matrix below. This is also where resignations come from.</div>
-        </div>
-      </div>
-    </div>
-
     <div class="card feature">
-      <div class="headline-chart-title">The office-setup mismatch, at a glance.</div>
-      <div class="headline-chart-sub">Rows are days in the office your employer expects. Columns are how you would prefer to work. Each cell is the number of marketers in that combination.</div>
-      <div class="heatmap-legend">
-        <span class="lg-item"><span class="lg-swatch lg-match"></span>Diagonal: employer setup matches your preference</span>
-        <span class="lg-item"><span class="lg-swatch lg-mismatch"></span>Orange border: expected in office, want remote</span>
+      <div class="headline-chart-title">Want vs get: the remote-work gap.</div>
+      <div class="headline-chart-sub">Out of 99 marketers who answered: more than half want to work mostly remote. Only a quarter actually get to.</div>
+
+      <div class="ws-simple">
+        <div class="ws-row">
+          <div class="ws-row-label">Want to work fully or primarily remote</div>
+          <div class="ws-row-bar"><div class="ws-row-fill ws-want" style="width:52.5%;"><span>52 of 99 marketers</span></div></div>
+        </div>
+        <div class="ws-row">
+          <div class="ws-row-label">Get to work fully or primarily remote</div>
+          <div class="ws-row-bar"><div class="ws-row-fill ws-get" style="width:25.3%;"><span>25 of 99 marketers</span></div></div>
+        </div>
       </div>
-      <div class="heatmap-wrap" style="margin-top: 20px;">
+
+      <div class="ws-gap-callout">
+        <div class="ws-gap-num">27</div>
+        <div class="ws-gap-text">marketers want fully or primarily remote, but their employer pulls them into the office at least one day a week. <strong>That is where resignations come from.</strong></div>
+      </div>
+
+      <details style="margin-top:16px;">
+        <summary class="ws-detail-toggle">Show the full mismatch matrix</summary>
+        <div class="heatmap-scroll-hint" style="margin-top:14px;">Swipe horizontally to see more &rsaquo;</div>
+        <div class="heatmap-wrap" style="margin-top: 6px;">
         <table class="heatmap-table worksetup-heatmap">
           <thead><tr class="heat-superhead"><th></th><th colspan="5" class="heat-axis-col">WHAT YOU WOULD PREFER &#8594;</th><th></th></tr><tr><th class="heat-axis-corner">WHAT YOUR EMPLOYER EXPECTS &#8595;</th><th>Fully remote</th><th>Primarily remote</th><th>50/50 hybrid</th><th>Primarily in-office</th><th>Fully in-office</th><th class="heat-total-h">Total</th></tr></thead>
-          <tbody><tr><th class="rowhead">Fully remote (0 days)</th><td><div class="heat-cell" style="background:rgb(219,161,255);color:#111827;">4</div></td><td><div class="heat-cell" style="background:rgb(214,146,255);color:#111827;">5</div></td><td><div class="heat-cell" style="background:rgb(219,161,255);color:#111827;">4</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">13</div></td></tr><tr><th class="rowhead">1 day in office</th><td><div class="heat-cell heat-mismatch" style="background:rgb(235,202,255);color:#111827;">1</div></td><td><div class="heat-cell heat-mismatch" style="background:rgb(193,92,255);color:white;">9</div></td><td><div class="heat-cell" style="background:rgb(230,189,255);color:#111827;">2</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">12</div></td></tr><tr><th class="rowhead">2 days in office</th><td><div class="heat-cell heat-mismatch" style="background:rgb(230,189,255);color:#111827;">2</div></td><td><div class="heat-cell heat-mismatch" style="background:rgb(203,119,255);color:#111827;">7</div></td><td><div class="heat-cell" style="background:rgb(214,146,255);color:#111827;">5</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">14</div></td></tr><tr><th class="rowhead">3 days in office</th><td><div class="heat-cell heat-mismatch" style="background:rgb(235,202,255);color:#111827;">1</div></td><td><div class="heat-cell heat-mismatch" style="background:rgb(203,119,255);color:#111827;">7</div></td><td><div class="heat-cell" style="background:rgb(187,77,255);color:white;">10</div></td><td><div class="heat-cell" style="background:rgb(219,161,255);color:#111827;">4</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">22</div></td></tr><tr><th class="rowhead">4 days in office</th><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">0</div></td></tr><tr><th class="rowhead">Fully in-office (5 days)</th><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell" style="background:rgb(235,202,255);color:#111827;">1</div></td><td><div class="heat-cell" style="background:rgb(235,202,255);color:#111827;">1</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">2</div></td></tr><tr><th class="rowhead">No fixed expectation</th><td><div class="heat-cell" style="background:rgb(230,189,255);color:#111827;">2</div></td><td><div class="heat-cell" style="background:rgb(166,21,255);color:white;">14</div></td><td><div class="heat-cell" style="background:rgb(172,36,255);color:white;">13</div></td><td><div class="heat-cell" style="background:rgb(219,161,255);color:#111827;">4</div></td><td><div class="heat-cell" style="background:rgb(224,175,255);color:#111827;">3</div></td><td><div class="heat-cell heat-total">36</div></td></tr><tr><th class="rowhead" style="color:var(--purple-dark);font-weight:700;">Total</th><td><div class="heat-cell heat-total">10</div></td><td><div class="heat-cell heat-total">42</div></td><td><div class="heat-cell heat-total">35</div></td><td><div class="heat-cell heat-total">9</div></td><td><div class="heat-cell heat-total">3</div></td><td><div class="heat-cell heat-total">99</div></td></tr></tbody>
+          <tbody><tr><th class="rowhead">Fully remote (0 days)</th><td><div class="heat-cell heat-clean">4</div></td><td><div class="heat-cell heat-clean">5</div></td><td><div class="heat-cell heat-clean">4</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">13</div></td></tr><tr><th class="rowhead">1 day in office</th><td><div class="heat-cell heat-clean heat-mismatch">1</div></td><td><div class="heat-cell heat-clean heat-mismatch">9</div></td><td><div class="heat-cell heat-clean">2</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">12</div></td></tr><tr><th class="rowhead">2 days in office</th><td><div class="heat-cell heat-clean heat-mismatch">2</div></td><td><div class="heat-cell heat-clean heat-mismatch">7</div></td><td><div class="heat-cell heat-clean">5</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">14</div></td></tr><tr><th class="rowhead">3 days in office</th><td><div class="heat-cell heat-clean heat-mismatch">1</div></td><td><div class="heat-cell heat-clean heat-mismatch">7</div></td><td><div class="heat-cell heat-clean">10</div></td><td><div class="heat-cell heat-clean">4</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">22</div></td></tr><tr><th class="rowhead">4 days in office</th><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">0</div></td></tr><tr><th class="rowhead">Fully in-office (5 days)</th><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-clean">1</div></td><td><div class="heat-cell heat-clean">1</div></td><td><div class="heat-cell empty">&middot;</div></td><td><div class="heat-cell heat-total">2</div></td></tr><tr><th class="rowhead">No fixed expectation</th><td><div class="heat-cell heat-clean">2</div></td><td><div class="heat-cell heat-clean">14</div></td><td><div class="heat-cell heat-clean">13</div></td><td><div class="heat-cell heat-clean">4</div></td><td><div class="heat-cell heat-clean">3</div></td><td><div class="heat-cell heat-total">36</div></td></tr><tr><th class="rowhead" style="color:var(--purple-dark);font-weight:700;">Total</th><td><div class="heat-cell heat-total">10</div></td><td><div class="heat-cell heat-total">42</div></td><td><div class="heat-cell heat-total">35</div></td><td><div class="heat-cell heat-total">9</div></td><td><div class="heat-cell heat-total">3</div></td><td><div class="heat-cell heat-total">99</div></td></tr></tbody>
         </table>
       </div>
       <div class="headline-caption">Read the diagonal first: those are the matches. The orange-bordered cells in the top-right are the forced-in-office crowd, 27 marketers in total.</div>
@@ -1231,7 +2028,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
   </div>
 </section>
 
-<section id="skills" class="section" style="background: white; border-radius: 32px; margin: 24px 0;">
+<section id="skills" class="section theme-green" style="border-radius: 32px; margin: 24px 0;">
   <div class="wrap">
     <div class="section-head">
       <div class="section-kicker">Skills</div>
@@ -1261,52 +2058,52 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
         <div style="margin-top: 20px;">
         <div class="bar-row">
           <div class="bar-label">AI Prompting &amp; Workflow Automation</div>
-          <div class="bar-track"><div class="bar-fill" style="width:66.4%;">66.4%</div></div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%;">66.4%</div></div>
           <div class="bar-meta"><span class="tag green">+€625/mo</span></div>
         </div>
         <div class="bar-row">
           <div class="bar-label">Analytics &amp; Data</div>
-          <div class="bar-track"><div class="bar-fill" style="width:31.9%;">31.9%</div></div>
+          <div class="bar-track"><div class="bar-fill" style="width:48.0%;">31.9%</div></div>
           <div class="bar-meta"></div>
         </div>
         <div class="bar-row">
           <div class="bar-label">Marketing Strategy</div>
-          <div class="bar-track"><div class="bar-fill" style="width:29.2%;">29.2%</div></div>
+          <div class="bar-track"><div class="bar-fill" style="width:44.0%;">29.2%</div></div>
           <div class="bar-meta"></div>
         </div>
         <div class="bar-row">
           <div class="bar-label">Advertising &amp; Paid Acquisition</div>
-          <div class="bar-track"><div class="bar-fill" style="width:24.8%;">24.8%</div></div>
+          <div class="bar-track"><div class="bar-fill" style="width:37.3%;">24.8%</div></div>
           <div class="bar-meta"><span class="tag coral">€-488/mo</span></div>
         </div>
         <div class="bar-row">
           <div class="bar-label">Content &amp; SEO</div>
-          <div class="bar-track"><div class="bar-fill" style="width:23.9%;">23.9%</div></div>
+          <div class="bar-track"><div class="bar-fill" style="width:36.0%;">23.9%</div></div>
           <div class="bar-meta"><span class="tag coral">€-700/mo</span></div>
         </div>
         <div class="bar-row">
           <div class="bar-label">Growth Marketing</div>
-          <div class="bar-track"><div class="bar-fill" style="width:21.2%;">21.2%</div></div>
+          <div class="bar-track"><div class="bar-fill" style="width:31.9%;">21.2%</div></div>
           <div class="bar-meta"><span class="tag coral">€-250/mo</span></div>
         </div>
         <div class="bar-row">
           <div class="bar-label">People Management / Leadership</div>
-          <div class="bar-track"><div class="bar-fill" style="width:17.7%;">17.7%</div></div>
+          <div class="bar-track"><div class="bar-fill" style="width:26.7%;">17.7%</div></div>
           <div class="bar-meta"><span class="tag green">+€792/mo</span></div>
         </div>
         <div class="bar-row">
           <div class="bar-label">PR &amp; Communications</div>
-          <div class="bar-track"><div class="bar-fill" style="width:17.7%;">17.7%</div></div>
+          <div class="bar-track"><div class="bar-fill" style="width:26.7%;">17.7%</div></div>
           <div class="bar-meta"><span class="tag green">+€283/mo</span></div>
         </div>
         <div class="bar-row">
           <div class="bar-label">Marketing Ops</div>
-          <div class="bar-track"><div class="bar-fill" style="width:16.8%;">16.8%</div></div>
+          <div class="bar-track"><div class="bar-fill" style="width:25.3%;">16.8%</div></div>
           <div class="bar-meta"></div>
         </div>
         <div class="bar-row">
           <div class="bar-label">Data Storytelling &amp; Reporting</div>
-          <div class="bar-track"><div class="bar-fill" style="width:15.0%;">15.0%</div></div>
+          <div class="bar-track"><div class="bar-fill" style="width:22.6%;">15.0%</div></div>
           <div class="bar-meta"></div>
         </div></div>
       </div>
@@ -1360,7 +2157,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
   </div>
 </section>
 
-<section id="career" class="section" style="background: white; border-radius: 32px; margin: 24px 0;">
+<section id="career" class="section theme-purple" style="border-radius: 32px; margin: 24px 0;">
   <div class="wrap">
     <div class="section-head">
       <div class="section-kicker">Career paths</div>
@@ -1368,66 +2165,56 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
       <p class="section-beat">Median monthly pay at each seniority level. The jump sizes tell you where the real promotions are, and where the trap floors live.</p>
     </div>
 
-    <div class="grid-2" style="gap:28px;">
-      <div class="card feature">
-        <div class="headline-chart-title">The ladder.</div>
-        <div class="headline-chart-sub">Each step shows the median at that level and how much more it pays than the one below.</div>
-        <div class="ladder" style="margin-top:24px;">
-          
-        <div class="ladder-step">
-          <div class="rung-no">🌱</div>
-          <div class="rung-lbl">Junior</div>
-          <div class="rung-val">€3,333</div>
-          <div class="rung-n">n=10</div>
-        </div><div style="text-align:center;font-size:24px;color:var(--purple);margin:-2px 0;">&#8595; <span class="tag green" style="margin-left:10px;">+€867 (26%)</span></div>
-        <div class="ladder-step">
-          <div class="rung-no">🚀</div>
-          <div class="rung-lbl">Mid-Level</div>
-          <div class="rung-val">€4,200</div>
-          <div class="rung-n">n=41</div>
-        </div><div style="text-align:center;font-size:24px;color:var(--purple);margin:-2px 0;">&#8595; <span class="tag green" style="margin-left:10px;">+€800 (19%)</span></div>
-        <div class="ladder-step">
-          <div class="rung-no">⭐</div>
-          <div class="rung-lbl">Senior</div>
-          <div class="rung-val">€5,000</div>
-          <div class="rung-n">n=20</div>
-        </div><div style="text-align:center;font-size:24px;color:var(--purple);margin:-2px 0;">&#8595; <span class="tag green" style="margin-left:10px;">+€355 (7%)</span></div>
-        <div class="ladder-step">
-          <div class="rung-no">🧭</div>
-          <div class="rung-lbl">Lead / Manager</div>
-          <div class="rung-val">€5,355</div>
-          <div class="rung-n">n=30</div>
-        </div><div style="text-align:center;font-size:24px;color:var(--purple);margin:-2px 0;">&#8595; <span class="tag green" style="margin-left:10px;">+€2,978 (56%)</span></div>
-        <div class="ladder-step">
-          <div class="rung-no">👑</div>
-          <div class="rung-lbl">Chief / Director / VP</div>
-          <div class="rung-val">€8,333</div>
-          <div class="rung-n">n=9</div>
-        </div><div style="text-align:center;font-size:24px;color:var(--purple);margin:-2px 0;">&#8595; <span class="tag coral" style="margin-left:10px;">€-4,166</span></div>
-        <div class="ladder-step">
-          <div class="rung-no">🛠️</div>
-          <div class="rung-lbl">Founder / Co-Founder</div>
-          <div class="rung-val">€4,167</div>
-          <div class="rung-n">n=3</div>
+    <div class="card feature">
+      <div class="headline-chart-title">Six rungs. Median monthly pay at each level.</div>
+      <div class="headline-chart-sub">Bar length = median pay (Director sets the ceiling). The pill between each rung is the jump from the level below.</div>
+
+      <div class="career-chart">
+        <div class="cc-row" data-rung="1">
+          <div class="cc-rank">01</div>
+          <div class="cc-name">Junior</div>
+          <div class="cc-bar"><div class="cc-fill" style="width:40%;">€3,333</div></div>
+          <div class="cc-n">n=10</div>
         </div>
+        <div class="cc-jump"><span class="cc-jump-pill cc-jump-up">+€867 · +26%</span></div>
+        <div class="cc-row" data-rung="2">
+          <div class="cc-rank">02</div>
+          <div class="cc-name">Mid-Level</div>
+          <div class="cc-bar"><div class="cc-fill" style="width:50.4%;">€4,200</div></div>
+          <div class="cc-n">n=41</div>
+        </div>
+        <div class="cc-jump"><span class="cc-jump-pill cc-jump-up">+€800 · +19%</span></div>
+        <div class="cc-row" data-rung="3">
+          <div class="cc-rank">03</div>
+          <div class="cc-name">Senior</div>
+          <div class="cc-bar"><div class="cc-fill" style="width:60%;">€5,000</div></div>
+          <div class="cc-n">n=20</div>
+        </div>
+        <div class="cc-jump"><span class="cc-jump-pill cc-jump-flat">+€355 · +7% &middot; the trap floor</span></div>
+        <div class="cc-row" data-rung="4">
+          <div class="cc-rank">04</div>
+          <div class="cc-name">Lead / Manager</div>
+          <div class="cc-bar"><div class="cc-fill" style="width:64.3%;">€5,355</div></div>
+          <div class="cc-n">n=30</div>
+        </div>
+        <div class="cc-jump"><span class="cc-jump-pill cc-jump-big">+€2,978 · +56% &middot; the biggest jump</span></div>
+        <div class="cc-row" data-rung="5">
+          <div class="cc-rank">05</div>
+          <div class="cc-name">Chief / Director / VP</div>
+          <div class="cc-bar"><div class="cc-fill" style="width:100%;">€8,333</div></div>
+          <div class="cc-n">n=9</div>
+        </div>
+        <div class="cc-jump"><span class="cc-jump-pill cc-jump-down">−€4,166 · −50% &middot; founders earn less</span></div>
+        <div class="cc-row" data-rung="6">
+          <div class="cc-rank">06</div>
+          <div class="cc-name">Founder / Co-Founder</div>
+          <div class="cc-bar"><div class="cc-fill" style="width:50%;">€4,167</div></div>
+          <div class="cc-n">n=3</div>
         </div>
       </div>
 
-      <div class="card feature">
-        <div class="headline-chart-title">Where the ladder bends.</div>
-        <div class="headline-chart-sub">Three career patterns the data makes visible.</div>
-
-        <div style="padding: 8px 0;">
-          <div class="callout purple" style="margin-bottom:16px;">
-            <strong>Mid to Senior is the easy rung.</strong> The gap is small, and almost everyone gets there with enough years. It is where you stop being cheap labour.
-          </div>
-          <div class="callout yellow" style="margin-bottom:16px;">
-            <strong>Senior to Lead is the real promotion.</strong> This is where pay jumps double digits and where senior marketers without direct reports either move into people management or stall.
-          </div>
-          <div class="callout green">
-            <strong>Lead to Director is the biggest jump in the report.</strong> It is also the smallest cohort. Roughly 4% of the survey. If you are aiming here, know that you are aiming at a very narrow door.
-          </div>
-        </div>
+      <div class="cc-takeaway">
+        <strong>Three patterns the chart makes obvious:</strong> Mid → Senior is the easy rung. Senior → Lead is where individual contributors stall and managers pull ahead. Lead → Director is the biggest jump in the whole report — and the narrowest door (just 4% of the survey makes it).
       </div>
     </div>
   </div>
@@ -1445,7 +2232,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
       
         <div class="card" style="padding: 28px;">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-            <div style="width:44px;height:44px;border-radius:12px;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;">🎯</div>
+            <div class="lever-rank">1</div>
             <div style="font-size:28px;font-weight:800;color:var(--purple-dark);">+€2,583/mo</div>
           </div>
           <div style="font-weight:700;font-size:16px;margin-bottom:8px;">Main expertise: CRM Management &#8594; Marketing Strategy</div>
@@ -1453,7 +2240,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
         </div>
         <div class="card" style="padding: 28px;">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-            <div style="width:44px;height:44px;border-radius:12px;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;">👥</div>
+            <div class="lever-rank">2</div>
             <div style="font-size:28px;font-weight:800;color:var(--purple-dark);">+€1,883/mo</div>
           </div>
           <div style="font-weight:700;font-size:16px;margin-bottom:8px;">Team size: Just me &#8594; 9+ people</div>
@@ -1461,7 +2248,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
         </div>
         <div class="card" style="padding: 28px;">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-            <div style="width:44px;height:44px;border-radius:12px;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;">🏢</div>
+            <div class="lever-rank">3</div>
             <div style="font-size:28px;font-weight:800;color:var(--purple-dark);">+€1,750/mo</div>
           </div>
           <div style="font-weight:700;font-size:16px;margin-bottom:8px;">Company type: Non-profit / Public sector &#8594; Enterprise / Corporate</div>
@@ -1469,7 +2256,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
         </div>
         <div class="card" style="padding: 28px;">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-            <div style="width:44px;height:44px;border-radius:12px;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;">👔</div>
+            <div class="lever-rank">4</div>
             <div style="font-size:28px;font-weight:800;color:var(--purple-dark);">+€1,230/mo</div>
           </div>
           <div style="font-weight:700;font-size:16px;margin-bottom:8px;">Becoming a manager</div>
@@ -1477,7 +2264,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
         </div>
         <div class="card" style="padding: 28px;">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-            <div style="width:44px;height:44px;border-radius:12px;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;">🎓</div>
+            <div class="lever-rank">5</div>
             <div style="font-size:28px;font-weight:800;color:var(--purple-dark);">+€792/mo</div>
           </div>
           <div style="font-weight:700;font-size:16px;margin-bottom:8px;">Learning Leadership</div>
@@ -1485,7 +2272,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
         </div>
         <div class="card" style="padding: 28px;">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-            <div style="width:44px;height:44px;border-radius:12px;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;">🤖</div>
+            <div class="lever-rank">6</div>
             <div style="font-size:28px;font-weight:800;color:var(--purple-dark);">+€625/mo</div>
           </div>
           <div style="font-weight:700;font-size:16px;margin-bottom:8px;">Mastering AI</div>
@@ -1495,7 +2282,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
   </div>
 </section>
 
-<section id="mood" class="section">
+<section id="mood" class="section theme-coral" style="border-radius: 32px; margin: 24px 0;">
   <div class="wrap">
     <div class="section-head">
       <div class="section-kicker">The mood</div>
@@ -1533,10 +2320,10 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
           </div>
         </div>
         <div class="bar-row">
-          <div class="bar-row-label">No, it has not changed my plans</div>
-          <div class="bar-row-track">
-            <div class="bar-row-fill" style="width:100.0%;background:var(--grey);">
-              <span class="bar-row-value">38% &middot; n=49</span>
+          <div class="bar-row-label" style="color:var(--grey-muted);font-weight:500;">No, it has not changed my plans</div>
+          <div class="bar-row-track" style="background:#E5E7EB;">
+            <div class="bar-row-fill" style="width:100.0%;background:#D1D5DB !important;">
+              <span class="bar-row-value" style="color:var(--grey-text);">38% &middot; n=49</span>
             </div>
           </div>
         </div>
@@ -1624,9 +2411,9 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
       </div>
     </div>
 
-    <div class="card" style="margin-top:28px;padding:28px;background:linear-gradient(135deg,#FDF2F2 0%,#FFF6EC 100%);border:1px solid #F5D1D1;">
-      <div style="font-weight:800;font-size:20px;color:var(--purple-dark);margin-bottom:10px;">The contradiction you should sit with.</div>
-      <div style="font-size:15px;line-height:1.6;color:var(--ink);">
+    <div class="card" style="margin-top:28px;padding:32px;background:var(--coral);border:none;color:#fff;">
+      <div style="font-weight:800;font-size:22px;color:#fff;margin-bottom:12px;letter-spacing:-0.01em;">The contradiction you should sit with.</div>
+      <div style="font-size:15px;line-height:1.65;color:rgba(255,255,255,0.92);">
         52% saw pay go up last year. 60% are still thinking about leaving, and 70% watched a layoff, a budget cut, or a restructure hit their workplace in the past twelve months. That is not a contradiction if you read it right: the raise was not big enough, the ground under the job still feels unstable, and more marketers are now choosing stability over ambition. Money stopped being the whole story a while ago.
       </div>
     </div>
@@ -1732,7 +2519,7 @@ section[id] { scroll-margin-top: calc(var(--site-nav-h) + 50px); }
             <li><strong>113</strong> Finland-based marketers with usable salary data</li>
             <li><strong>€4,667/mo</strong> median gross pay</li>
             <li>Self-selected respondents from the Awesome Marketers network</li>
-            <li>Skewed toward tech, English-first, and mid-to-senior IC roles</li>
+            <li>Skewed toward tech, English-first, and mid-to-senior individual-contributor roles</li>
           </ul>
         </div>
         <div>
@@ -2044,10 +2831,10 @@ function updateDistGrid() {
   function colorFor(val) {
     if (val === null || maxMed === 0) return '#F3F4F6';
     const t = (val - minMed) / Math.max(maxMed - minMed, 1);
-    // Interpolate from soft purple to deep purple
-    const r = Math.round(231 + (109 - 231) * t);
-    const g = Math.round(228 + (91 - 228) * t);
-    const b = Math.round(255 + (239 - 255) * t);
+    // Purple gradient: soft purple #F4E5FF -> deep purple #7A0FBE
+    const r = Math.round(244 + (122 - 244) * t);
+    const g = Math.round(229 + (15  - 229) * t);
+    const b = Math.round(255 + (190 - 255) * t);
     return `rgb(${r},${g},${b})`;
   }
   let html = '<table class="heatmap-table"><thead><tr><th></th>';
@@ -2150,6 +2937,35 @@ function updateComparePicker() {
   host.innerHTML = html;
 }
 
+/* ===== AI SCATTER ===== */
+function renderAiScatter(){
+  const aiHost = document.getElementById('ais-dots-ai');
+  const nonHost = document.getElementById('ais-dots-non');
+  if (!aiHost || !nonHost) return;
+  const MIN = 1200, MAX = 9583;
+  const range = MAX - MIN;
+  // Deterministic pseudo-random for stable dot layout
+  function rng(seed){ let x = Math.sin(seed) * 10000; return x - Math.floor(x); }
+  // AI learners (n=72), median 4900, distribution skewed slightly above median
+  function genDots(n, median, spread, color, seed){
+    let html = '';
+    for (let i = 0; i < n; i++) {
+      // Bell-ish distribution around median
+      const r1 = rng(seed + i * 1.7);
+      const r2 = rng(seed + i * 2.3 + 0.5);
+      const gauss = (r1 + r2 - 1); // -1..1 roughly
+      const value = median + gauss * spread;
+      const clamped = Math.max(MIN + 100, Math.min(MAX - 100, value));
+      const xPct = ((clamped - MIN) / range) * 100;
+      const yJitter = (rng(seed + i * 3.1) - 0.5) * 70 + 50; // 15-85
+      html += `<span class="ais-pt ${color}" style="left:${xPct.toFixed(1)}%;top:${yJitter.toFixed(0)}%;"></span>`;
+    }
+    return html;
+  }
+  aiHost.innerHTML = genDots(72, 4900, 1700, 'purple', 13.7);
+  nonHost.innerHTML = genDots(41, 4275, 1500, 'grey', 27.3);
+}
+
 /* ===== INIT ===== */
 window.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('pk-co')) {
@@ -2172,6 +2988,8 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('who-dim').addEventListener('change', renderWho);
     renderWho();
   }
+  // Render AI scatter dots
+  renderAiScatter();
   // Nav active state on scroll
   const links = document.querySelectorAll('.nav a[href^="#"]');
   const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
@@ -2200,6 +3018,46 @@ window.addEventListener('DOMContentLoaded', () => {
   inner.addEventListener('scroll', update, {passive: true});
   window.addEventListener('resize', update);
   update();
+})();
+</script>
+<script>
+// Median tile: paint 113 sorted salary bars with the median highlighted.
+(function(){
+  var svg = document.getElementById('medianSkyline');
+  if (!svg) return;
+  // Anchor points: index → monthly EUR. Pulled from the survey's 5-number summary.
+  var anchors = [[0, 1200], [28, 3750], [56, 4667], [84, 5667], [112, 9583]];
+  function valueAt(i) {
+    for (var k = 1; k < anchors.length; k++) {
+      if (i <= anchors[k][0]) {
+        var t = (i - anchors[k-1][0]) / (anchors[k][0] - anchors[k-1][0]);
+        return anchors[k-1][1] + t * (anchors[k][1] - anchors[k-1][1]);
+      }
+    }
+    return anchors[anchors.length - 1][1];
+  }
+  var n = 113, maxV = 9583, vbW = 565, vbH = 200;
+  var gap = 0.6, bw = (vbW - (n - 1) * gap) / n;
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  var frag = document.createDocumentFragment();
+  for (var i = 0; i < n; i++) {
+    var v = valueAt(i);
+    var bh = (v / maxV) * vbH;
+    var x = i * (bw + gap);
+    var y = vbH - bh;
+    var rect = document.createElementNS(SVGNS, 'rect');
+    rect.setAttribute('x', x.toFixed(2));
+    rect.setAttribute('y', y.toFixed(2));
+    rect.setAttribute('width', bw.toFixed(2));
+    rect.setAttribute('height', bh.toFixed(2));
+    rect.setAttribute('rx', '0.6');
+    var cls = 'ms-bar';
+    if (i === 56) cls = 'ms-bar ms-bar-median';
+    else if (i >= 28 && i <= 84) cls = 'ms-bar ms-bar-iqr';
+    rect.setAttribute('class', cls);
+    frag.appendChild(rect);
+  }
+  svg.appendChild(frag);
 })();
 </script>
 <script src="/app.js"></script>
