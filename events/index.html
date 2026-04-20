@@ -238,6 +238,89 @@
       transform: translateX(3px);
     }
 
+    /* Our event — featured card */
+    .event-card--ours {
+      position: relative;
+      background: var(--gradient);
+      border: none;
+      padding: 28px;
+      gap: 24px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(166, 21, 255, 0.25);
+    }
+    .event-card--ours::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 85% 15%, rgba(255,255,255,0.22), transparent 55%),
+                  radial-gradient(circle at 15% 90%, rgba(255,255,255,0.15), transparent 45%);
+      pointer-events: none;
+    }
+    .event-card--ours > * { position: relative; z-index: 1; }
+    .event-card--ours:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 60px rgba(166, 21, 255, 0.35);
+      border: none;
+    }
+    .event-card--ours .event-card__date {
+      background: rgba(255,255,255,0.18);
+      border-radius: 12px;
+      padding: 14px 6px;
+      backdrop-filter: blur(6px);
+    }
+    .event-card--ours .event-card__day {
+      background: #fff;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2.2rem;
+    }
+    .event-card--ours .event-card__month,
+    .event-card--ours .event-card__weekday { color: #fff; opacity: 0.92; }
+    .event-card--ours .event-card__title {
+      color: #fff;
+      font-size: 1.35rem;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .event-card--ours .event-card__desc {
+      color: rgba(255,255,255,0.94);
+      font-size: 0.95rem;
+      -webkit-line-clamp: 3;
+    }
+    .event-card--ours .event-card__tag {
+      background: rgba(255,255,255,0.22);
+      color: #fff;
+      font-weight: 600;
+      backdrop-filter: blur(4px);
+    }
+    .event-card--ours .event-card__tag--free {
+      background: #fff;
+      color: var(--purple);
+    }
+    .event-card--ours .event-card__arrow { color: #fff; font-size: 1.5rem; opacity: 0.9; }
+    .event-card--ours:hover .event-card__arrow { color: #fff; transform: translateX(5px); opacity: 1; }
+    .event-card__ours-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      color: var(--purple);
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 640px) {
+      .event-card--ours { padding: 20px; gap: 14px; flex-wrap: wrap; }
+      .event-card--ours .event-card__title { font-size: 1.1rem; }
+      .event-card--ours .event-card__day { font-size: 1.8rem; }
+    }
+
     /* Community events section */
     .events-community {
       background: var(--gray-800);
@@ -546,6 +629,25 @@
       <div class="event-card__arrow">→</div>
     </a>
 
+    <a href="https://www.linkedin.com/events/7450897203725959169/" target="_blank" class="event-card event-card--ours" data-month="apr" data-date="2026-04-29">
+      <div class="event-card__date">
+        <div class="event-card__day">29</div>
+        <div class="event-card__month">Apr</div>
+        <div class="event-card__weekday">Wed</div>
+      </div>
+      <div class="event-card__info">
+        <div class="event-card__ours-badge">✨ Hosted by us</div>
+        <div class="event-card__title">🎤 The Awesome Karaoke Pre-Vappu Meetup</div>
+        <p class="event-card__desc">Warm up for Vappu with us at Kraken. Karaoke, drinks, and the good marketing people you actually want to hang out with. No panels, no slides, just vibes.</p>
+        <div class="event-card__meta">
+          <span class="event-card__tag">📍 Kraken, Hietaniemenkatu 2</span>
+          <span class="event-card__tag">16:30 onwards</span>
+          <span class="event-card__tag event-card__tag--free">Free</span>
+        </div>
+      </div>
+      <div class="event-card__arrow">→</div>
+    </a>
+
     <a href="https://luma.com/hmvspzh0" target="_blank" class="event-card" data-month="apr" data-date="2026-04-29">
       <div class="event-card__date">
         <div class="event-card__day">29</div>
@@ -558,6 +660,24 @@
         <div class="event-card__meta">
           <span class="event-card__tag">📍 Helsinki</span>
           <span class="event-card__tag">17:00–20:00</span>
+          <span class="event-card__tag event-card__tag--free">Free</span>
+        </div>
+      </div>
+      <div class="event-card__arrow">→</div>
+    </a>
+
+    <a href="https://luma.com/aic-fi-4-29" target="_blank" class="event-card" data-month="apr" data-date="2026-04-29">
+      <div class="event-card__date">
+        <div class="event-card__day">29</div>
+        <div class="event-card__month">Apr</div>
+        <div class="event-card__weekday">Wed</div>
+      </div>
+      <div class="event-card__info">
+        <div class="event-card__title">AI in Marketing: The Future of Work</div>
+        <p class="event-card__desc">Panel on how AI is reshaping marketing careers, tools, and competencies. Hosted by The AI Collective with Herizon and HankAI at Hanken.</p>
+        <div class="event-card__meta">
+          <span class="event-card__tag">📍 Helsinki</span>
+          <span class="event-card__tag">17:00–19:30</span>
           <span class="event-card__tag event-card__tag--free">Free</span>
         </div>
       </div>
