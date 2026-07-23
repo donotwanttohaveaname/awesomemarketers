@@ -4,7 +4,7 @@
     {
       "name": "community-site",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8095", "--directory", "/Users/anna/Desktop/CLAUDE/.claude/worktrees/kind-elbakyan/community-site"],
+      "runtimeArgs": ["-m", "http.server", "8095", "--directory", "/Users/anna/Desktop/CLAUDE MASTER/portfolio"],
       "port": 8095
     }
   ]

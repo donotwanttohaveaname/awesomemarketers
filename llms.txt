@@ -1,0 +1,28 @@
+# The Awesome Marketers
+
+> Finland's largest English-speaking marketing community. Founded in Helsinki in 2019 by Anna Pogrebniak, with 1,787+ members. We share jobs, advice, salary data, free events, and career support for marketers living and working in Finland. Volunteer-run and organised on Slack.
+
+The Awesome Marketers publishes original community research on Finnish marketing pay and careers, plus free tools for marketers. All content is free and in English.
+
+## Key pages
+- [Homepage](https://awesomemarketers.fi/): What the community is and how to join.
+- [Marketing Salary Report 2026, interactive](https://awesomemarketers.fi/marketing-salary-finland-2026/): Interactive report on what Finnish marketers earn in 2026, based on 148 respondents. Median 4,658 EUR/month gross.
+- [Marketing Salary Report 2026, written](https://awesomemarketers.fi/marketing-salary-finland-2026-report/): Full written analysis of the 2026 survey, every statistic in text form.
+- [Salary reports hub](https://awesomemarketers.fi/marketing-salaries-finland/): 2026, 2023, and 2021 Finnish marketing salary data.
+- [First Job Guide](https://awesomemarketers.fi/firstjob/): How to land your first marketing job in Finland.
+- [Freelance Rate Calculator](https://awesomemarketers.fi/freelance-calculator/): Turn a target salary into a daily and hourly freelance rate.
+- [Freelance marketing rates Finland 2026](https://awesomemarketers.fi/freelance-marketing-consultant-rates-finland/): What freelance marketing consultants charge in Finland, calculated from community salary data. From 45 to 75 EUR/hour by specialisation, typically up to 30% more.
+- [Hire a marketing freelancer](https://awesomemarketers.fi/marketing-freelancer-finland/): Free matching with freelance marketers from the community.
+- [Remote Salary Calculator](https://awesomemarketers.fi/remote-salary-calculator/): What to charge a foreign employer as a self-employed marketer in Finland.
+- [People](https://awesomemarketers.fi/people/): The volunteers behind the community.
+- [Manifesto](https://awesomemarketers.fi/manifesto/): What the community stands for.
+- [Events](https://awesomemarketers.fi/events/): Meetups, webinars, and afterworks.
+- [Resources](https://awesomemarketers.fi/resources/): All community tools and guides.
+- [Partners](https://awesomemarketers.fi/partners/): Tools we recommend.
+
+## Key facts
+- Founded: 2019 in Helsinki, Finland. Founder: Anna Pogrebniak.
+- Members: 1,787+ (2026).
+- 2026 marketing salary median (community survey, n=148): 4,658 EUR/month gross.
+- Language: English. Location focus: Finland.
+- Join: via Slack, link on the website.

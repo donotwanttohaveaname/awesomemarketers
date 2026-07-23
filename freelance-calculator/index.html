@@ -21,6 +21,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <script defer src="https://cloud.umami.is/script.js" data-website-id="03433979-1ae8-4c85-9096-8b4da9cf02b3"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "The Awesome Marketers",
+  "alternateName": "Awesome Marketers",
+  "url": "https://awesomemarketers.fi",
+  "logo": "https://awesomemarketers.fi/logo.jpg",
+  "image": "https://awesomemarketers.fi/thumbnail.png",
+  "description": "Finland's largest English-speaking marketing community. Founded in Helsinki in 2019, with 1,787+ members sharing jobs, advice, salary data, events, and career support for marketers in Finland.",
+  "foundingDate": "2019",
+  "foundingLocation": {
+    "@type": "Place",
+    "name": "Helsinki, Finland"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Finland"
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Anna Pogrebniak",
+    "url": "https://www.linkedin.com/in/annapogrebniak/"
+  },
+  "knowsLanguage": "en"
+}
+</script>
 </head>
 <body>
 
@@ -149,7 +176,7 @@
                 <span class="calc__breakdown-value" id="bkGross">0 €</span>
               </div>
               <div class="calc__breakdown-item">
-                <span class="calc__breakdown-label">Holiday-adjusted (x13.5 / 11)</span>
+                <span class="calc__breakdown-label">Holiday-adjusted (x14 / 11)</span>
                 <span class="calc__breakdown-value" id="bkHoliday">0 €</span>
               </div>
               <div class="calc__breakdown-item">
@@ -183,9 +210,10 @@
             </div>
           </div>
 
-          <p class="calc__disclaimer">Based on ~21 work days/month, minus ~1 public holiday, 1 sick day, and 1 admin day. YEL: ~19% for new freelancers (starter discount), ~24% for 4+ years. Holiday pay: 13.5 months over 11 working months. All figures exclude VAT. Business expenses (accounting, tools, courses) typically run around 1 500 €/year, but since they are tax-deductible, they mostly balance out and are not included in this calculation.</p>
+          <p class="calc__disclaimer">Based on ~21 work days/month, minus ~1 public holiday, 1 sick day, and 1 admin day. YEL: ~19% for new freelancers (starter discount), ~24% for 4+ years. Holiday pay: ~14 months over 11 working months. All figures exclude VAT. Business expenses (accounting, tools, courses) typically run around 1 500 €/year, but since they are tax-deductible, they mostly balance out and are not included in this calculation.</p>
         </div>
       </div>
+      <p class="calc__disclaimer" style="text-align: center; margin-top: 28px;">Not sure what number to aim for? <a href="/freelance-marketing-consultant-rates-finland/">See what freelance marketing consultants actually charge in Finland</a>, calculated from our 2026 salary data.</p>
     </div>
   </section>
 
@@ -218,7 +246,7 @@
       const exp = document.querySelector('input[name="rcExp"]:checked').value;
       const yelFactor = exp === 'new' ? 0.81 : 0.76;
 
-      const holidayAdjusted = (salary * 13.5) / 11;
+      const holidayAdjusted = (salary * 14) / 11;
       const yelAmount = holidayAdjusted / yelFactor - holidayAdjusted;
       const monthlyTarget = holidayAdjusted / yelFactor;
 
