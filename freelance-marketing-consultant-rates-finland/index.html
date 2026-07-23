@@ -224,12 +224,17 @@
   .pb ul li::before { content:''; position:absolute; left:2px; top:0.62em; width:10px; height:10px; border-radius:99px; background:var(--gradient); }
 
   /* tables */
-  .rates-table-wrap { overflow-x:auto; overflow-y:hidden; margin:24px 0 8px; border-radius:var(--radius-lg); border:1px solid var(--gray-200); box-shadow:var(--shadow-sm); background:var(--white); width:min(920px, calc(100vw - 40px)); position:relative; left:50%; transform:translateX(-50%); }
+  .rates-table-wrap { overflow-x:auto; overflow-y:hidden; margin:24px 0 8px; border-radius:var(--radius-lg); border:1px solid var(--gray-200); box-shadow:var(--shadow-sm); background:var(--white); width:min(840px, calc(100vw - 40px)); position:relative; left:50%; transform:translateX(-50%); }
   .rates-table { width:100%; border-collapse:collapse; font-size:0.95rem; min-width:640px; }
   .rates-table th { background:var(--gray-900); color:#fff; font-family:var(--font-heading); font-size:0.78rem; text-transform:uppercase; letter-spacing:0.06em; text-align:left; padding:13px 16px; white-space:nowrap; }
   .rates-table td { padding:13px 16px; border-top:1px solid var(--gray-200); color:var(--gray-700); vertical-align:middle; line-height:1.45; }
   .rates-table td strong { white-space:nowrap; display:inline-block; }
-  .rates-table td:nth-child(3), .rates-table td:nth-child(4) { min-width:150px; }
+  .rates-table th:nth-child(1) { width:36%; }
+  .rates-table th:nth-child(2) { width:18%; }
+  .rates-table th:nth-child(3), .rates-table th:nth-child(4) { width:23%; }
+  .rates-table th.th-num, .rates-table td:nth-child(2):not(:has(.map-pill)) { text-align:right; }
+  .rates-table td strong { font-size:1.1rem; letter-spacing:-0.01em; }
+  .rates-table .rates-upto { margin-top:2px; }
   .map-pill { display:inline-block; background:var(--gray-100); color:var(--gray-600); font-size:0.8rem; font-weight:600; padding:4px 12px; border-radius:100px; white-space:nowrap; }
   .rates-table tr:hover .map-pill { background:rgba(166,21,255,0.1); color:var(--purple); }
   .rates-table tbody tr { transition:background .12s ease; }
@@ -439,25 +444,25 @@
       <div class="rates-table-wrap">
         <table class="rates-table">
           <thead>
-            <tr><th>Specialisation</th><th>Median salary</th><th>Day rate</th><th>Hourly</th></tr>
+            <tr><th>Specialisation</th><th class="th-num">Median salary</th><th>Typical day rate</th><th>Typical hourly</th></tr>
           </thead>
           <tbody>
-            <tr><td>Marketing Strategy (n=20)</td><td>€5,765</td><td><strong>typically €695</strong><span class="rates-upto">starting from €565</span></td><td><strong>typically €165</strong><span class="rates-upto">starting from €145</span></td></tr>
-            <tr><td>Branding &amp; Brand Strategy (n=8)</td><td>€5,355</td><td><strong>typically €650</strong><span class="rates-upto">starting from €525</span></td><td><strong>typically €155</strong><span class="rates-upto">starting from €135</span></td></tr>
-            <tr><td>Product Marketing (n=12)</td><td>€5,292</td><td><strong>typically €640</strong><span class="rates-upto">starting from €515</span></td><td><strong>typically €150</strong><span class="rates-upto">starting from €130</span></td></tr>
-            <tr><td>Growth Marketing (n=18)</td><td>€4,875</td><td><strong>typically €590</strong><span class="rates-upto">starting from €475</span></td><td><strong>typically €140</strong><span class="rates-upto">starting from €120</span></td></tr>
-            <tr><td>AI Prompting &amp; Workflow Automation (n=4)*</td><td>€4,850</td><td><strong>typically €585</strong><span class="rates-upto">starting from €475</span></td><td><strong>typically €140</strong><span class="rates-upto">starting from €120</span></td></tr>
-            <tr><td>Email Marketing (n=4)*</td><td>€4,833</td><td><strong>typically €585</strong><span class="rates-upto">starting from €470</span></td><td><strong>typically €140</strong><span class="rates-upto">starting from €120</span></td></tr>
-            <tr><td>Analytics &amp; Data (n=4)*</td><td>€4,825</td><td><strong>typically €585</strong><span class="rates-upto">starting from €470</span></td><td><strong>typically €140</strong><span class="rates-upto">starting from €120</span></td></tr>
-            <tr><td>Marketing Ops (n=5)*</td><td>€4,750</td><td><strong>typically €575</strong><span class="rates-upto">starting from €465</span></td><td><strong>typically €135</strong><span class="rates-upto">starting from €120</span></td></tr>
-            <tr><td>Advertising &amp; Paid Acquisition (n=11)</td><td>€4,417</td><td><strong>typically €535</strong><span class="rates-upto">starting from €430</span></td><td><strong>typically €125</strong><span class="rates-upto">starting from €110</span></td></tr>
-            <tr><td>Design (n=4)*</td><td>€4,250</td><td><strong>typically €515</strong><span class="rates-upto">starting from €415</span></td><td><strong>typically €120</strong><span class="rates-upto">starting from €105</span></td></tr>
-            <tr><td>Performance Marketing (n=4)*</td><td>€4,238</td><td><strong>typically €515</strong><span class="rates-upto">starting from €415</span></td><td><strong>typically €120</strong><span class="rates-upto">starting from €105</span></td></tr>
-            <tr><td>Copywriting (n=5)*</td><td>€4,200</td><td><strong>typically €510</strong><span class="rates-upto">starting from €410</span></td><td><strong>typically €120</strong><span class="rates-upto">starting from €105</span></td></tr>
-            <tr><td>PR &amp; Communications (n=5)*</td><td>€4,167</td><td><strong>typically €505</strong><span class="rates-upto">starting from €405</span></td><td><strong>typically €120</strong><span class="rates-upto">starting from €105</span></td></tr>
-            <tr><td>Content &amp; SEO (n=20)</td><td>€4,042</td><td><strong>typically €490</strong><span class="rates-upto">starting from €395</span></td><td><strong>typically €115</strong><span class="rates-upto">starting from €100</span></td></tr>
-            <tr><td>CRM Management (n=5)*</td><td>€3,500</td><td><strong>typically €425</strong><span class="rates-upto">starting from €340</span></td><td><strong>typically €100</strong><span class="rates-upto">starting from €85</span></td></tr>
-            <tr><td>Social Media (n=5)*</td><td>€3,333</td><td><strong>typically €405</strong><span class="rates-upto">starting from €325</span></td><td><strong>typically €95</strong><span class="rates-upto">starting from €85</span></td></tr>
+            <tr><td>Marketing Strategy (n=20)</td><td>€5,765</td><td><strong>€695</strong><span class="rates-upto">from €565</span></td><td><strong>€165</strong><span class="rates-upto">from €145</span></td></tr>
+            <tr><td>Branding &amp; Brand Strategy (n=8)</td><td>€5,355</td><td><strong>€650</strong><span class="rates-upto">from €525</span></td><td><strong>€155</strong><span class="rates-upto">from €135</span></td></tr>
+            <tr><td>Product Marketing (n=12)</td><td>€5,292</td><td><strong>€640</strong><span class="rates-upto">from €515</span></td><td><strong>€150</strong><span class="rates-upto">from €130</span></td></tr>
+            <tr><td>Growth Marketing (n=18)</td><td>€4,875</td><td><strong>€590</strong><span class="rates-upto">from €475</span></td><td><strong>€140</strong><span class="rates-upto">from €120</span></td></tr>
+            <tr><td>AI Prompting &amp; Workflow Automation (n=4)*</td><td>€4,850</td><td><strong>€585</strong><span class="rates-upto">from €475</span></td><td><strong>€140</strong><span class="rates-upto">from €120</span></td></tr>
+            <tr><td>Email Marketing (n=4)*</td><td>€4,833</td><td><strong>€585</strong><span class="rates-upto">from €470</span></td><td><strong>€140</strong><span class="rates-upto">from €120</span></td></tr>
+            <tr><td>Analytics &amp; Data (n=4)*</td><td>€4,825</td><td><strong>€585</strong><span class="rates-upto">from €470</span></td><td><strong>€140</strong><span class="rates-upto">from €120</span></td></tr>
+            <tr><td>Marketing Ops (n=5)*</td><td>€4,750</td><td><strong>€575</strong><span class="rates-upto">from €465</span></td><td><strong>€135</strong><span class="rates-upto">from €120</span></td></tr>
+            <tr><td>Advertising &amp; Paid Acquisition (n=11)</td><td>€4,417</td><td><strong>€535</strong><span class="rates-upto">from €430</span></td><td><strong>€125</strong><span class="rates-upto">from €110</span></td></tr>
+            <tr><td>Design (n=4)*</td><td>€4,250</td><td><strong>€515</strong><span class="rates-upto">from €415</span></td><td><strong>€120</strong><span class="rates-upto">from €105</span></td></tr>
+            <tr><td>Performance Marketing (n=4)*</td><td>€4,238</td><td><strong>€515</strong><span class="rates-upto">from €415</span></td><td><strong>€120</strong><span class="rates-upto">from €105</span></td></tr>
+            <tr><td>Copywriting (n=5)*</td><td>€4,200</td><td><strong>€510</strong><span class="rates-upto">from €410</span></td><td><strong>€120</strong><span class="rates-upto">from €105</span></td></tr>
+            <tr><td>PR &amp; Communications (n=5)*</td><td>€4,167</td><td><strong>€505</strong><span class="rates-upto">from €405</span></td><td><strong>€120</strong><span class="rates-upto">from €105</span></td></tr>
+            <tr><td>Content &amp; SEO (n=20)</td><td>€4,042</td><td><strong>€490</strong><span class="rates-upto">from €395</span></td><td><strong>€115</strong><span class="rates-upto">from €100</span></td></tr>
+            <tr><td>CRM Management (n=5)*</td><td>€3,500</td><td><strong>€425</strong><span class="rates-upto">from €340</span></td><td><strong>€100</strong><span class="rates-upto">from €85</span></td></tr>
+            <tr><td>Social Media (n=5)*</td><td>€3,333</td><td><strong>€405</strong><span class="rates-upto">from €325</span></td><td><strong>€95</strong><span class="rates-upto">from €85</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -471,22 +476,22 @@
       <div class="rates-table-wrap">
         <table class="rates-table">
           <thead>
-            <tr><th>Freelance specialisation</th><th>Mapped to</th><th>Day rate</th><th>Hourly</th></tr>
+            <tr><th>Freelance specialisation</th><th>Mapped to</th><th>Typical day rate</th><th>Typical hourly</th></tr>
           </thead>
           <tbody>
-            <tr><td>SEO consulting</td><td><span class="map-pill">Content &amp; SEO</span></td><td><strong>typically €490</strong><span class="rates-upto">starting from €395</span></td><td><strong>typically €115</strong><span class="rates-upto">starting from €100</span></td></tr>
-            <tr><td>Google Ads / paid search</td><td><span class="map-pill">Advertising &amp; Paid Acquisition</span></td><td><strong>typically €535</strong><span class="rates-upto">starting from €430</span></td><td><strong>typically €125</strong><span class="rates-upto">starting from €110</span></td></tr>
-            <tr><td>Paid social (Meta, LinkedIn)</td><td><span class="map-pill">Advertising &amp; Paid Acquisition</span></td><td><strong>typically €535</strong><span class="rates-upto">starting from €430</span></td><td><strong>typically €125</strong><span class="rates-upto">starting from €110</span></td></tr>
-            <tr><td>Marketing automation (HubSpot, Klaviyo)</td><td><span class="map-pill">Marketing Ops</span></td><td><strong>typically €575</strong><span class="rates-upto">starting from €465</span></td><td><strong>typically €135</strong><span class="rates-upto">starting from €120</span></td></tr>
-            <tr><td>Lifecycle &amp; CRM marketing</td><td><span class="map-pill">CRM Management</span></td><td><strong>typically €425</strong><span class="rates-upto">starting from €340</span></td><td><strong>typically €100</strong><span class="rates-upto">starting from €85</span></td></tr>
-            <tr><td>Influencer marketing</td><td><span class="map-pill">Social Media</span></td><td><strong>typically €405</strong><span class="rates-upto">starting from €325</span></td><td><strong>typically €95</strong><span class="rates-upto">starting from €85</span></td></tr>
-            <tr><td>Community management</td><td><span class="map-pill">Social Media</span></td><td><strong>typically €405</strong><span class="rates-upto">starting from €325</span></td><td><strong>typically €95</strong><span class="rates-upto">starting from €85</span></td></tr>
-            <tr><td>Web analytics &amp; tracking</td><td><span class="map-pill">Analytics &amp; Data</span></td><td><strong>typically €585</strong><span class="rates-upto">starting from €470</span></td><td><strong>typically €140</strong><span class="rates-upto">starting from €120</span></td></tr>
-            <tr><td>Conversion rate optimisation (CRO)</td><td><span class="map-pill">Growth Marketing</span></td><td><strong>typically €590</strong><span class="rates-upto">starting from €475</span></td><td><strong>typically €140</strong><span class="rates-upto">starting from €120</span></td></tr>
-            <tr><td>Account-based marketing (ABM)</td><td><span class="map-pill">Marketing Strategy</span></td><td><strong>typically €695</strong><span class="rates-upto">starting from €565</span></td><td><strong>typically €165</strong><span class="rates-upto">starting from €145</span></td></tr>
-            <tr><td>Event marketing</td><td><span class="map-pill">overall median</span></td><td><strong>typically €565</strong><span class="rates-upto">starting from €455</span></td><td><strong>typically €135</strong><span class="rates-upto">starting from €115</span></td></tr>
-            <tr><td>Video &amp; podcast production</td><td><span class="map-pill">Design</span></td><td><strong>typically €515</strong><span class="rates-upto">starting from €415</span></td><td><strong>typically €120</strong><span class="rates-upto">starting from €105</span></td></tr>
-            <tr><td>Fractional CMO</td><td><span class="map-pill">Director / VP level</span></td><td><strong>typically €905</strong><span class="rates-upto">starting from €735</span></td><td><strong>typically €215</strong><span class="rates-upto">starting from €185</span></td></tr>
+            <tr><td>SEO consulting</td><td><span class="map-pill">Content &amp; SEO</span></td><td><strong>€490</strong><span class="rates-upto">from €395</span></td><td><strong>€115</strong><span class="rates-upto">from €100</span></td></tr>
+            <tr><td>Google Ads / paid search</td><td><span class="map-pill">Advertising &amp; Paid Acquisition</span></td><td><strong>€535</strong><span class="rates-upto">from €430</span></td><td><strong>€125</strong><span class="rates-upto">from €110</span></td></tr>
+            <tr><td>Paid social (Meta, LinkedIn)</td><td><span class="map-pill">Advertising &amp; Paid Acquisition</span></td><td><strong>€535</strong><span class="rates-upto">from €430</span></td><td><strong>€125</strong><span class="rates-upto">from €110</span></td></tr>
+            <tr><td>Marketing automation (HubSpot, Klaviyo)</td><td><span class="map-pill">Marketing Ops</span></td><td><strong>€575</strong><span class="rates-upto">from €465</span></td><td><strong>€135</strong><span class="rates-upto">from €120</span></td></tr>
+            <tr><td>Lifecycle &amp; CRM marketing</td><td><span class="map-pill">CRM Management</span></td><td><strong>€425</strong><span class="rates-upto">from €340</span></td><td><strong>€100</strong><span class="rates-upto">from €85</span></td></tr>
+            <tr><td>Influencer marketing</td><td><span class="map-pill">Social Media</span></td><td><strong>€405</strong><span class="rates-upto">from €325</span></td><td><strong>€95</strong><span class="rates-upto">from €85</span></td></tr>
+            <tr><td>Community management</td><td><span class="map-pill">Social Media</span></td><td><strong>€405</strong><span class="rates-upto">from €325</span></td><td><strong>€95</strong><span class="rates-upto">from €85</span></td></tr>
+            <tr><td>Web analytics &amp; tracking</td><td><span class="map-pill">Analytics &amp; Data</span></td><td><strong>€585</strong><span class="rates-upto">from €470</span></td><td><strong>€140</strong><span class="rates-upto">from €120</span></td></tr>
+            <tr><td>Conversion rate optimisation (CRO)</td><td><span class="map-pill">Growth Marketing</span></td><td><strong>€590</strong><span class="rates-upto">from €475</span></td><td><strong>€140</strong><span class="rates-upto">from €120</span></td></tr>
+            <tr><td>Account-based marketing (ABM)</td><td><span class="map-pill">Marketing Strategy</span></td><td><strong>€695</strong><span class="rates-upto">from €565</span></td><td><strong>€165</strong><span class="rates-upto">from €145</span></td></tr>
+            <tr><td>Event marketing</td><td><span class="map-pill">overall median</span></td><td><strong>€565</strong><span class="rates-upto">from €455</span></td><td><strong>€135</strong><span class="rates-upto">from €115</span></td></tr>
+            <tr><td>Video &amp; podcast production</td><td><span class="map-pill">Design</span></td><td><strong>€515</strong><span class="rates-upto">from €415</span></td><td><strong>€120</strong><span class="rates-upto">from €105</span></td></tr>
+            <tr><td>Fractional CMO</td><td><span class="map-pill">Director / VP level</span></td><td><strong>€905</strong><span class="rates-upto">from €735</span></td><td><strong>€215</strong><span class="rates-upto">from €185</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -502,14 +507,14 @@
       <div class="rates-table-wrap">
         <table class="rates-table">
           <thead>
-            <tr><th>Seniority</th><th>Median salary</th><th>Day rate</th><th>Hourly</th></tr>
+            <tr><th>Seniority</th><th class="th-num">Median salary</th><th>Typical day rate</th><th>Typical hourly</th></tr>
           </thead>
           <tbody>
-            <tr><td>Junior</td><td class="td-bar" style="--w:44%">€3,333</td><td><strong>typically €405</strong><span class="rates-upto">starting from €325</span></td><td><strong>typically €95</strong><span class="rates-upto">starting from €85</span></td></tr>
-            <tr><td>Mid-Level</td><td class="td-bar" style="--w:56%">€4,200</td><td><strong>typically €510</strong><span class="rates-upto">starting from €410</span></td><td><strong>typically €120</strong><span class="rates-upto">starting from €105</span></td></tr>
-            <tr><td>Senior</td><td class="td-bar" style="--w:67%">€5,000</td><td><strong>typically €605</strong><span class="rates-upto">starting from €490</span></td><td><strong>typically €145</strong><span class="rates-upto">starting from €125</span></td></tr>
-            <tr><td>Lead / Manager</td><td class="td-bar" style="--w:71%">€5,314</td><td><strong>typically €645</strong><span class="rates-upto">starting from €520</span></td><td><strong>typically €150</strong><span class="rates-upto">starting from €130</span></td></tr>
-            <tr><td>Director / VP</td><td class="td-bar" style="--w:100%">€7,500</td><td><strong>typically €905</strong><span class="rates-upto">starting from €735</span></td><td><strong>typically €215</strong><span class="rates-upto">starting from €185</span></td></tr>
+            <tr><td>Junior</td><td class="td-bar" style="--w:44%">€3,333</td><td><strong>€405</strong><span class="rates-upto">from €325</span></td><td><strong>€95</strong><span class="rates-upto">from €85</span></td></tr>
+            <tr><td>Mid-Level</td><td class="td-bar" style="--w:56%">€4,200</td><td><strong>€510</strong><span class="rates-upto">from €410</span></td><td><strong>€120</strong><span class="rates-upto">from €105</span></td></tr>
+            <tr><td>Senior</td><td class="td-bar" style="--w:67%">€5,000</td><td><strong>€605</strong><span class="rates-upto">from €490</span></td><td><strong>€145</strong><span class="rates-upto">from €125</span></td></tr>
+            <tr><td>Lead / Manager</td><td class="td-bar" style="--w:71%">€5,314</td><td><strong>€645</strong><span class="rates-upto">from €520</span></td><td><strong>€150</strong><span class="rates-upto">from €130</span></td></tr>
+            <tr><td>Director / VP</td><td class="td-bar" style="--w:100%">€7,500</td><td><strong>€905</strong><span class="rates-upto">from €735</span></td><td><strong>€215</strong><span class="rates-upto">from €185</span></td></tr>
           </tbody>
         </table>
       </div>
