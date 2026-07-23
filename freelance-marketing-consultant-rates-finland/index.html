@@ -130,45 +130,165 @@
 }
 </script>
 <style>
-  .rates-article { max-width: 720px; margin: 0 auto; padding: 0 24px 80px; font-family: var(--font-body); }
-  .rates-article p, .rates-article li { line-height: 1.7; color: var(--gray-700); margin-bottom: 16px; }
-  .rates-article h2 { font-family: var(--font-heading); font-size: 1.7rem; margin: 48px 0 16px; }
-  .rates-article h3 { font-family: var(--font-heading); font-size: 1.2rem; margin: 28px 0 12px; }
-  .rates-article a { color: var(--purple); }
-  .rates-byline { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-size: 0.9rem; color: var(--gray-500); margin-top: 18px; }
-  .rates-byline a { color: var(--gray-700); font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--orange); }
-  .rates-answer { border-left: 4px solid var(--purple); background: var(--gray-50); padding: 20px 24px; border-radius: var(--radius-md, 12px); margin: 32px 0; }
-  .rates-answer p { margin: 0; font-size: 1.05rem; }
-  .rates-takeaways { background: linear-gradient(135deg, rgba(166,21,255,0.06), rgba(255,180,82,0.10)); border: 1px solid rgba(166,21,255,0.18); border-radius: var(--radius-lg, 16px); padding: 24px 28px; margin: 32px 0; }
-  .rates-takeaways h2 { margin: 0 0 12px; font-size: 1.15rem; }
-  .rates-takeaways ul { margin: 0; padding-left: 20px; }
-  .rates-takeaways li { margin-bottom: 8px; }
-  .rates-toc { border: 1px solid var(--gray-200); border-radius: var(--radius-md, 12px); padding: 20px 24px; margin: 32px 0; }
-  .rates-toc h2 { margin: 0 0 10px; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gray-500); }
-  .rates-toc ol { margin: 0; padding-left: 20px; }
-  .rates-toc li { margin-bottom: 6px; }
-  .rates-toc a { text-decoration: none; }
-  .rates-table-wrap { overflow-x: auto; margin: 24px 0 8px; border-radius: var(--radius-md, 12px); border: 1px solid var(--gray-200); }
-  .rates-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 520px; }
-  .rates-table th { background: var(--gray-900); color: #fff; font-family: var(--font-heading); text-align: left; padding: 12px 16px; white-space: nowrap; }
-  .rates-table td { padding: 11px 16px; border-top: 1px solid var(--gray-200); color: var(--gray-700); }
-  .rates-table tr:nth-child(even) td { background: var(--gray-50); }
-  .rates-table td strong { color: var(--purple); }
-  .rates-footnote { font-size: 0.85rem; color: var(--gray-500); margin-bottom: 32px; }
-  .rates-faq details { border: 1px solid var(--gray-200); border-radius: var(--radius-md, 12px); padding: 16px 20px; margin-bottom: 12px; }
-  .rates-faq summary { font-family: var(--font-heading); font-weight: 600; cursor: pointer; color: var(--gray-900); }
-  .rates-faq details p { margin: 12px 0 0; }
-  .rates-cta { background: var(--gradient); border-radius: var(--radius-lg, 16px); padding: 36px 32px; margin: 48px 0 0; text-align: center; color: #fff; }
-  .rates-cta h2 { color: #fff; margin: 0 0 10px; }
-  .rates-cta p { color: rgba(255,255,255,0.92); }
-  .rates-cta__actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 20px 0 14px; }
-  .rates-cta .btn--primary { background: #fff; color: var(--purple); }
-  .rates-cta .btn--outline { border-color: #fff; color: #fff; }
-  .rates-cta a { color: #fff; }
-.rates-upto { display:block; font-size:0.82em; color: var(--gray-500); font-weight:400; white-space:nowrap; }
+  :root { --coral:#9D0640; --coral-soft:#FBD9E5; --green:#4B5A22; --green-soft:#DDE6BD; --yellow-soft:#FFE9CB; --purple-dark:#7A0FBE; --purple-soft:#F4E5FF; --ink:#111827; }
+
+  /* reading progress bar (decorative) */
+  .progress { position:fixed; top:0; left:0; right:0; height:4px; z-index:3000; pointer-events:none; }
+  .progress__fill { height:100%; width:0; background:var(--gradient); border-radius:0 99px 99px 0; }
+
+  .rates-article { max-width:720px; margin:0 auto; padding:0 24px 80px; font-family:var(--font-body); }
+  .rates-article p, .rates-article li { font-size:1.0625rem; line-height:1.75; color:var(--gray-700); margin-bottom:16px; }
+  .rates-article h2 { font-family:var(--font-heading); font-size:1.7rem; margin:48px 0 16px; }
+  .rates-article h3 { font-family:var(--font-heading); font-size:1.2rem; margin:28px 0 12px; }
+  .rates-article a { color:var(--purple); }
+  .rates-article h2[id], .rates-article h3[id] { scroll-margin-top:150px; }
+
+  /* hero byline chips */
+  .rates-byline { display:flex; flex-wrap:wrap; gap:8px 10px; align-items:center; font-size:0.85rem; color:var(--gray-600); margin-top:22px; }
+  .rates-byline > span { display:inline-block; background:rgba(255,255,255,0.9); border:1px solid var(--gray-200); border-radius:999px; padding:6px 14px; box-shadow:var(--shadow-sm); }
+  .rates-byline a { color:var(--gray-800); font-weight:600; text-decoration:none; border-bottom:2px solid var(--orange); }
+
+  /* TL;DR answer card */
+  .rates-answer { position:relative; border-radius:24px; padding:3px; background:var(--gradient); margin:32px 0 22px; border:0; box-shadow:var(--shadow-md); }
+  .rates-answer > p { background:var(--white); border-radius:21px; padding:28px 26px 24px; margin:0; font-size:1.12rem; line-height:1.6; color:var(--gray-900); font-weight:500; }
+  .tldr__tag { position:absolute; top:-13px; left:24px; background:var(--gradient); color:var(--white); font-family:var(--font-heading); font-weight:700; font-size:0.72rem; letter-spacing:0.12em; padding:5px 14px; border-radius:999px; box-shadow:var(--shadow-sm); z-index:1; }
+
+  /* stat band */
+  .stat-band { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:0 0 36px; }
+  .stat-band--3 { grid-template-columns:repeat(3,1fr); }
+  .stat-tile { border-radius:22px; padding:20px 16px 16px; display:flex; flex-direction:column; gap:6px; transition:transform .18s ease, box-shadow .18s ease; }
+  .stat-tile:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .stat-tile__num { font-family:var(--font-heading); font-weight:700; font-size:clamp(1.35rem,3.6vw,1.8rem); letter-spacing:-0.03em; line-height:1; }
+  .stat-tile__label { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; opacity:0.8; }
+  .stat-tile--yellow { background:var(--yellow-soft); color:var(--ink); } .stat-tile--yellow .stat-tile__num { color:var(--coral); }
+  .stat-tile--purple { background:var(--purple-soft); color:var(--ink); } .stat-tile--purple .stat-tile__num { color:var(--purple-dark); }
+  .stat-tile--green { background:var(--green-soft); color:var(--ink); } .stat-tile--green .stat-tile__num { color:var(--green); }
+
+  /* inline highlights */
+  .hl { background:linear-gradient(120deg, rgba(255,180,82,0.45), rgba(166,21,255,0.22)); padding:0.05em 0.3em; border-radius:6px; color:inherit; -webkit-box-decoration-break:clone; box-decoration-break:clone; }
+  .pb--tint .hl { background:rgba(255,255,255,0.72); box-shadow:inset 0 -2px 0 var(--acc); }
+  .kn { font-family:var(--font-heading); font-weight:700; color:var(--acc, var(--purple-dark)); }
+
+  /* key takeaways bento */
+  .rates-takeaways { margin:32px 0 36px; }
+  .rates-takeaways h2 { display:flex; align-items:center; gap:10px; font-size:1.25rem; margin:0 0 14px; }
+  .rates-takeaways h2::before { content:''; flex:none; width:24px; height:24px; border-radius:8px; background:var(--gradient); }
+  .rates-takeaways ul { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:12px; counter-reset:tk; }
+  .rates-takeaways li { counter-increment:tk; position:relative; margin:0; padding:52px 18px 18px; border-radius:var(--radius-lg); font-size:0.95rem; line-height:1.55; color:var(--ink); box-shadow:var(--shadow-sm); transition:transform .18s ease, box-shadow .18s ease; }
+  .rates-takeaways li:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .rates-takeaways li::before { content:"0" counter(tk); position:absolute; top:15px; left:18px; font-family:var(--font-heading); font-weight:700; font-size:1.55rem; line-height:1; letter-spacing:-0.02em; }
+  .rates-takeaways li:nth-child(1) { background:var(--yellow-soft); } .rates-takeaways li:nth-child(1)::before { color:var(--coral); }
+  .rates-takeaways li:nth-child(2) { background:var(--purple-soft); } .rates-takeaways li:nth-child(2)::before { color:var(--purple-dark); }
+  .rates-takeaways li:nth-child(3) { background:var(--green-soft); } .rates-takeaways li:nth-child(3)::before { color:var(--green); }
+  .rates-takeaways li:nth-child(4) { background:var(--coral-soft); } .rates-takeaways li:nth-child(4)::before { color:var(--coral); }
+  .rates-takeaways li:last-child { grid-column:1 / -1; background:var(--ink); color:var(--white); }
+  .rates-takeaways li:last-child::before { color:var(--orange); }
+  .rates-takeaways li strong { color:inherit; }
+
+  /* contents → pill grid */
+  .rates-toc { background:var(--gray-50); border:1px solid var(--gray-200); border-radius:24px; padding:24px; margin:32px 0; }
+  .rates-toc h2 { display:block; margin:0 0 14px; font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--gray-600); }
+  .rates-toc ol { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:8px 12px; counter-reset:toc; }
+  .rates-toc li { counter-increment:toc; margin:0; }
+  .rates-toc a { display:flex; align-items:baseline; gap:10px; height:100%; padding:9px 12px; background:var(--white); border:1px solid var(--gray-200); border-radius:12px; color:var(--gray-800); font-size:0.9rem; line-height:1.35; text-decoration:none; transition:border-color .15s ease, background .15s ease, color .15s ease, transform .15s ease; }
+  .rates-toc a::before { content:counter(toc, decimal-leading-zero); flex:none; font-family:var(--font-heading); font-weight:700; font-size:0.72rem; color:var(--purple); }
+  .rates-toc a:hover { border-color:var(--purple); background:var(--purple-soft); color:var(--purple-dark); transform:translateY(-1px); }
+
+  /* section blocks */
+  .pb { --acc:var(--purple-dark); --acc-soft:var(--purple-soft); margin-top:56px; }
+  .pb--yellow { --acc:var(--coral); --acc-soft:var(--yellow-soft); }
+  .pb--coral { --acc:var(--coral); --acc-soft:var(--coral-soft); }
+  .pb--green { --acc:var(--green); --acc-soft:var(--green-soft); }
+  .pb--purple { --acc:var(--purple-dark); --acc-soft:var(--purple-soft); }
+  .pb--tint { padding:34px 30px 20px; border-radius:28px; margin:56px -30px; }
+  .pb--tint.pb--yellow { background:var(--yellow-soft); }
+  .pb--tint.pb--coral { background:var(--coral-soft); }
+  .pb--tint.pb--green { background:var(--green-soft); }
+  .pb--tint.pb--purple { background:var(--purple-soft); }
+  .pb:not(.pb--tint)::before { content:''; display:block; width:120px; height:6px; border-radius:99px; background:var(--gradient); opacity:0.45; margin-bottom:36px; }
+  .pb__kick { display:flex; align-items:center; gap:14px; margin-bottom:4px; }
+  .pb__kick-no { font-family:var(--font-heading); font-weight:700; font-size:3.4rem; line-height:1; letter-spacing:-0.03em; color:transparent; -webkit-text-stroke:2px var(--acc); }
+  @supports not (-webkit-text-stroke:1px black) { .pb__kick-no { color:var(--acc); opacity:0.4; } }
+  .pb__kick-emoji { display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border-radius:15px; background:var(--acc-soft); font-size:1.4rem; box-shadow:var(--shadow-sm); }
+  .pb--tint .pb__kick-emoji { background:rgba(255,255,255,0.8); }
+  .pb > h2 { margin:6px 0 18px; font-size:clamp(1.5rem,3.6vw,1.85rem); line-height:1.18; letter-spacing:-0.015em; color:var(--ink); }
+  .pb > h2::after { content:''; display:block; width:76px; height:5px; border-radius:99px; background:var(--gradient); margin-top:12px; }
+  .pb > h3 { display:inline-block; background:var(--white); border:1px solid var(--gray-200); border-radius:999px; padding:8px 18px; box-shadow:var(--shadow-sm); font-size:1.05rem; margin-top:36px; }
+
+  /* content lists → numbered chips / gradient dots */
+  .pb ol { list-style:none; margin:0 0 20px; padding:0; counter-reset:step; }
+  .pb ol li { counter-increment:step; position:relative; padding:2px 0 2px 46px; margin-bottom:12px; }
+  .pb ol li::before { content:"0" counter(step); position:absolute; left:0; top:2px; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:11px; background:var(--gradient); color:var(--white); font-family:var(--font-heading); font-weight:700; font-size:0.78rem; }
+  .pb ul { list-style:none; margin:0 0 20px; padding:0; }
+  .pb ul li { position:relative; padding-left:26px; margin-bottom:10px; }
+  .pb ul li::before { content:''; position:absolute; left:2px; top:0.62em; width:10px; height:10px; border-radius:99px; background:var(--gradient); }
+
+  /* tables */
+  .rates-table-wrap { overflow-x:auto; overflow-y:hidden; margin:24px 0 8px; border-radius:var(--radius-lg); border:1px solid var(--gray-200); box-shadow:var(--shadow-sm); background:var(--white); }
+  .rates-table { width:100%; border-collapse:collapse; font-size:0.95rem; min-width:520px; }
+  .rates-table th { background:var(--gray-900); color:#fff; font-family:var(--font-heading); font-size:0.78rem; text-transform:uppercase; letter-spacing:0.06em; text-align:left; padding:13px 16px; white-space:nowrap; }
+  .rates-table td { padding:12px 16px; border-top:1px solid var(--gray-200); color:var(--gray-700); }
+  .rates-table tbody tr { transition:background .12s ease; }
+  .rates-table tr:nth-child(even) td { background:var(--gray-50); }
+  .rates-table tr:hover td { background:var(--purple-soft); }
+  .rates-table td strong { color:var(--acc, var(--purple)); }
+  .td-bar { background-image:linear-gradient(90deg, var(--orange), var(--purple)); background-repeat:no-repeat; background-size:var(--w,0) 7px; background-position:16px calc(100% - 8px); padding-bottom:22px; }
+  .rates-footnote { font-size:0.85rem; color:var(--gray-500); margin-bottom:32px; }
+  .rates-upto { display:block; font-size:0.8em; color:var(--gray-500); font-weight:400; white-space:nowrap; margin-top:2px; }
+
+  /* glowing stat chip */
+  .glow-chip { display:flex; align-items:center; flex-wrap:wrap; gap:6px 18px; background:var(--ink); border:1px solid rgba(166,21,255,0.55); border-radius:20px; padding:20px 24px; margin:6px 0 22px; box-shadow:0 0 44px rgba(166,21,255,0.35); }
+  .glow-chip__num { font-family:var(--font-heading); font-weight:700; font-size:2.4rem; line-height:1; letter-spacing:-0.04em; background:linear-gradient(120deg, var(--orange), #C77DFF); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .glow-chip__label { font-size:0.9rem; font-weight:600; line-height:1.4; color:rgba(255,255,255,0.85); max-width:300px; }
+
+  /* pull-quote card */
+  .pullquote { position:relative; background:var(--coral-soft); border-left:6px solid var(--coral); border-radius:20px; padding:26px 46px 22px 28px; margin:24px 0; }
+  .pullquote::before { content:'\201D'; position:absolute; top:6px; right:16px; font-family:var(--font-heading); font-size:4rem; line-height:0.8; color:var(--coral); opacity:0.4; }
+  .pullquote p { margin:0; font-family:var(--font-heading); font-weight:600; font-size:1.08rem; line-height:1.55; color:var(--ink); }
+
+  /* FAQ accordion cards */
+  .rates-faq details { position:relative; background:var(--white); border:1px solid var(--gray-200); border-radius:18px; padding:16px 56px 16px 24px; margin-bottom:12px; box-shadow:var(--shadow-sm); overflow:hidden; transition:box-shadow .18s ease, border-color .18s ease; }
+  .rates-faq details:hover { box-shadow:var(--shadow-md); }
+  .rates-faq details::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--gradient); opacity:0; transition:opacity .2s ease; }
+  .rates-faq details[open] { border-color:rgba(166,21,255,0.4); }
+  .rates-faq details[open]::before { opacity:1; }
+  .rates-faq summary { font-family:var(--font-heading); font-weight:600; cursor:pointer; color:var(--gray-900); list-style:none; }
+  .rates-faq summary::-webkit-details-marker { display:none; }
+  .rates-faq summary::before, .rates-faq summary::after { content:''; position:absolute; right:24px; top:26px; width:16px; height:3px; border-radius:2px; background:var(--purple); transition:transform .2s ease; }
+  .rates-faq summary::after { transform:rotate(90deg); }
+  .rates-faq details[open] summary::after { transform:rotate(0deg); }
+  .rates-faq details p { margin:12px 0 0; }
+
+  /* CTA */
+  .rates-cta { position:relative; background:var(--gradient); border-radius:28px; padding:40px 32px; margin:56px 0 0; text-align:center; color:var(--white); box-shadow:var(--shadow-lg), var(--shadow-glow); overflow:hidden; }
+  .rates-cta::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 90% at 85% 0%, rgba(255,255,255,0.28), transparent); pointer-events:none; }
+  .rates-cta > * { position:relative; }
+  .rates-cta h2 { color:#fff; margin:0 0 10px; }
+  .rates-cta p { color:rgba(255,255,255,0.92); }
+  .rates-cta__actions { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin:20px 0 14px; }
+  .rates-cta .btn { transition:transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease; }
+  .rates-cta .btn--primary { background:#fff; color:var(--purple-dark); box-shadow:var(--shadow-md); }
+  .rates-cta .btn--primary:hover { transform:translateY(-2px); box-shadow:var(--shadow-lg); }
+  .rates-cta .btn--outline { border-color:#fff; color:#fff; background:rgba(255,255,255,0.12); }
+  .rates-cta .btn--outline:hover { background:rgba(255,255,255,0.22); transform:translateY(-2px); }
+  .rates-cta a { color:#fff; }
+
+  /* responsive */
+  @media (max-width:760px) {
+    .pb--tint { margin:44px -12px; padding:26px 18px 14px; border-radius:22px; }
+  }
+  @media (max-width:640px) {
+    .rates-toc ol { grid-template-columns:1fr; }
+    .rates-takeaways ul { grid-template-columns:1fr; }
+    .stat-band, .stat-band--3 { grid-template-columns:1fr 1fr; }
+    .stat-band--3 .stat-tile:last-child { grid-column:1 / -1; }
+    .pb__kick-no { font-size:2.6rem; }
+    .pb > h2 { font-size:1.32rem; }
+  }
 </style>
 </head>
 <body>
+  <div class="progress" aria-hidden="true"><div class="progress__fill" data-progress></div></div>
 
   <nav class="nav" id="nav">
     <div class="nav__banner">
@@ -247,8 +367,16 @@
     <article class="rates-article">
 
       <div class="rates-answer">
-        <p>A freelance marketing consultant in Finland charges from €455 per day, typically up to €565, and from €115 per hour for ad-hoc hourly work, typically up to €135. Day rates sit just above break-even against the median employed marketer's €4,658 monthly gross salary in 2026; hourly work runs about double the day-rate equivalent. By specialisation, hourly rates start from €85 (social media) to €145 (marketing strategy).</p>
+        <span class="tldr__tag" aria-hidden="true">TL;DR</span>
+        <p>A freelance marketing consultant in Finland charges <mark class="hl">from €455 per day</mark>, typically up to €565, and from <mark class="hl">€115 per hour</mark> for ad-hoc hourly work, typically up to €135. Day rates sit just above break-even against the median employed marketer's €4,658 monthly gross salary in 2026; hourly work runs about double the day-rate equivalent. By specialisation, hourly rates start from €85 (social media) to €145 (marketing strategy).</p>
       </div>
+
+      <div class="stat-band stat-band--3" aria-hidden="true">
+        <div class="stat-tile stat-tile--yellow"><span class="stat-tile__num">from €455</span><span class="stat-tile__label">per day</span></div>
+        <div class="stat-tile stat-tile--purple"><span class="stat-tile__num">from €115</span><span class="stat-tile__label">per hour, ad-hoc</span></div>
+        <div class="stat-tile stat-tile--green"><span class="stat-tile__num">18</span><span class="stat-tile__label">billable days a month</span></div>
+      </div>
+
 
       <div class="rates-takeaways">
         <h2>Key takeaways</h2>
@@ -274,11 +402,20 @@
         </ol>
       </div>
 
-      <h2 id="overall">How much does a freelance marketing consultant charge in Finland?</h2>
-      <p>A freelance marketing consultant in Finland charges from €455 per day, typically up to €565. Ad-hoc hourly work starts at €115 per hour, typically up to €135. The day figure comes from the 2026 median gross salary of €4,658 per month in the Awesome Marketers Marketing Salary Survey Finland 2026 (148 respondents), converted to a freelance rate with holiday pay and YEL pension included, plus a 5% minimum margin; hourly rates double the break-even, because single hours carry the most overhead. New freelancers on the discounted starter YEL rate can start slightly lower, from €425 per day or €110 per hour.</p>
+      <section class="pb pb--tint pb--yellow">
+        <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">01</span><span class="pb__kick-emoji">&#128182;</span></div>
+        <h2 id="overall">How much does a freelance marketing consultant charge in Finland?</h2>
+      <p>A freelance marketing consultant in Finland charges from <mark class="hl">€455 per day, typically up to €565</mark>. Ad-hoc hourly work starts at <mark class="hl">€115 per hour, typically up to €135</mark>. The day figure comes from the 2026 median gross salary of €4,658 per month in the Awesome Marketers Marketing Salary Survey Finland 2026 (148 respondents), converted to a freelance rate with holiday pay and YEL pension included, plus a 5% minimum margin; hourly rates double the break-even, because single hours carry the most overhead.</p>
+      <p>New freelancers on the discounted starter YEL rate can start slightly lower, from <span class="kn">€425 per day or €110 per hour</span>.</p>
+      <div class="pullquote">
       <p>To be blunt: the "from" figures sit only 5% above break-even. They tell you what it costs to be your own employer at the median salary, plus the thinnest workable margin. Established freelancers in the community typically charge up to 30% above break-even, which is the "typically up to" figure in every table below, and top specialists stretch past 50%. If a client tells you €455 sounds expensive, they are comparing it to a salary. It is not a salary. It is a salary plus pension, holidays, and risk.</p>
+      </div>
 
-      <h2 id="method">How we calculated these rates</h2>
+      </section>
+
+      <section class="pb pb--tint pb--purple">
+        <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">02</span><span class="pb__kick-emoji">&#129518;</span></div>
+        <h2 id="method">How we calculated these rates</h2>
       <p>We calculated these freelance rates the same way our <a href="/freelance-calculator/">freelance rate calculator</a> does, starting from real salary data instead of a guess. The method, step by step:</p>
       <ol>
         <li><strong>Start with the employee's monthly gross salary.</strong> Overall median in 2026: €4,658.</li>
@@ -289,7 +426,11 @@
       </ol>
       <p>All figures exclude VAT. The result is your bare break-even: what you need to match an employed peer, nothing more. Day rates in the tables add a 5% minimum margin on top of that, with "typically up to" at +30%. Hourly rates add 100%, with "typically up to" at +130%: ad-hoc hours are the most expensive way to hire anyone, and booking full days is the discount. Run your own target salary through the <a href="/freelance-calculator/">freelance rate calculator</a> to get your personal break-even.</p>
 
-      <h2 id="specialisation">Hourly rates by marketing specialisation</h2>
+      </section>
+
+      <section class="pb">
+        <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">03</span><span class="pb__kick-emoji">&#127919;</span></div>
+        <h2 id="specialisation">Hourly rates by marketing specialisation</h2>
       <p>Freelance marketing rates in Finland vary by specialisation more than most people expect. The table below takes the 2026 median salary for each specialisation from our survey and converts it to a day rate and hourly rate at the standard YEL rate.</p>
       <div class="rates-table-wrap">
         <table class="rates-table">
@@ -317,8 +458,8 @@
         </table>
       </div>
       <p class="rates-footnote">* Small sample (n≤5). Treat these medians as indicative, not definitive. Source: the Awesome Marketers Marketing Salary Survey Finland 2026 (148 respondents), standard YEL rate.</p>
-      <p>Marketing strategy tops the table from €145 per hour for ad-hoc work, typically up to €165, and it is not close to the bottom: the gap between strategy (€5,765/mo median) and social media (€3,333/mo) is €2,432 per month in salary terms, which becomes a €240 spread in starting day rates. The market pays for judgement it cannot easily replace.</p>
-      <p>Content &amp; SEO is the sobering row. It is one of the largest specialisations in the survey (n=20) and starts at €395 per day, well under the overall median. High supply, heavy AI pressure, and a lot of freelancers competing on price. Social media sits at the floor, from €325 per day, which is exactly why so many social media freelancers burn out: many charge below even that.</p>
+      <p>Marketing strategy tops the table from €145 per hour for ad-hoc work, typically up to €165, and it is not close to the bottom: the gap between strategy (€5,765/mo median) and social media (€3,333/mo) is <mark class="hl">€2,432 per month</mark> in salary terms, which becomes a <span class="kn">€240 spread</span> in starting day rates. The market pays for judgement it cannot easily replace.</p>
+      <p>Content &amp; SEO is the sobering row. It is one of the largest specialisations in the survey (n=20) and starts at €395 per day, well under the overall median. High supply, heavy AI pressure, and a lot of freelancers competing on price. Social media sits at the floor, <span class="kn">from €325 per day</span>, which is exactly why so many social media freelancers burn out: many charge below even that.</p>
       <p>The middle of the table is crowded. Growth, email, analytics, ops, and AI automation all start around €465 to €475 per day. If you sit there, differentiation comes from your track record and niche, not from the discipline's label.</p>
 
       <h3 id="more-specialisations">More freelance specialisations, mapped to the survey</h3>
@@ -346,9 +487,13 @@
         </table>
       </div>
       <p class="rates-footnote">Mapped estimates, not separate survey categories. Each row reuses the rate of the closest surveyed specialisation (middle column). Event marketing uses the overall median; fractional CMO uses the Director / VP seniority rate.</p>
-      <p>Two of these deserve a comment. A fractional CMO at €500 per day is underpricing by our numbers: the starting rate against an employed director is €735. And SEO consulting mapped from the Content &amp; SEO median will feel low to senior technical SEOs, who in practice price closer to the strategy row once they can show rankings they own.</p>
+      <p>Two of these deserve a comment. A fractional CMO at €500 per day is underpricing by our numbers: the starting rate against an employed director is <span class="kn">€735</span>. And SEO consulting mapped from the Content &amp; SEO median will feel low to senior technical SEOs, who in practice price closer to the strategy row once they can show rankings they own.</p>
 
-      <h2 id="seniority">Rates by seniority level</h2>
+      </section>
+
+      <section class="pb pb--tint pb--green">
+        <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">04</span><span class="pb__kick-emoji">&#128200;</span></div>
+        <h2 id="seniority">Rates by seniority level</h2>
       <p>Seniority shifts freelance rates in Finland as much as specialisation does. Same method, applied to the 2026 median salary at each level, standard YEL:</p>
       <div class="rates-table-wrap">
         <table class="rates-table">
@@ -356,24 +501,38 @@
             <tr><th>Seniority</th><th>Median salary</th><th>Day rate</th><th>Hourly</th></tr>
           </thead>
           <tbody>
-            <tr><td>Junior</td><td>€3,333</td><td><strong>from €325</strong><span class="rates-upto">typically up to €405</span></td><td><strong>from €85</strong><span class="rates-upto">up to €95</span></td></tr>
-            <tr><td>Mid-Level</td><td>€4,200</td><td><strong>from €410</strong><span class="rates-upto">typically up to €510</span></td><td><strong>from €105</strong><span class="rates-upto">up to €120</span></td></tr>
-            <tr><td>Senior</td><td>€5,000</td><td><strong>from €490</strong><span class="rates-upto">typically up to €605</span></td><td><strong>from €125</strong><span class="rates-upto">up to €145</span></td></tr>
-            <tr><td>Lead / Manager</td><td>€5,314</td><td><strong>from €520</strong><span class="rates-upto">typically up to €645</span></td><td><strong>from €130</strong><span class="rates-upto">up to €150</span></td></tr>
-            <tr><td>Director / VP</td><td>€7,500</td><td><strong>from €735</strong><span class="rates-upto">typically up to €905</span></td><td><strong>from €185</strong><span class="rates-upto">up to €215</span></td></tr>
+            <tr><td>Junior</td><td class="td-bar" style="--w:44%">€3,333</td><td><strong>from €325</strong><span class="rates-upto">typically up to €405</span></td><td><strong>from €85</strong><span class="rates-upto">up to €95</span></td></tr>
+            <tr><td>Mid-Level</td><td class="td-bar" style="--w:56%">€4,200</td><td><strong>from €410</strong><span class="rates-upto">typically up to €510</span></td><td><strong>from €105</strong><span class="rates-upto">up to €120</span></td></tr>
+            <tr><td>Senior</td><td class="td-bar" style="--w:67%">€5,000</td><td><strong>from €490</strong><span class="rates-upto">typically up to €605</span></td><td><strong>from €125</strong><span class="rates-upto">up to €145</span></td></tr>
+            <tr><td>Lead / Manager</td><td class="td-bar" style="--w:71%">€5,314</td><td><strong>from €520</strong><span class="rates-upto">typically up to €645</span></td><td><strong>from €130</strong><span class="rates-upto">up to €150</span></td></tr>
+            <tr><td>Director / VP</td><td class="td-bar" style="--w:100%">€7,500</td><td><strong>from €735</strong><span class="rates-upto">typically up to €905</span></td><td><strong>from €185</strong><span class="rates-upto">up to €215</span></td></tr>
           </tbody>
         </table>
       </div>
-      <p>The ladder is steady until the top, where it jumps: a director-level freelancer starts at €735 per day, or €185 per hour for ad-hoc work, against an employed director's €7,500 monthly salary, and typically bills up to €905 and €215. Fractional CMO work priced at €500 per day is not a bargain for the client. It is a discount the freelancer is quietly funding. Full seniority breakdowns are in the <a href="/marketing-salary-finland-2026/">interactive salary report</a> and the <a href="/marketing-salary-finland-2026-report/">written report</a>.</p>
+      <p>The ladder is steady until the top, where it jumps: a director-level freelancer starts at <mark class="hl">€735 per day, or €185 per hour</mark> for ad-hoc work, against an employed director's €7,500 monthly salary, and typically bills up to €905 and €215. Fractional CMO work priced at €500 per day is not a bargain for the client. It is a discount the freelancer is quietly funding. Full seniority breakdowns are in the <a href="/marketing-salary-finland-2026/">interactive salary report</a> and the <a href="/marketing-salary-finland-2026-report/">written report</a>.</p>
+      <div class="glow-chip" aria-hidden="true"><span class="glow-chip__num">from €735</span><span class="glow-chip__label">per day: the starting rate for director-level freelance work</span></div>
 
-      <h2 id="floor">Why the calculated rate is your floor, not your price</h2>
-      <p>The calculated rate is the minimum a freelance marketing consultant in Finland should charge, because it only matches an employee's salary. It does not pay you for anything an employer normally absorbs. You carry the risk of a client cancelling with two weeks' notice. You eat the bench time between projects; 18 billable days per month assumes you actually have work every month. Your holiday pay exists only because the maths added it, and nobody tops it up if you take a fifth week. And none of it prices your expertise: a senior specialist solving in two days what takes an in-house team two weeks should not bill like a salary.</p>
-      <p>That is why every "from" figure has a "typically up to" ceiling above it, and why top specialists charge 50% or more over break-even. Practical pricing rules from the community: retainers can sit closest to the floor because they buy you predictability; project fees should sit well above it because scope always creeps; and ad-hoc hourly is the most expensive way to buy you, which is why the hourly column runs about double the day rates. And remember every figure here excludes VAT, which you add on top of the invoice.</p>
+      </section>
 
-      <h2 id="foreign-clients">Working for foreign clients from Finland</h2>
-      <p>Foreign clients change the maths, usually in your favour. A German, UK, or US company hiring a freelance marketer in Finland compares your quote to their local agency prices, not to Finnish salaries, so the Finnish break-even rate can look almost naive to them. If you invoice a foreign employer for full-time-ish work, use our <a href="/remote-salary-calculator/">remote job salary calculator</a> to turn a foreign offer into an honest Finnish equivalent before you say yes.</p>
+      <section class="pb pb--tint pb--coral">
+        <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">05</span><span class="pb__kick-emoji">&#128679;</span></div>
+        <h2 id="floor">Why the calculated rate is your floor, not your price</h2>
+      <p>The calculated rate is the minimum a freelance marketing consultant in Finland should charge, because it only matches an employee's salary. It does not pay you for anything an employer normally absorbs.</p>
+      <p>You carry the risk of a client cancelling with two weeks' notice. You eat the bench time between projects; <span class="kn">18 billable days per month</span> assumes you actually have work every month. Your holiday pay exists only because the maths added it, and nobody tops it up if you take a fifth week. And none of it prices your expertise: a senior specialist solving in two days what takes an in-house team two weeks should not bill like a salary.</p>
+      <p>That is why every "from" figure has a "typically up to" ceiling above it, and why top specialists charge <mark class="hl">50% or more over break-even</mark>. Practical pricing rules from the community: retainers can sit closest to the floor because they buy you predictability; project fees should sit well above it because scope always creeps; and ad-hoc hourly is the most expensive way to buy you, which is why the hourly column runs about double the day rates. And remember every figure here excludes VAT, which you add on top of the invoice.</p>
 
-      <h2 id="faq">Frequently asked questions</h2>
+      </section>
+
+      <section class="pb">
+        <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">06</span><span class="pb__kick-emoji">&#127757;</span></div>
+        <h2 id="foreign-clients">Working for foreign clients from Finland</h2>
+      <p>Foreign clients change the maths, usually in your favour. A German, UK, or US company hiring a freelance marketer in Finland compares your quote to <mark class="hl">their local agency prices</mark>, not to Finnish salaries, so the Finnish break-even rate can look almost naive to them. If you invoice a foreign employer for full-time-ish work, use our <a href="/remote-salary-calculator/">remote job salary calculator</a> to turn a foreign offer into an honest Finnish equivalent before you say yes.</p>
+
+      </section>
+
+      <section class="pb">
+        <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">07</span><span class="pb__kick-emoji">&#128172;</span></div>
+        <h2 id="faq">Frequently asked questions</h2>
       <div class="rates-faq">
         <details>
           <summary>What is the average hourly rate for a freelance marketing consultant in Finland?</summary>
@@ -409,6 +568,8 @@
         </details>
       </div>
 
+</section>
+
       <p style="margin-top:32px;">One more thing. If you landed here because you are <a href="/marketing-freelancer-finland/">looking to hire a marketing freelancer in Finland</a>, we match companies with freelancers from the community for free.</p>
 
       <div class="rates-cta">
@@ -442,5 +603,20 @@
   </footer>
 
   <script src="../app.js"></script>
+  <script>
+  (function () {
+    var fill = document.querySelector('[data-progress]');
+    if (!fill) return;
+    function update() {
+      var d = document.documentElement;
+      var max = d.scrollHeight - d.clientHeight;
+      var y = window.pageYOffset || d.scrollTop || 0;
+      fill.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+  })();
+  </script>
 </body>
 </html>

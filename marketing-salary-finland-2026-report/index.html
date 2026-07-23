@@ -149,47 +149,172 @@
   }
   </script>
   <style>
-    .post { max-width: 720px; margin: 0 auto; padding: 170px 20px 40px; font-family: var(--font-body); color: var(--gray-800); line-height: 1.7; }
-    .post__kicker { display: inline-block; font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--purple); background: var(--gradient-subtle); padding: 6px 14px; border-radius: 999px; margin-bottom: 18px; }
-    .post h1 { font-family: var(--font-heading); font-size: clamp(2rem, 5vw, 2.75rem); line-height: 1.15; color: var(--black); margin-bottom: 18px; letter-spacing: -0.02em; }
-    .post__meta { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.9rem; color: var(--gray-500); border-bottom: 1px solid var(--gray-200); padding-bottom: 22px; margin-bottom: 30px; }
-    .post__meta a { color: var(--purple); text-decoration: none; font-weight: 500; }
-    .post__meta a:hover { text-decoration: underline; }
-    .post__answer { font-size: 1.15rem; line-height: 1.65; color: var(--gray-900); font-weight: 500; margin-bottom: 30px; }
-    .post h2 { font-family: var(--font-heading); font-size: 1.5rem; line-height: 1.3; color: var(--black); margin: 48px 0 14px; letter-spacing: -0.01em; scroll-margin-top: 110px; }
-    .post h3 { font-family: var(--font-heading); font-size: 1.15rem; color: var(--gray-900); margin: 28px 0 10px; }
-    .post p { margin-bottom: 16px; }
-    .post a { color: var(--purple); }
-    .post ul, .post ol { margin: 0 0 18px 22px; }
-    .post li { margin-bottom: 8px; }
-    .takeaways { background: var(--gradient-bg); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 24px 26px; margin: 0 0 30px; }
-    .takeaways h2 { margin: 0 0 12px; font-size: 1.2rem; }
-    .takeaways ul { margin-bottom: 0; }
-    .toc { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 22px 26px; margin-bottom: 8px; }
-    .toc__title { font-family: var(--font-heading); font-weight: 600; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gray-600); margin-bottom: 10px; }
-    .toc ol { margin: 0 0 0 20px; }
-    .toc li { margin-bottom: 5px; }
-    .toc a { color: var(--gray-800); text-decoration: none; }
-    .toc a:hover { color: var(--purple); }
-    .table-wrap { overflow-x: auto; margin: 20px 0 24px; border: 1px solid var(--gray-200); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
-    .post table { width: 100%; border-collapse: collapse; font-size: 0.92rem; min-width: 480px; }
-    .post th { font-family: var(--font-heading); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; text-align: left; color: var(--white); background: var(--black); padding: 12px 16px; }
-    .post td { padding: 11px 16px; border-top: 1px solid var(--gray-200); vertical-align: top; }
-    .post tbody tr:nth-child(even) { background: var(--gray-50); }
-    .post td strong { color: var(--black); }
-    .faq h3 { margin-top: 26px; }
-    .post__cta { background: var(--black); color: var(--white); border-radius: var(--radius-lg); padding: 32px 30px; margin: 48px 0 10px; box-shadow: var(--shadow-lg); }
-    .post__cta h2 { color: var(--white); margin: 0 0 10px; font-size: 1.35rem; }
-    .post__cta p { color: var(--gray-300); margin-bottom: 20px; }
-    .post__cta-links { display: flex; flex-wrap: wrap; gap: 12px; }
-    .post__cta-links a { display: inline-block; font-family: var(--font-heading); font-weight: 600; font-size: 0.95rem; text-decoration: none; padding: 12px 22px; border-radius: 999px; }
-    .post__cta-links a.primary { background: var(--gradient); color: var(--white); }
-    .post__cta-links a.secondary { background: transparent; color: var(--white); border: 1px solid var(--gray-600); }
-    .post__cta-links a.secondary:hover { border-color: var(--white); }
-    @media (max-width: 600px) { .post { padding-top: 150px; } .post h2 { font-size: 1.3rem; } }
+    :root { --coral:#9D0640; --coral-soft:#FBD9E5; --green:#4B5A22; --green-soft:#DDE6BD; --yellow-soft:#FFE9CB; --purple-dark:#7A0FBE; --purple-soft:#F4E5FF; --ink:#111827; }
+
+    /* reading progress bar (decorative) */
+    .progress { position:fixed; top:0; left:0; right:0; height:4px; z-index:3000; pointer-events:none; }
+    .progress__fill { height:100%; width:0; background:var(--gradient); border-radius:0 99px 99px 0; }
+
+    .post { max-width:720px; margin:0 auto; padding:170px 20px 40px; font-family:var(--font-body); font-size:1.0625rem; color:var(--gray-800); line-height:1.75; }
+
+    /* hero */
+    .post-hero { position:relative; padding:38px 32px 14px; margin-bottom:30px; border-radius:var(--radius-xl); border:1px solid var(--gray-200); overflow:hidden;
+      background:
+        radial-gradient(ellipse 70% 65% at 12% 15%, rgba(255,180,82,0.20), transparent),
+        radial-gradient(ellipse 75% 70% at 90% 85%, rgba(166,21,255,0.13), transparent),
+        var(--white); }
+    .post-hero::before { content:''; position:absolute; top:0; left:0; right:0; height:6px; background:var(--gradient); }
+    .post__kicker { display:inline-block; font-family:var(--font-heading); font-size:0.78rem; font-weight:700; letter-spacing:0.09em; text-transform:uppercase; color:var(--purple-dark); background:var(--white); border:2px solid var(--purple); padding:6px 14px; border-radius:999px; margin-bottom:18px; box-shadow:var(--shadow-sm); }
+    .post h1 { font-family:var(--font-heading); font-size:clamp(2rem,5vw,2.8rem); line-height:1.12; color:var(--black); margin-bottom:20px; letter-spacing:-0.02em; }
+    .post__meta { display:flex; flex-wrap:wrap; gap:8px 10px; font-size:0.85rem; color:var(--gray-600); padding-bottom:24px; }
+    .post__meta > span { display:inline-block; background:rgba(255,255,255,0.9); border:1px solid var(--gray-200); border-radius:999px; padding:6px 14px; box-shadow:var(--shadow-sm); }
+    .post__meta a { color:var(--purple); text-decoration:none; font-weight:600; }
+    .post__meta a:hover { text-decoration:underline; }
+
+    /* TL;DR answer card */
+    .tldr { position:relative; border-radius:24px; padding:3px; background:var(--gradient); margin:0 0 24px; box-shadow:var(--shadow-md); }
+    .tldr__tag { position:absolute; top:-13px; left:24px; background:var(--gradient); color:var(--white); font-family:var(--font-heading); font-weight:700; font-size:0.72rem; letter-spacing:0.12em; padding:5px 14px; border-radius:999px; box-shadow:var(--shadow-sm); z-index:1; }
+    .tldr .post__answer { background:var(--white); border-radius:21px; padding:28px 26px 24px; margin:0; }
+    .post__answer { font-size:1.15rem; line-height:1.6; color:var(--gray-900); font-weight:500; }
+
+    /* stat band */
+    .stat-band { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:0 0 36px; }
+    .stat-tile { border-radius:22px; padding:20px 16px 16px; display:flex; flex-direction:column; gap:6px; transition:transform .18s ease, box-shadow .18s ease; }
+    .stat-tile:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); }
+    .stat-tile__num { font-family:var(--font-heading); font-weight:700; font-size:clamp(1.4rem,4vw,1.9rem); letter-spacing:-0.03em; line-height:1; }
+    .stat-tile__label { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; opacity:0.8; }
+    .stat-tile--yellow { background:var(--yellow-soft); color:var(--ink); } .stat-tile--yellow .stat-tile__num { color:var(--coral); }
+    .stat-tile--purple { background:var(--purple-soft); color:var(--ink); } .stat-tile--purple .stat-tile__num { color:var(--purple-dark); }
+    .stat-tile--coral { background:var(--coral-soft); color:var(--ink); } .stat-tile--coral .stat-tile__num { color:var(--coral); }
+    .stat-tile--green { background:var(--green-soft); color:var(--ink); } .stat-tile--green .stat-tile__num { color:var(--green); }
+
+    /* body text */
+    .post p { margin-bottom:16px; }
+    .post a { color:var(--purple); }
+    .post ul, .post ol { margin:0 0 18px 22px; }
+    .post li { margin-bottom:8px; }
+    .post h2 { font-family:var(--font-heading); font-size:1.5rem; line-height:1.3; color:var(--black); margin:48px 0 14px; letter-spacing:-0.01em; scroll-margin-top:110px; }
+    .post h3 { font-family:var(--font-heading); font-size:1.15rem; color:var(--gray-900); margin:28px 0 10px; }
+
+    /* inline highlights */
+    .hl { background:linear-gradient(120deg, rgba(255,180,82,0.45), rgba(166,21,255,0.22)); padding:0.05em 0.3em; border-radius:6px; color:inherit; -webkit-box-decoration-break:clone; box-decoration-break:clone; }
+    .pb--tint .hl { background:rgba(255,255,255,0.72); box-shadow:inset 0 -2px 0 var(--acc); }
+    .kn { font-family:var(--font-heading); font-weight:700; color:var(--acc, var(--purple-dark)); }
+
+    /* key takeaways bento */
+    .takeaways { margin:0 0 36px; }
+    .takeaways h2 { display:flex; align-items:center; gap:10px; font-size:1.25rem; margin:0 0 14px; }
+    .takeaways h2::before { content:''; flex:none; width:24px; height:24px; border-radius:8px; background:var(--gradient); }
+    .takeaways ul { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:12px; counter-reset:tk; }
+    .takeaways li { counter-increment:tk; position:relative; margin:0; padding:52px 18px 18px; border-radius:var(--radius-lg); font-size:0.95rem; line-height:1.55; color:var(--ink); box-shadow:var(--shadow-sm); transition:transform .18s ease, box-shadow .18s ease; }
+    .takeaways li:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); }
+    .takeaways li::before { content:"0" counter(tk); position:absolute; top:15px; left:18px; font-family:var(--font-heading); font-weight:700; font-size:1.55rem; line-height:1; letter-spacing:-0.02em; }
+    .takeaways li:nth-child(1) { background:var(--yellow-soft); } .takeaways li:nth-child(1)::before { color:var(--coral); }
+    .takeaways li:nth-child(2) { background:var(--purple-soft); } .takeaways li:nth-child(2)::before { color:var(--purple-dark); }
+    .takeaways li:nth-child(3) { background:var(--green-soft); } .takeaways li:nth-child(3)::before { color:var(--green); }
+    .takeaways li:nth-child(4) { background:var(--coral-soft); } .takeaways li:nth-child(4)::before { color:var(--coral); }
+    .takeaways li:last-child { grid-column:1 / -1; background:var(--ink); color:var(--white); }
+    .takeaways li:last-child::before { color:var(--orange); }
+
+    /* table of contents → pill grid */
+    .toc { background:var(--gray-50); border:1px solid var(--gray-200); border-radius:24px; padding:24px; margin-bottom:8px; }
+    .toc__title { font-family:var(--font-heading); font-weight:700; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--gray-600); margin-bottom:14px; }
+    .toc ol { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:8px 12px; counter-reset:toc; }
+    .toc li { counter-increment:toc; margin:0; }
+    .toc a { display:flex; align-items:baseline; gap:10px; height:100%; padding:9px 12px; background:var(--white); border:1px solid var(--gray-200); border-radius:12px; color:var(--gray-800); font-size:0.9rem; line-height:1.35; text-decoration:none; transition:border-color .15s ease, background .15s ease, color .15s ease, transform .15s ease; }
+    .toc a::before { content:counter(toc, decimal-leading-zero); flex:none; font-family:var(--font-heading); font-weight:700; font-size:0.72rem; color:var(--purple); }
+    .toc a:hover { border-color:var(--purple); background:var(--purple-soft); color:var(--purple-dark); transform:translateY(-1px); }
+
+    /* section blocks */
+    .pb { --acc:var(--purple-dark); --acc-soft:var(--purple-soft); margin-top:56px; }
+    .pb--yellow { --acc:var(--coral); --acc-soft:var(--yellow-soft); }
+    .pb--coral { --acc:var(--coral); --acc-soft:var(--coral-soft); }
+    .pb--green { --acc:var(--green); --acc-soft:var(--green-soft); }
+    .pb--purple { --acc:var(--purple-dark); --acc-soft:var(--purple-soft); }
+    .pb--gray { --acc:var(--gray-600); --acc-soft:var(--gray-100); }
+    .pb--tint { padding:34px 30px 20px; border-radius:28px; margin:56px -30px; }
+    .pb--tint.pb--yellow { background:var(--yellow-soft); }
+    .pb--tint.pb--coral { background:var(--coral-soft); }
+    .pb--tint.pb--green { background:var(--green-soft); }
+    .pb--tint.pb--purple { background:var(--purple-soft); }
+    .pb--tint.pb--gray { background:var(--gray-50); border:1px solid var(--gray-200); }
+    .pb:not(.pb--tint)::before { content:''; display:block; width:120px; height:6px; border-radius:99px; background:var(--gradient); opacity:0.45; margin-bottom:36px; }
+    .pb__kick { display:flex; align-items:center; gap:14px; margin-bottom:4px; }
+    .pb__kick-no { font-family:var(--font-heading); font-weight:700; font-size:3.4rem; line-height:1; letter-spacing:-0.03em; color:transparent; -webkit-text-stroke:2px var(--acc); }
+    @supports not (-webkit-text-stroke:1px black) { .pb__kick-no { color:var(--acc); opacity:0.4; } }
+    .pb__kick-emoji { display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border-radius:15px; background:var(--acc-soft); font-size:1.4rem; box-shadow:var(--shadow-sm); }
+    .pb--tint .pb__kick-emoji { background:rgba(255,255,255,0.8); }
+    .pb > h2 { margin:6px 0 18px; font-size:clamp(1.5rem,3.6vw,1.85rem); line-height:1.18; letter-spacing:-0.015em; scroll-margin-top:150px; }
+    .pb > h2::after { content:''; display:block; width:76px; height:5px; border-radius:99px; background:var(--gradient); margin-top:12px; }
+
+    /* content lists → numbered chips / gradient dots */
+    .pb ol { list-style:none; margin:0 0 20px; padding:0; counter-reset:step; }
+    .pb ol li { counter-increment:step; position:relative; padding:2px 0 2px 46px; margin-bottom:12px; }
+    .pb ol li::before { content:"0" counter(step); position:absolute; left:0; top:2px; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:11px; background:var(--gradient); color:var(--white); font-family:var(--font-heading); font-weight:700; font-size:0.78rem; }
+    .pb ul { list-style:none; margin:0 0 20px; padding:0; }
+    .pb ul li { position:relative; padding-left:26px; margin-bottom:10px; }
+    .pb ul li::before { content:''; position:absolute; left:2px; top:0.62em; width:10px; height:10px; border-radius:99px; background:var(--gradient); }
+
+    /* tables */
+    .table-wrap { overflow-x:auto; overflow-y:hidden; margin:20px 0 24px; border:1px solid var(--gray-200); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); background:var(--white); }
+    .post table { width:100%; border-collapse:collapse; font-size:0.92rem; min-width:480px; }
+    .post th { font-family:var(--font-heading); font-size:0.78rem; text-transform:uppercase; letter-spacing:0.06em; text-align:left; color:var(--white); background:var(--black); padding:13px 16px; }
+    .post td { padding:12px 16px; border-top:1px solid var(--gray-200); vertical-align:top; }
+    .post tbody tr { transition:background .12s ease; }
+    .post tbody tr:nth-child(even) { background:var(--gray-50); }
+    .post tbody tr:hover { background:var(--purple-soft); }
+    .post td strong { color:var(--acc, var(--black)); }
+    .td-bar { background-image:linear-gradient(90deg, var(--orange), var(--purple)); background-repeat:no-repeat; background-size:var(--w,0) 7px; background-position:16px calc(100% - 8px); padding-bottom:22px; }
+
+    /* glowing stat chip */
+    .glow-chip { display:flex; align-items:center; flex-wrap:wrap; gap:6px 18px; background:var(--ink); border:1px solid rgba(166,21,255,0.55); border-radius:20px; padding:20px 24px; margin:6px 0 22px; box-shadow:0 0 44px rgba(166,21,255,0.35); }
+    .glow-chip__num { font-family:var(--font-heading); font-weight:700; font-size:2.6rem; line-height:1; letter-spacing:-0.04em; background:linear-gradient(120deg, var(--orange), #C77DFF); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+    .glow-chip__label { font-size:0.9rem; font-weight:600; line-height:1.4; color:rgba(255,255,255,0.85); max-width:300px; }
+
+    /* pull-quote card */
+    .pullquote { position:relative; background:var(--coral-soft); border-left:6px solid var(--coral); border-radius:20px; padding:26px 46px 22px 28px; margin:24px 0; }
+    .pullquote::before { content:'\201D'; position:absolute; top:6px; right:16px; font-family:var(--font-heading); font-size:4rem; line-height:0.8; color:var(--coral); opacity:0.4; }
+    .pullquote p { margin:0; font-family:var(--font-heading); font-weight:600; font-size:1.08rem; line-height:1.55; color:var(--ink); }
+
+    /* FAQ cards */
+    .faq { display:grid; gap:14px; margin-top:20px; }
+    .faq-card { position:relative; background:var(--white); border:1px solid var(--gray-200); border-radius:var(--radius-lg); padding:20px 22px 12px 26px; box-shadow:var(--shadow-sm); overflow:hidden; transition:transform .18s ease, box-shadow .18s ease; }
+    .faq-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--gradient); }
+    .faq-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); }
+    .faq-card h3 { display:inline-block; margin:0 0 12px; font-size:0.95rem; line-height:1.4; color:var(--purple-dark); background:var(--purple-soft); padding:7px 16px; border-radius:999px; }
+    .faq-card p { margin-bottom:8px; }
+
+    /* CTA */
+    .post__cta { position:relative; background:var(--gradient); color:var(--white); border-radius:var(--radius-xl); padding:38px 32px; margin:56px 0 10px; box-shadow:var(--shadow-lg), var(--shadow-glow); overflow:hidden; }
+    .post__cta::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 90% at 85% 0%, rgba(255,255,255,0.28), transparent); pointer-events:none; }
+    .post__cta h2 { position:relative; color:var(--white); margin:0 0 10px; font-size:1.45rem; }
+    .post__cta p { position:relative; color:rgba(255,255,255,0.93); margin-bottom:22px; }
+    .post__cta-links { position:relative; display:flex; flex-wrap:wrap; gap:12px; }
+    .post__cta-links a { display:inline-block; font-family:var(--font-heading); font-weight:600; font-size:0.95rem; text-decoration:none; padding:13px 24px; border-radius:999px; transition:transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease; }
+    .post__cta-links a.primary { background:var(--white); color:var(--purple-dark); box-shadow:var(--shadow-md); }
+    .post__cta-links a.primary:hover { transform:translateY(-2px); box-shadow:var(--shadow-lg); }
+    .post__cta-links a.secondary { background:rgba(255,255,255,0.12); color:var(--white); border:2px solid rgba(255,255,255,0.6); }
+    .post__cta-links a.secondary:hover { border-color:var(--white); background:rgba(255,255,255,0.22); transform:translateY(-2px); }
+
+    /* responsive */
+    @media (max-width:760px) {
+      .pb--tint { margin:44px -12px; padding:26px 18px 14px; border-radius:22px; }
+    }
+    @media (max-width:640px) {
+      .toc ol { grid-template-columns:1fr; }
+      .takeaways ul { grid-template-columns:1fr; }
+      .stat-band { grid-template-columns:1fr 1fr; }
+      .pb__kick-no { font-size:2.6rem; }
+    }
+    @media (max-width:600px) {
+      .post { padding-top:150px; }
+      .post-hero { padding:28px 20px 8px; }
+      .pb > h2 { font-size:1.32rem; }
+    }
   </style>
 </head>
 <body>
+  <div class="progress" aria-hidden="true"><div class="progress__fill" data-progress></div></div>
 
   <nav class="nav" id="nav">
     <div class="nav__banner">
@@ -252,15 +377,28 @@
   </nav>
 
   <article class="post">
+    <header class="post-hero">
     <span class="post__kicker">Finnish marketing salary report 2026</span>
-    <h1>What Finnish marketers really earn in 2026</h1>
+    <h1>What Finnish marketers <span class="gradient-text">really earn</span> in 2026</h1>
     <div class="post__meta">
       <span>By <a href="https://www.linkedin.com/in/annapogrebniak/">Anna Pogrebniak</a>, Founder</span>
       <span>Published 23 July 2026 &middot; Last updated 23 July 2026</span>
       <span>13 min read</span>
     </div>
+    </header>
 
-    <p class="post__answer">The median marketing salary in Finland in 2026 is €4,658 per month gross, based on 148 marketers surveyed by The Awesome Marketers. The middle 50% earn €3,738–€5,667. Nominal pay is up 16.4% since 2022, but inflation ran 19% over the same period, so real pay is down 2.6%.</p>
+    <div class="tldr">
+    <span class="tldr__tag" aria-hidden="true">TL;DR</span>
+    <p class="post__answer">The median marketing salary in Finland in 2026 is <mark class="hl">€4,658 per month gross</mark>, based on 148 marketers surveyed by The Awesome Marketers. The middle 50% earn €3,738–€5,667. Nominal pay is up 16.4% since 2022, but inflation ran 19% over the same period, so real pay is down <mark class="hl">2.6%</mark>.</p>
+    </div>
+
+    <div class="stat-band" aria-hidden="true">
+      <div class="stat-tile stat-tile--yellow"><span class="stat-tile__num">€4,658</span><span class="stat-tile__label">median gross / month</span></div>
+      <div class="stat-tile stat-tile--purple"><span class="stat-tile__num">−2.6%</span><span class="stat-tile__label">real pay vs 2022</span></div>
+      <div class="stat-tile stat-tile--coral"><span class="stat-tile__num">74%</span><span class="stat-tile__label">hit by layoffs or cuts</span></div>
+      <div class="stat-tile stat-tile--green"><span class="stat-tile__num">61%</span><span class="stat-tile__label">compromising plans</span></div>
+    </div>
+
 
     <p>This is the full written version of our <a href="/marketing-salary-finland-2026/">interactive Marketing Salary Report 2026</a>. Same data, same numbers, in plain text and tables. If you prefer to click through charts and run the pay calculator, use the interactive version. If you want to read, quote, or copy-paste, this page is for you.</p>
 
@@ -293,12 +431,19 @@
       </ol>
     </nav>
 
-    <h2 id="headline-numbers">The headline numbers: median, spread, and the inflation gap</h2>
-    <p>The median monthly gross salary for marketers in Finland is €4,658 in 2026, taken straight from person #75 of the 148 respondents with usable salary data. The mean is slightly higher at €4,787. The lowest reported salary is €1,200 per month, the highest €10,000. The 25th percentile sits at €3,738, the 75th at €5,667, and the 90th at €6,500. In practice: if you earn inside the €3,738–€5,667 band, you are normal. Below €3,738, you are probably underpaid. Above €5,667, you are in the top quarter.</p>
-    <p>Four headlines define this year's data. First, the middle: €4,658, half earn less, half earn more. Second, the inflation gap: the nominal median is up 16.4% since 2022, but inflation ran 19% over the same stretch, which leaves real pay down 2.6%. Finnish marketers earn roughly the same in real terms as they did in 2022. Third, the year of layoffs: 74% of respondents were hit by at least one of a company layoff (46%), a marketing budget cut (31%), a team downsize (24%), or a role restructure (25%) in the past 12 months. Only 26% were untouched. Fourth, the career detour: 61% are compromising their career plans in some way, which we unpack in <a href="#the-mood">the mood section</a>.</p>
+    <section class="pb pb--tint pb--yellow">
+      <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">01</span><span class="pb__kick-emoji">&#128202;</span></div>
+      <h2 id="headline-numbers">The headline numbers: median, spread, and the inflation gap</h2>
+    <p>The median monthly gross salary for marketers in Finland is €4,658 in 2026, taken straight from person #75 of the 148 respondents with usable salary data. The mean is slightly higher at €4,787. The lowest reported salary is <span class="kn">€1,200</span> per month, the highest <span class="kn">€10,000</span>. The 25th percentile sits at €3,738, the 75th at €5,667, and the 90th at €6,500. In practice: if you earn inside the <mark class="hl">€3,738–€5,667 band</mark>, you are normal. Below €3,738, you are probably underpaid. Above €5,667, you are in the top quarter.</p>
+    <p>Four headlines define this year's data. First, the middle: €4,658, half earn less, half earn more. Second, the inflation gap: the nominal median is up 16.4% since 2022, but inflation ran 19% over the same stretch, which leaves real pay down 2.6%. Finnish marketers earn roughly the same in real terms as they did in 2022.</p>
+      <p>Third, the year of layoffs: <span class="kn">74%</span> of respondents were hit by at least one of a company layoff (46%), a marketing budget cut (31%), a team downsize (24%), or a role restructure (25%) in the past 12 months. Only 26% were untouched. Fourth, the career detour: <span class="kn">61%</span> are compromising their career plans in some way, which we unpack in <a href="#the-mood">the mood section</a>.</p>
 
-    <h2 id="pay-by-role">What each marketing role earns in Finland</h2>
-    <p>Marketing roles in Finland span a €2,084 range between the best-paid and worst-paid role families. We grouped 138 free-text job titles into 14 role families and hid any group with fewer than 3 people. Head and Director roles top the table at €5,917. Content Marketing sits at the bottom at €3,833. The two biggest groups, Marketing Manager (n=28) and Specialist / Coordinator (n=27), bracket the overall median from both sides.</p>
+    </section>
+
+    <section class="pb">
+      <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">02</span><span class="pb__kick-emoji">&#128188;</span></div>
+      <h2 id="pay-by-role">What each marketing role earns in Finland</h2>
+    <p>Marketing roles in Finland span a <mark class="hl">€2,084 range</mark> between the best-paid and worst-paid role families. We grouped 138 free-text job titles into 14 role families and hid any group with fewer than 3 people. Head and Director roles top the table at <span class="kn">€5,917</span>. Content Marketing sits at the bottom at <span class="kn">€3,833</span>. The two biggest groups, Marketing Manager (n=28) and Specialist / Coordinator (n=27), bracket the overall median from both sides.</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -321,9 +466,13 @@
         </tbody>
       </table>
     </div>
-    <p>The pattern is blunt: strategy, ops, and leadership-adjacent roles out-earn production roles. Your area of focus decides your ceiling. A content marketer and a marketing strategist can have the same years of experience and a €1,334 monthly gap.</p>
+    <p>The pattern is blunt: strategy, ops, and leadership-adjacent roles out-earn production roles. Your area of focus decides your ceiling. A content marketer and a marketing strategist can have the same years of experience and a <mark class="hl">€1,334 monthly gap</mark>.</p>
 
-    <h2 id="career-ladder">The Finnish marketing career ladder, rung by rung</h2>
+    </section>
+
+    <section class="pb pb--tint pb--purple">
+      <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">03</span><span class="pb__kick-emoji">&#129692;</span></div>
+      <h2 id="career-ladder">The Finnish marketing career ladder, rung by rung</h2>
     <p>The Finnish marketing career ladder still pays real money, roughly €3.3k to €5.7k across the arc, but the rungs are unevenly spaced. Here is the median at each level, with the jump from the rung below.</p>
     <div class="table-wrap">
       <table>
@@ -331,19 +480,24 @@
           <tr><th>Seniority</th><th>Median monthly gross</th><th>Respondents</th><th>Jump from previous rung</th></tr>
         </thead>
         <tbody>
-          <tr><td>Junior</td><td>€3,333</td><td>10</td><td>&ndash;</td></tr>
-          <tr><td>Mid-Level</td><td>€4,200</td><td>56</td><td>+€867 (+26%)</td></tr>
-          <tr><td>Senior</td><td>€5,000</td><td>27</td><td>+€800 (+19%)</td></tr>
-          <tr><td>Lead / Manager</td><td>€5,314</td><td>38</td><td>+€314 (+6%)</td></tr>
-          <tr><td>Chief / Director / VP</td><td><strong>€7,500</strong></td><td>13</td><td>+€2,186 (+41%)</td></tr>
-          <tr><td>Founder / Co-Founder</td><td>€4,167</td><td>3</td><td>−€3,333 (−44%)</td></tr>
+          <tr><td>Junior</td><td class="td-bar" style="--w:44%">€3,333</td><td>10</td><td>&ndash;</td></tr>
+          <tr><td>Mid-Level</td><td class="td-bar" style="--w:56%">€4,200</td><td>56</td><td>+€867 (+26%)</td></tr>
+          <tr><td>Senior</td><td class="td-bar" style="--w:67%">€5,000</td><td>27</td><td>+€800 (+19%)</td></tr>
+          <tr><td>Lead / Manager</td><td class="td-bar" style="--w:71%">€5,314</td><td>38</td><td>+€314 (+6%)</td></tr>
+          <tr><td>Chief / Director / VP</td><td class="td-bar" style="--w:100%"><strong>€7,500</strong></td><td>13</td><td>+€2,186 (+41%)</td></tr>
+          <tr><td>Founder / Co-Founder</td><td class="td-bar" style="--w:56%">€4,167</td><td>3</td><td>−€3,333 (−44%)</td></tr>
         </tbody>
       </table>
     </div>
-    <p>Three patterns stand out. Mid to Senior is the easy rung: +€800 for doing broadly the same job with more autonomy. Senior to Lead is where individual contributors stall (+6%, the trap floor) while managers pull ahead. Lead to Director is the biggest jump (+41%) through the narrowest door: only about 9% of the survey made it. And founders? They earn 44% less than the directors they often used to be.</p>
-    <p>Management itself is the dividing line. Marketers without direct reports (n=114) have a median of €4,438, a P75 of €5,300, and a P90 of €5,900. That €5,900 is effectively the ceiling for individual contributors. Marketers with direct reports (n=34) have a median of €5,688, a P75 of €6,667, and a P90 of €8,625. Just starting out instead of climbing? Our <a href="/firstjob/">first marketing job guide</a> covers the bottom of this ladder.</p>
+    <p>Three patterns stand out. Mid to Senior is the easy rung: +€800 for doing broadly the same job with more autonomy. Senior to Lead is where individual contributors stall (+6%, the trap floor) while managers pull ahead. Lead to Director is the biggest jump (<span class="kn">+41%</span>) through the narrowest door: only about 9% of the survey made it. And founders? They earn 44% less than the directors they often used to be.</p>
+    <p>Management itself is the dividing line. Marketers without direct reports (n=114) have a median of €4,438, a P75 of €5,300, and a P90 of €5,900. That <mark class="hl">€5,900 is effectively the ceiling</mark> for individual contributors.</p>
+      <p>Marketers with direct reports (n=34) have a median of €5,688, a P75 of €6,667, and a P90 of €8,625. Just starting out instead of climbing? Our <a href="/firstjob/">first marketing job guide</a> covers the bottom of this ladder.</p>
 
-    <h2 id="pay-levers">Six levers that actually move marketing pay</h2>
+    </section>
+
+    <section class="pb">
+      <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">04</span><span class="pb__kick-emoji">&#127899;&#65039;</span></div>
+      <h2 id="pay-levers">Six levers that actually move marketing pay</h2>
     <p>Six levers move marketing pay in Finland more than anything else, ranked here by euros per month:</p>
     <ol>
       <li><strong>Main expertise:</strong> moving from Social Media to Marketing Strategy = +€2,432/month.</li>
@@ -355,9 +509,14 @@
     </ol>
     <p>Notice what is not on the list: working harder at the same desk. Every lever is a change of scope, employer, or skill portfolio, not a performance review. The first three require changing what you do or where you do it. The last three you can start this quarter.</p>
 
-    <h2 id="ai-skills">AI skills are now a pay signal</h2>
-    <p>Marketers who invest in AI skills earn a median of €4,750 per month (n=105). Marketers who do not earn €4,200 (n=43). That €550 monthly gap is roughly €6,600 a year, and it exists today, not in some projected future. 71% of marketers with a salary on file are already investing in AI skills; the 29% who are not earn less right now. Expect the gap to be small this year and bigger next year.</p>
-    <p>AI Prompting &amp; Workflow Automation is also the single most prioritised skill of 2026: 70% of respondents are learning it. It is not a differentiator anymore. It is the floor. Here is the full skills list, with the pay correlation where the data showed one:</p>
+    </section>
+
+    <section class="pb pb--tint pb--green">
+      <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">05</span><span class="pb__kick-emoji">&#129302;</span></div>
+      <h2 id="ai-skills">AI skills are now a pay signal</h2>
+    <p>Marketers who invest in AI skills earn a median of <span class="kn">€4,750</span> per month (n=105). Marketers who do not earn <span class="kn">€4,200</span> (n=43). That <mark class="hl">€550 monthly gap is roughly €6,600 a year</mark>, and it exists today, not in some projected future. 71% of marketers with a salary on file are already investing in AI skills; the 29% who are not earn less right now. Expect the gap to be small this year and bigger next year.</p>
+      <div class="glow-chip" aria-hidden="true"><span class="glow-chip__num">+€550</span><span class="glow-chip__label">per month: the median premium for marketers investing in AI skills</span></div>
+    <p>AI Prompting &amp; Workflow Automation is also the single most prioritised skill of 2026: <span class="kn">70%</span> of respondents are learning it. It is not a differentiator anymore. <mark class="hl">It is the floor.</mark> Here is the full skills list, with the pay correlation where the data showed one:</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -379,7 +538,11 @@
     </div>
     <p>Leadership is the strongest skill-to-pay correlation at +€792 per month, ahead of AI at +€550. The negative numbers are worth a hard look too: the marketers prioritising content, SEO, paid, and growth skills earn below the median, which mirrors the role table above.</p>
 
-    <h2 id="finnish-language">Does speaking Finnish increase your salary?</h2>
+    </section>
+
+    <section class="pb">
+      <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">06</span><span class="pb__kick-emoji">&#127467;&#127470;</span></div>
+      <h2 id="finnish-language">Does speaking Finnish increase your salary?</h2>
     <p>Speaking Finnish barely moves marketing pay in Finland. We looked at 124 usable responses from marketers at Finnish-headquartered companies and split them by working language and Finnish fluency:</p>
     <div class="table-wrap">
       <table>
@@ -394,20 +557,35 @@
         </tbody>
       </table>
     </div>
-    <p>The biggest group by far, 75 people, works in English without fluent Finnish. That is the Finnish marketing default in 2026. Adding fluent Finnish inside an English-speaking company is worth about €200 per month. Moving from that default to a Finnish-speaking company adds only €58. The overall correlation between Finnish fluency and pay is weak, +0.168. The takeaway is that language is not the story; company type is. Pick an English-first company, then treat Finnish as a tiebreaker, not a lever. It fits the wider picture: 82% of respondents work in English day-to-day, and four in five work at a company whose operating language is English.</p>
+    <p>The biggest group by far, 75 people, works in English without fluent Finnish. That is the Finnish marketing default in 2026. Adding fluent Finnish inside an English-speaking company is worth about <mark class="hl">€200 per month</mark>. Moving from that default to a Finnish-speaking company adds only €58. The overall correlation between Finnish fluency and pay is weak, <span class="kn">+0.168</span>. The takeaway is that language is not the story; company type is. Pick an English-first company, then treat Finnish as a tiebreaker, not a lever. It fits the wider picture: 82% of respondents work in English day-to-day, and four in five work at a company whose operating language is English.</p>
 
-    <h2 id="remote-vs-office">Remote vs office: the gap marketers actually feel</h2>
-    <p>Remote work is where marketers' preferences and employers' policies diverge most. Of the 151 respondents who answered both questions, 56% (84 people) want to work fully or primarily remote. Only 17% (25 people) actually get to work fully remote. The full preference breakdown: fully remote 13% (20), primarily remote 42% (64), 50/50 hybrid 31% (47), primarily in-office 11% (16), fully in-office 3% (4).</p>
-    <p>The friction point: 25% of respondents (37 people) want fully or primarily remote work but their employer pulls them in at least one day a week. That is one in four marketers commuting against their stated preference. Remote has become the new non-negotiable in how marketers talk about their next role, while most employers still expect hybrid or office presence. If you are considering going fully remote for a foreign employer, our <a href="/remote-salary-calculator/">remote job salary calculator</a> works out what to ask for as a Finland-based contractor.</p>
+    </section>
 
-    <h2 id="the-mood">The mood: pay is up, confidence is not</h2>
-    <p>The mood, not the pay, is the real headline of 2026. Start with what happened around people: in the past 12 months, 46% saw company layoffs, 31% saw the marketing budget cut, 24% saw their team downsized, 25% had their role restructured, 12% were personally laid off, and 4% went through a temporary layoff (lomautus). Overall, 108 people out of 147, or 74%, reported at least one of these events. Only 26% got through the year untouched.</p>
-    <p>Then what happened to pay: 52% got a raise in the last 12 months, 39% stayed flat, 5% took a pay cut, and 5% were not working a year ago (base 153). And yet, on job hunting (base 171): 30% are actively looking, 33% are open to opportunities, 29% are happy, and 8% are staying only because the market feels risky. That is 63% open to moving or actively looking. On job security (base 172): 38% feel somewhat secure but more cautious, 23% very secure, 19% uncertain, 12% between jobs, and 8% insecure or worried. In total, 27% are uncertain or worried.</p>
-    <p>The contradiction in one sentence: 52% got a pay rise, yet 63% still think about leaving and 74% saw a layoff, cut, or restructure. Even among the raise-getters, 52% (41 of 79) are open to a new job. The sharpest version of this is what we consider the single most important finding of the whole survey: 61% of marketers on teams of 9+ are job hunting right now (22 of 36 looking, 14 staying). The best-paid, best-resourced marketers are the most likely to leave.</p>
-    <p>The career cost is already visible. Asked about compromises (base 168, single-select): 24% (41 people) have considered leaving Finland, 23% (38) are staying in a job they would otherwise leave, 14% (23) accepted a role below their level or pay, and only 39% (66) say their plans are unchanged. Three in five marketers are compromising their career plans in some way.</p>
+    <section class="pb pb--tint pb--coral">
+      <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">07</span><span class="pb__kick-emoji">&#127965;&#65039;</span></div>
+      <h2 id="remote-vs-office">Remote vs office: the gap marketers actually feel</h2>
+    <p>Remote work is where marketers' preferences and employers' policies diverge most. Of the 151 respondents who answered both questions, <span class="kn">56%</span> (84 people) want to work fully or primarily remote. Only <span class="kn">17%</span> (25 people) actually get to work fully remote. The full preference breakdown: fully remote 13% (20), primarily remote 42% (64), 50/50 hybrid 31% (47), primarily in-office 11% (16), fully in-office 3% (4).</p>
+    <p>The friction point: 25% of respondents (37 people) want fully or primarily remote work but their employer pulls them in at least one day a week. That is <mark class="hl">one in four marketers</mark> commuting against their stated preference. Remote has become the new non-negotiable in how marketers talk about their next role, while most employers still expect hybrid or office presence. If you are considering going fully remote for a foreign employer, our <a href="/remote-salary-calculator/">remote job salary calculator</a> works out what to ask for as a Finland-based contractor.</p>
 
-    <h2 id="2022-vs-2026">2022 vs 2026: pay rose, but the shape changed</h2>
-    <p>Between 2022 and 2026, the overall median marketing salary in Finland rose from €4,000 to €4,658, a nominal gain of 16.4%. Inflation over the same period was 19%, so the real change is −2.6%. But the average hides who actually gained. The shape of the pay distribution changed more than its level:</p>
+    </section>
+
+    <section class="pb">
+      <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">08</span><span class="pb__kick-emoji">&#127777;&#65039;</span></div>
+      <h2 id="the-mood">The mood: pay is up, confidence is not</h2>
+    <p>The mood, not the pay, is the real headline of 2026. Start with what happened around people: in the past 12 months, 46% saw company layoffs, 31% saw the marketing budget cut, 24% saw their team downsized, 25% had their role restructured, 12% were personally laid off, and 4% went through a temporary layoff (lomautus). Overall, 108 people out of 147, or <span class="kn">74%</span>, reported at least one of these events. Only <span class="kn">26%</span> got through the year untouched.</p>
+    <p>Then what happened to pay: 52% got a raise in the last 12 months, 39% stayed flat, 5% took a pay cut, and 5% were not working a year ago (base 153). And yet, on job hunting (base 171): 30% are actively looking, 33% are open to opportunities, 29% are happy, and 8% are staying only because the market feels risky. That is 63% open to moving or actively looking.</p>
+      <p>On job security (base 172): 38% feel somewhat secure but more cautious, 23% very secure, 19% uncertain, 12% between jobs, and 8% insecure or worried. In total, 27% are uncertain or worried.</p>
+    <div class="pullquote">
+      <p>The contradiction in one sentence: 52% got a pay rise, yet 63% still think about leaving and 74% saw a layoff, cut, or restructure. Even among the raise-getters, 52% (41 of 79) are open to a new job. The sharpest version of this is what we consider the single most important finding of the whole survey: 61% of marketers on teams of 9+ are job hunting right now (22 of 36 looking, 14 staying). The best-paid, best-resourced marketers are the most likely to leave.</p>
+      </div>
+    <p>The career cost is already visible. Asked about compromises (base 168, single-select): 24% (41 people) have considered leaving Finland, 23% (38) are staying in a job they would otherwise leave, 14% (23) accepted a role below their level or pay, and only 39% (66) say their plans are unchanged. <mark class="hl">Three in five marketers are compromising their career plans</mark> in some way.</p>
+
+    </section>
+
+    <section class="pb pb--tint pb--yellow">
+      <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">09</span><span class="pb__kick-emoji">&#8987;</span></div>
+      <h2 id="2022-vs-2026">2022 vs 2026: pay rose, but the shape changed</h2>
+    <p>Between 2022 and 2026, the overall median marketing salary in Finland rose from <span class="kn">€4,000 to €4,658</span>, a nominal gain of 16.4%. Inflation over the same period was 19%, so the real change is <span class="kn">−2.6%</span>. But the average hides who actually gained. The shape of the pay distribution changed more than its level:</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -429,10 +607,14 @@
         </tbody>
       </table>
     </div>
-    <p>The winners: women (+24.7%, the biggest gain of any group), non-managers (+23.6%), juniors (+22.3%), and enterprise marketers (+17.3%). The flat lines: Senior / Lead pay did not move a single euro in four years, the flattest line in the dataset, and managers gained only 5.0%. Enterprise pulled ahead of every other company type while startup pay (+12.5%) trailed inflation. The bottom of the market caught up; the middle stood still. Earlier community surveys from 2021 and 2023 live on our <a href="/marketing-salaries-finland/">marketing salaries in Finland hub</a>.</p>
+    <p>The winners: women (<span class="kn">+24.7%</span>, the biggest gain of any group), non-managers (+23.6%), juniors (+22.3%), and enterprise marketers (+17.3%). The flat lines: Senior / Lead pay did not move a single euro in four years, the flattest line in the dataset, and managers gained only 5.0%. Enterprise pulled ahead of every other company type while startup pay (+12.5%) trailed inflation. <mark class="hl">The bottom of the market caught up; the middle stood still.</mark> Earlier community surveys from 2021 and 2023 live on our <a href="/marketing-salaries-finland/">marketing salaries in Finland hub</a>.</p>
 
-    <h2 id="mma-comparison">How this compares to MMA's palkkatutkimus 2025</h2>
-    <p>MMA's palkkatutkimus 2025 is the authoritative reference for Finnish marketing pay, and its numbers run lower than ours. Fielded by Aula Research Oy between 7 and 26 January 2026 (n=2,033 total, of which 521 are marketing respondents, sales excluded, monthly = annual / 12.5), it puts the marketing median at €4,340 per month, or €4,268 base salary without bonus. That median grew +6.4% year on year, from €4,080 in 2024 and €4,000 in 2023.</p>
+    </section>
+
+    <section class="pb">
+      <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">10</span><span class="pb__kick-emoji">&#9878;&#65039;</span></div>
+      <h2 id="mma-comparison">How this compares to MMA's palkkatutkimus 2025</h2>
+    <p>MMA's palkkatutkimus 2025 is the authoritative reference for Finnish marketing pay, and its numbers run lower than ours. Fielded by Aula Research Oy between 7 and 26 January 2026 (n=2,033 total, of which 521 are marketing respondents, sales excluded, monthly = annual / 12.5), it puts the marketing median at <span class="kn">€4,340</span> per month, or €4,268 base salary without bonus. That median grew +6.4% year on year, from €4,080 in 2024 and €4,000 in 2023.</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -449,39 +631,66 @@
       </table>
     </div>
     <p>More MMA detail worth knowing: the women's euro in marketing is now 0.97€, up from 0.93€. By industry, industrial companies pay €4,808, services €4,240, and retail €4,377. On pay composition, 55% earn base salary only and 43% base plus bonus. And on transparency, 79% say role-level pay information is not available at their employer; in marketing specifically, only 12% have visibility.</p>
-    <p>The €318 gap between the two medians reflects our sample's tech, English-first, mid-to-senior skew. Our advice: anchor on MMA's €4,340, then adjust for company type and seniority using this report. What this survey adds is the detail MMA does not publish: AI uptake, the remote mismatch, job hunting by team size, and expertise-area pay gaps.</p>
+    <p>The <mark class="hl">€318 gap</mark> between the two medians reflects our sample's tech, English-first, mid-to-senior skew. Our advice: anchor on MMA's €4,340, then adjust for company type and seniority using this report. What this survey adds is the detail MMA does not publish: AI uptake, the remote mismatch, job hunting by team size, and expertise-area pay gaps.</p>
 
-    <h2 id="methodology">Methodology: how the survey was run</h2>
+    </section>
+
+    <section class="pb pb--tint pb--gray">
+      <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">11</span><span class="pb__kick-emoji">&#128300;</span></div>
+      <h2 id="methodology">Methodology: how the survey was run</h2>
     <p>The survey behind this report collected responses through a public form distributed via the Awesome Marketers newsletter, LinkedIn, and Finnish marketing communities. It has been open since Q1 2026 and is still collecting; this report reflects responses through early July 2026. The interactive version was published on 18 April 2026 and updated on 3 July 2026 with fresh data. No incentives were offered, and responses were limited to one per email.</p>
-    <p>The pay analysis covers 148 marketers with usable salary data. The base cohort is respondents with a salary who are not freelancers (freelancers price differently; if that is you, use the <a href="/freelance-calculator/">freelance rate calculator</a> instead). 82% work in English day-to-day and 40% work at tech startups or scale-ups. Cleaning steps: annual gross converted to monthly (annual / 12), currency symbols stripped, obvious typos fixed. Respondents without a usable salary were kept in the mood and sentiment questions but excluded from pay, which is why sentiment bases (147 to 172) differ from the pay base of 148. We report medians throughout because they resist outliers on small samples, round group medians to whole euros, and hide any group under n=3. Job titles were grouped from 138 free-text answers into 14 role families.</p>
+    <p>The pay analysis covers 148 marketers with usable salary data. The base cohort is respondents with a salary who are not freelancers (freelancers price differently; if that is you, use the <a href="/freelance-calculator/">freelance rate calculator</a> instead).</p>
+      <p>82% work in English day-to-day and 40% work at tech startups or scale-ups. Cleaning steps: annual gross converted to monthly (annual / 12), currency symbols stripped, obvious typos fixed. Respondents without a usable salary were kept in the mood and sentiment questions but excluded from pay, which is why sentiment bases (147 to 172) differ from the pay base of 148. We report medians throughout because they resist outliers on small samples, round group medians to whole euros, and hide any group under n=3. Job titles were grouped from 138 free-text answers into 14 role families.</p>
     <p>What we did not do: no weighting to Finnish marketing demographics, no employer or title verification, no cross-year linking of individuals. The sample skews mid-level and senior individual contributor; juniors are underrepresented. Treat this as a community snapshot, not a census.</p>
 
-    <h2 id="faq">Frequently asked questions</h2>
+    </section>
+
+    <section class="pb">
+      <div class="pb__kick" aria-hidden="true"><span class="pb__kick-no">12</span><span class="pb__kick-emoji">&#128172;</span></div>
+      <h2 id="faq">Frequently asked questions</h2>
     <div class="faq">
+      <div class="faq-card">
       <h3>What is the average marketing salary in Finland in 2026?</h3>
       <p>The median monthly gross salary is €4,658, based on 148 marketers surveyed by The Awesome Marketers community. The mean is €4,787, and the middle 50% earn between €3,738 and €5,667 per month. MMA's palkkatutkimus 2025 reports a marketing median of €4,340 per month across 521 respondents.</p>
+      </div>
 
+      <div class="faq-card">
       <h3>Do marketers who use AI earn more?</h3>
       <p>Yes. Marketers investing in AI skills earn a median of €4,750 per month, compared with €4,200 for those who are not, a gap of €550 per month or roughly €6,600 per year. 71% of respondents with a salary on file already invest in AI skills.</p>
+      </div>
 
+      <div class="faq-card">
       <h3>Does speaking Finnish increase marketing pay in Finland?</h3>
       <p>Only slightly. Inside companies where the working language is English, fluent Finnish speakers earn a median €4,800 versus €4,600 for non-speakers, about €200 per month. The overall correlation between Finnish fluency and pay is weak (+0.168), and company type matters far more than language.</p>
+      </div>
 
+      <div class="faq-card">
       <h3>What is the highest-paying marketing role in Finland?</h3>
       <p>Head and Director roles pay the highest median at €5,917 per month, followed by Founder and C-level at €5,729 and Senior Marketing Manager at €5,667. By seniority, the Chief, Director and VP tier has a median of €7,500 per month. Content Marketing has the lowest role median at €3,833.</p>
+      </div>
 
+      <div class="faq-card">
       <h3>How does this survey compare to MMA's official figures?</h3>
       <p>MMA's palkkatutkimus 2025 puts the Finnish marketing median at €4,340 per month across 521 marketing respondents, €318 below this survey's €4,658. The gap reflects this survey's skew towards tech, English-first companies and mid-to-senior marketers. Anchor on MMA's figure, then adjust for company type and seniority using this report.</p>
+      </div>
 
+      <div class="faq-card">
       <h3>Is remote work common for marketers in Finland?</h3>
       <p>Not as common as marketers would like. 56% want to work fully or primarily remote, but only 17% actually work fully remote. One in four marketers wants remote work but is pulled into the office at least one day a week.</p>
+      </div>
 
+      <div class="faq-card">
       <h3>How many marketers in Finland are job hunting in 2026?</h3>
       <p>30% are actively looking and another 33% are open to opportunities, so 63% would consider a move. On teams of nine or more people, 61% are job hunting right now. Only 29% describe themselves as happy where they are.</p>
+      </div>
 
+      <div class="faq-card">
       <h3>Did marketing salaries in Finland keep up with inflation?</h3>
       <p>No. The nominal median rose 16.4% between 2022 and 2026, from €4,000 to €4,658, but cumulative inflation over the same period was 19%. In real terms, Finnish marketers earn 2.6% less than in 2022.</p>
+      </div>
     </div>
+
+</section>
 
     <div class="post__cta">
       <h2>Explore the data yourself</h2>
@@ -513,5 +722,20 @@
   </footer>
 
   <script src="../app.js"></script>
+  <script>
+  (function () {
+    var fill = document.querySelector('[data-progress]');
+    if (!fill) return;
+    function update() {
+      var d = document.documentElement;
+      var max = d.scrollHeight - d.clientHeight;
+      var y = window.pageYOffset || d.scrollTop || 0;
+      fill.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+  })();
+  </script>
 </body>
 </html>

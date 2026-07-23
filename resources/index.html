@@ -48,6 +48,20 @@
   "knowsLanguage": "en"
 }
 </script>
+  <style>
+    .resource-hub__card { position: relative; }
+    .resource-hub__type {
+      position: absolute; top: 16px; right: 16px;
+      font-family: var(--font-heading); font-size: 0.66rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 4px 12px; border-radius: 100px;
+      background: var(--gradient-subtle); color: var(--purple);
+    }
+    .resource-hub__type--calc { background: rgba(255, 180, 82, 0.16); color: #b45309; }
+    .resource-hub__type--guide { background: #ecfdf5; color: #059669; }
+    .resource-hub__type--service { background: var(--gradient); color: var(--white); }
+    .resource-hub__type--data { background: var(--gray-100); color: var(--gray-600); }
+  </style>
 </head>
 <body>
 
@@ -142,48 +156,70 @@
 
       <div class="resources-hub">
         <a href="/marketing-salary-finland-2026-report/" class="resource-hub__card resource-hub__card--large">
+          <span class="resource-hub__type">Blog</span>
           <span class="resource-hub__emoji">📝</span>
           <h3>Marketing Salary Report 2026: The Written Report</h3>
           <p>Every number from the 2026 survey in plain text. Median pay, role-by-role breakdowns, the career ladder, the AI pay gap, and what actually moves salaries in Finnish marketing.</p>
           <span class="resource-hub__link">Read the written report →</span>
         </a>
+        <a href="/freelance-marketing-consultant-rates-finland/" class="resource-hub__card resource-hub__card--large">
+          <span class="resource-hub__type">Blog</span>
+          <span class="resource-hub__emoji">💶</span>
+          <h3>Freelance Rates in Finland 2026</h3>
+          <p>What freelance marketing consultants actually charge. Day and hourly rates by specialisation and seniority, calculated from our own salary data.</p>
+          <span class="resource-hub__link">See the rates →</span>
+        </a>
         <a href="/firstjob/" class="resource-hub__card resource-hub__card--large">
+          <span class="resource-hub__type resource-hub__type--guide">Guide</span>
           <span class="resource-hub__emoji">🎯</span>
           <h3>First Job Guide</h3>
           <p>Job boards, networking tips, salary info, unions, and hard-earned advice for landing your first marketing role in Finland.</p>
           <span class="resource-hub__link">Read the guide →</span>
         </a>
         <a href="/freelance-calculator/" class="resource-hub__card resource-hub__card--large">
+          <span class="resource-hub__type resource-hub__type--calc">Calculator</span>
           <span class="resource-hub__emoji">🧮</span>
           <h3>Freelance Rate Calculator</h3>
           <p>Plug in your desired salary, get your daily and hourly rate. Accounts for YEL pension, holiday pay, and the days you won't bill.</p>
           <span class="resource-hub__link">Calculate your rate →</span>
         </a>
         <a href="/remote-salary-calculator/" class="resource-hub__card resource-hub__card--large">
+          <span class="resource-hub__type resource-hub__type--calc">Calculator</span>
           <span class="resource-hub__emoji">🌍</span>
           <h3>Remote Job Salary Calculator</h3>
           <p>Working for a company abroad as self-employed in Finland? Figure out what annual salary to ask for, or check what an offer really means.</p>
           <span class="resource-hub__link">Calculate your salary →</span>
         </a>
+        <a href="/marketing-freelancer-finland/" class="resource-hub__card resource-hub__card--large">
+          <span class="resource-hub__type resource-hub__type--service">Free service</span>
+          <span class="resource-hub__emoji">🧲</span>
+          <h3>Hire a Marketing Freelancer</h3>
+          <p>Tell us what you need and we match you with the right freelancer from the community. Free, no fees, no cut.</p>
+          <span class="resource-hub__link">Get matched →</span>
+        </a>
         <a href="/marketing-salaries-finland/" class="resource-hub__card">
+          <span class="resource-hub__type resource-hub__type--data">Data</span>
           <span class="resource-hub__emoji">📊</span>
           <h3>Salary Reports</h3>
           <p>What marketers in Finland actually earn. 2026, 2023, and 2021 community survey data in one place.</p>
           <span class="resource-hub__link">See the data &rarr;</span>
         </a>
         <a href="/events/" class="resource-hub__card">
+          <span class="resource-hub__type resource-hub__type--data">Events</span>
           <span class="resource-hub__emoji">🎪</span>
           <h3>Events</h3>
           <p>Afterworks, webinars, and meetups. Mostly Helsinki, sometimes online, occasionally Oulu.</p>
           <span class="resource-hub__link">What's coming up →</span>
         </a>
         <a href="/videos/" class="resource-hub__card">
+          <span class="resource-hub__type resource-hub__type--data">Videos</span>
           <span class="resource-hub__emoji">🎬</span>
           <h3>Videos</h3>
           <p>Recorded webinars and talks on SEO, career pivots, salary negotiation, and more.</p>
           <span class="resource-hub__link">Watch on YouTube →</span>
         </a>
         <a href="/partners/" class="resource-hub__card">
+          <span class="resource-hub__type resource-hub__type--data">Partners</span>
           <span class="resource-hub__emoji">🤝</span>
           <h3>Partners & Affiliates</h3>
           <p>Tools we actually use and recommend. Some links help keep the community running.</p>
