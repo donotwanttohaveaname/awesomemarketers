@@ -224,10 +224,14 @@
   .pb ul li::before { content:''; position:absolute; left:2px; top:0.62em; width:10px; height:10px; border-radius:99px; background:var(--gradient); }
 
   /* tables */
-  .rates-table-wrap { overflow-x:auto; overflow-y:hidden; margin:24px 0 8px; border-radius:var(--radius-lg); border:1px solid var(--gray-200); box-shadow:var(--shadow-sm); background:var(--white); }
-  .rates-table { width:100%; border-collapse:collapse; font-size:0.95rem; min-width:520px; }
+  .rates-table-wrap { overflow-x:auto; overflow-y:hidden; margin:24px 0 8px; border-radius:var(--radius-lg); border:1px solid var(--gray-200); box-shadow:var(--shadow-sm); background:var(--white); width:min(920px, calc(100vw - 40px)); position:relative; left:50%; transform:translateX(-50%); }
+  .rates-table { width:100%; border-collapse:collapse; font-size:0.95rem; min-width:640px; }
   .rates-table th { background:var(--gray-900); color:#fff; font-family:var(--font-heading); font-size:0.78rem; text-transform:uppercase; letter-spacing:0.06em; text-align:left; padding:13px 16px; white-space:nowrap; }
-  .rates-table td { padding:12px 16px; border-top:1px solid var(--gray-200); color:var(--gray-700); }
+  .rates-table td { padding:13px 16px; border-top:1px solid var(--gray-200); color:var(--gray-700); vertical-align:middle; line-height:1.45; }
+  .rates-table td strong { white-space:nowrap; display:inline-block; }
+  .rates-table td:nth-child(3), .rates-table td:nth-child(4) { min-width:150px; }
+  .map-pill { display:inline-block; background:var(--gray-100); color:var(--gray-600); font-size:0.8rem; font-weight:600; padding:4px 12px; border-radius:100px; white-space:nowrap; }
+  .rates-table tr:hover .map-pill { background:rgba(166,21,255,0.1); color:var(--purple); }
   .rates-table tbody tr { transition:background .12s ease; }
   .rates-table tr:nth-child(even) td { background:var(--gray-50); }
   .rates-table tr:hover td { background:var(--purple-soft); }
@@ -470,19 +474,19 @@
             <tr><th>Freelance specialisation</th><th>Mapped to</th><th>Day rate</th><th>Hourly</th></tr>
           </thead>
           <tbody>
-            <tr><td>SEO consulting</td><td>Content &amp; SEO</td><td><strong>from €395</strong><span class="rates-upto">typically up to €490</span></td><td><strong>from €100</strong><span class="rates-upto">up to €115</span></td></tr>
-            <tr><td>Google Ads / paid search</td><td>Advertising &amp; Paid Acquisition</td><td><strong>from €430</strong><span class="rates-upto">typically up to €535</span></td><td><strong>from €110</strong><span class="rates-upto">up to €125</span></td></tr>
-            <tr><td>Paid social (Meta, LinkedIn)</td><td>Advertising &amp; Paid Acquisition</td><td><strong>from €430</strong><span class="rates-upto">typically up to €535</span></td><td><strong>from €110</strong><span class="rates-upto">up to €125</span></td></tr>
-            <tr><td>Marketing automation (HubSpot, Klaviyo)</td><td>Marketing Ops</td><td><strong>from €465</strong><span class="rates-upto">typically up to €575</span></td><td><strong>from €120</strong><span class="rates-upto">up to €135</span></td></tr>
-            <tr><td>Lifecycle &amp; CRM marketing</td><td>CRM Management</td><td><strong>from €340</strong><span class="rates-upto">typically up to €425</span></td><td><strong>from €85</strong><span class="rates-upto">up to €100</span></td></tr>
-            <tr><td>Influencer marketing</td><td>Social Media</td><td><strong>from €325</strong><span class="rates-upto">typically up to €405</span></td><td><strong>from €85</strong><span class="rates-upto">up to €95</span></td></tr>
-            <tr><td>Community management</td><td>Social Media</td><td><strong>from €325</strong><span class="rates-upto">typically up to €405</span></td><td><strong>from €85</strong><span class="rates-upto">up to €95</span></td></tr>
-            <tr><td>Web analytics &amp; tracking</td><td>Analytics &amp; Data</td><td><strong>from €470</strong><span class="rates-upto">typically up to €585</span></td><td><strong>from €120</strong><span class="rates-upto">up to €140</span></td></tr>
-            <tr><td>Conversion rate optimisation (CRO)</td><td>Growth Marketing</td><td><strong>from €475</strong><span class="rates-upto">typically up to €590</span></td><td><strong>from €120</strong><span class="rates-upto">up to €140</span></td></tr>
-            <tr><td>Account-based marketing (ABM)</td><td>Marketing Strategy</td><td><strong>from €565</strong><span class="rates-upto">typically up to €695</span></td><td><strong>from €145</strong><span class="rates-upto">up to €165</span></td></tr>
-            <tr><td>Event marketing</td><td>overall median</td><td><strong>from €455</strong><span class="rates-upto">typically up to €565</span></td><td><strong>from €115</strong><span class="rates-upto">up to €135</span></td></tr>
-            <tr><td>Video &amp; podcast production</td><td>Design</td><td><strong>from €415</strong><span class="rates-upto">typically up to €515</span></td><td><strong>from €105</strong><span class="rates-upto">up to €120</span></td></tr>
-            <tr><td>Fractional CMO</td><td>Director / VP level</td><td><strong>from €735</strong><span class="rates-upto">typically up to €905</span></td><td><strong>from €185</strong><span class="rates-upto">up to €215</span></td></tr>
+            <tr><td>SEO consulting</td><td><span class="map-pill">Content &amp; SEO</span></td><td><strong>from €395</strong><span class="rates-upto">typically up to €490</span></td><td><strong>from €100</strong><span class="rates-upto">up to €115</span></td></tr>
+            <tr><td>Google Ads / paid search</td><td><span class="map-pill">Advertising &amp; Paid Acquisition</span></td><td><strong>from €430</strong><span class="rates-upto">typically up to €535</span></td><td><strong>from €110</strong><span class="rates-upto">up to €125</span></td></tr>
+            <tr><td>Paid social (Meta, LinkedIn)</td><td><span class="map-pill">Advertising &amp; Paid Acquisition</span></td><td><strong>from €430</strong><span class="rates-upto">typically up to €535</span></td><td><strong>from €110</strong><span class="rates-upto">up to €125</span></td></tr>
+            <tr><td>Marketing automation (HubSpot, Klaviyo)</td><td><span class="map-pill">Marketing Ops</span></td><td><strong>from €465</strong><span class="rates-upto">typically up to €575</span></td><td><strong>from €120</strong><span class="rates-upto">up to €135</span></td></tr>
+            <tr><td>Lifecycle &amp; CRM marketing</td><td><span class="map-pill">CRM Management</span></td><td><strong>from €340</strong><span class="rates-upto">typically up to €425</span></td><td><strong>from €85</strong><span class="rates-upto">up to €100</span></td></tr>
+            <tr><td>Influencer marketing</td><td><span class="map-pill">Social Media</span></td><td><strong>from €325</strong><span class="rates-upto">typically up to €405</span></td><td><strong>from €85</strong><span class="rates-upto">up to €95</span></td></tr>
+            <tr><td>Community management</td><td><span class="map-pill">Social Media</span></td><td><strong>from €325</strong><span class="rates-upto">typically up to €405</span></td><td><strong>from €85</strong><span class="rates-upto">up to €95</span></td></tr>
+            <tr><td>Web analytics &amp; tracking</td><td><span class="map-pill">Analytics &amp; Data</span></td><td><strong>from €470</strong><span class="rates-upto">typically up to €585</span></td><td><strong>from €120</strong><span class="rates-upto">up to €140</span></td></tr>
+            <tr><td>Conversion rate optimisation (CRO)</td><td><span class="map-pill">Growth Marketing</span></td><td><strong>from €475</strong><span class="rates-upto">typically up to €590</span></td><td><strong>from €120</strong><span class="rates-upto">up to €140</span></td></tr>
+            <tr><td>Account-based marketing (ABM)</td><td><span class="map-pill">Marketing Strategy</span></td><td><strong>from €565</strong><span class="rates-upto">typically up to €695</span></td><td><strong>from €145</strong><span class="rates-upto">up to €165</span></td></tr>
+            <tr><td>Event marketing</td><td><span class="map-pill">overall median</span></td><td><strong>from €455</strong><span class="rates-upto">typically up to €565</span></td><td><strong>from €115</strong><span class="rates-upto">up to €135</span></td></tr>
+            <tr><td>Video &amp; podcast production</td><td><span class="map-pill">Design</span></td><td><strong>from €415</strong><span class="rates-upto">typically up to €515</span></td><td><strong>from €105</strong><span class="rates-upto">up to €120</span></td></tr>
+            <tr><td>Fractional CMO</td><td><span class="map-pill">Director / VP level</span></td><td><strong>from €735</strong><span class="rates-upto">typically up to €905</span></td><td><strong>from €185</strong><span class="rates-upto">up to €215</span></td></tr>
           </tbody>
         </table>
       </div>
