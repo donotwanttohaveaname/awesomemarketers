@@ -224,53 +224,53 @@
                 </ul>
                 <p class="am-sign">See you out there ✨<br>Anna</p>
               </div>
-              <h2 class="am-step__title">About you</h2>
-              <p class="am-step__intro">So I know who you are and how to reach you.</p>
+              <h2 class="am-step__title">Let's start with you</h2>
+              <p class="am-step__intro">So I know who you are and where to send your match.</p>
               <div class="am-q" data-q="fullName">
-                <label class="am-q__label" for="fullName">Full name</label>
+                <label class="am-q__label" for="fullName">What's your name?</label>
                 <input type="text" id="fullName" name="fullName" autocomplete="name" maxlength="120" required>
-                <p class="am-error">Please add your name.</p>
+                <p class="am-error">Tell me your name so your match knows who to look for.</p>
               </div>
               <div class="am-q" data-q="email">
-                <label class="am-q__label" for="email">Your email</label>
-                <p class="form__hint">I'll send you a message here.</p>
+                <label class="am-q__label" for="email">Where can I email you?</label>
+                <p class="form__hint">Your match details land here.</p>
                 <input type="email" id="email" name="email" autocomplete="email" maxlength="160" required>
-                <p class="am-error">Please add a valid email address.</p>
+                <p class="am-error">That email doesn't look quite right. Mind checking it?</p>
               </div>
               <div class="am-q" data-q="linkedin">
-                <label class="am-q__label" for="linkedin">LinkedIn profile URL <span class="am-q__opt">(optional)</span></label>
-                <p class="form__hint">I will connect you and your match via LinkedIn the first time. I will also send you a message via email.</p>
+                <label class="am-q__label" for="linkedin">Your LinkedIn profile <span class="am-q__opt">(optional)</span></label>
+                <p class="form__hint">I'll introduce you and your match on LinkedIn, and send the details by email too.</p>
                 <input type="url" id="linkedin" name="linkedin" placeholder="linkedin.com/in/yourname" maxlength="300">
-                <p class="am-error">Paste your LinkedIn profile link, e.g. linkedin.com/in/yourname</p>
+                <p class="am-error">Paste the link to your profile, like linkedin.com/in/yourname</p>
               </div>
             </div>
 
             <!-- Step 2 -->
             <div class="am-step" data-step="2">
-              <h2 class="am-step__title">Your work</h2>
-              <p class="am-step__intro">Helps me find people you'll have something in common with.</p>
+              <h2 class="am-step__title">Your work life</h2>
+              <p class="am-step__intro">So I can find people you'll click with.</p>
               <fieldset class="am-q" data-q="employmentType">
                 <legend>What best fits your work right now?</legend>
                 <div class="am-list am-list--2" data-options="employmentType" data-type="radio"></div>
-                <p class="am-error">Please pick one.</p>
+                <p class="am-error">Pick the one that fits best.</p>
               </fieldset>
               <div class="am-q" data-q="jobTitle">
-                <label class="am-q__label" for="jobTitle">Job title / Most recent job title <span class="am-q__opt">(optional)</span></label>
+                <label class="am-q__label" for="jobTitle">What's your job title? <span class="am-q__opt">(or your most recent one, optional)</span></label>
                 <input type="text" id="jobTitle" name="jobTitle" maxlength="120">
               </div>
               <div class="am-q" data-q="company">
-                <label class="am-q__label" for="company">Company <span class="am-q__opt">(optional)</span></label>
+                <label class="am-q__label" for="company">Where do you work? <span class="am-q__opt">(optional)</span></label>
                 <input type="text" id="company" name="company" autocomplete="organization" maxlength="120">
               </div>
               <fieldset class="am-q" data-q="industry">
-                <legend>Industry</legend>
+                <legend>Which industry are you in?</legend>
                 <div class="am-list am-list--2" data-options="industry" data-type="radio"></div>
-                <p class="am-error">Please pick your industry.</p>
+                <p class="am-error">Pick the closest one, "Other" works too.</p>
               </fieldset>
               <fieldset class="am-q" data-q="seniority">
-                <legend>Seniority</legend>
+                <legend>Where are you in your career?</legend>
                 <div class="am-list am-list--2" data-options="seniority" data-type="radio"></div>
-                <p class="am-error">Please pick one.</p>
+                <p class="am-error">Pick the one that fits best.</p>
               </fieldset>
             </div>
 
@@ -279,47 +279,47 @@
               <h2 class="am-step__title">Over lunch, you could tell someone about…</h2>
               <p class="am-step__intro">Not expertise. Things you know from your day job or your own career: your industry, what your team tried, what you've been through.</p>
               <fieldset class="am-q" data-q="topics">
-                <legend>The topics you're passionate about (pick up to 5)</legend>
+                <legend>Which topics could you happily talk about over lunch? <span class="am-q__opt">(pick up to 5)</span></legend>
                 <p class="form__hint">🔒 Personal topics are only shared with a match who picked the same topic.</p>
                 <div data-topics="topics"></div>
                 <p class="am-counter" data-counter="topics">0 of 5 picked</p>
-                <p class="am-error">Pick at least 1 topic.</p>
+                <p class="am-error">Pick at least one topic you enjoy talking about.</p>
               </fieldset>
             </div>
 
             <!-- Step 4 -->
             <div class="am-step" data-step="4">
-              <h2 class="am-step__title">Where and when</h2>
+              <h2 class="am-step__title">Where and when works for you?</h2>
               <p class="am-step__intro">Tick everything that could work. More options mean an easier match.</p>
               <fieldset class="am-q" data-q="areas">
-                <legend>Where can you meet?</legend>
+                <legend>Where's easy for you to meet?</legend>
                 <div class="am-list am-list--2" data-options="areas" data-type="checkbox"></div>
-                <p class="am-error">Please pick at least one area.</p>
+                <p class="am-error">Pick at least one area that works for you.</p>
               </fieldset>
               <fieldset class="am-q" data-q="availability">
-                <legend>These are the dates you could meet <span class="am-q__opt">(optional)</span></legend>
-                <p class="form__hint">Weekdays from 12 to 30 October. Pick the times that work, or "Not this day".</p>
+                <legend>When could you meet? <span class="am-q__opt">(optional)</span></legend>
+                <p class="form__hint">Weekdays from 12 to 30 October. Tap the times that work, or "Not this day".</p>
                 <div class="am-tools">
-                  <button type="button" class="am-tool" data-fill="lunch">Tick all 11AM to 1PM</button>
-                  <button type="button" class="am-tool" data-fill="after">Tick all 4PM to 6PM</button>
+                  <button type="button" class="am-tool" data-fill="lunch">All lunch times</button>
+                  <button type="button" class="am-tool" data-fill="after">All after-work times</button>
                   <button type="button" class="am-tool" data-fill="clear">Clear all</button>
                 </div>
                 <div id="amDays"></div>
-                <label class="am-option" style="margin-top:16px"><input type="checkbox" id="noneDays" name="noneOfTheseDays"> None of these days work</label>
+                <label class="am-option" style="margin-top:16px"><input type="checkbox" id="noneDays" name="noneOfTheseDays"> None of these days work for me</label>
               </fieldset>
             </div>
 
             <!-- Step 5 -->
             <div class="am-step" data-step="5">
-              <h2 class="am-step__title">Last few things</h2>
-              <p class="am-step__intro">Both questions are optional.</p>
+              <h2 class="am-step__title">Almost there!</h2>
+              <p class="am-step__intro">Two quick optional ones, then you're in.</p>
               <fieldset class="am-q" data-q="meetingCriteria">
-                <legend>Meeting criteria <span class="am-q__opt">(optional)</span></legend>
+                <legend>Anything that matters to you in a match? <span class="am-q__opt">(optional)</span></legend>
                 <div class="am-list" data-options="meetingCriteria" data-type="checkbox"></div>
               </fieldset>
               <div class="am-q" data-q="feedback">
-                <label class="am-q__label" for="feedback">Your feedback <span class="am-q__opt">(optional)</span></label>
-                <p class="form__hint">I am testing this format and would love to hear what you think about it / how to improve it.</p>
+                <label class="am-q__label" for="feedback">Any thoughts on this format? <span class="am-q__opt">(optional)</span></label>
+                <p class="form__hint">It's round one, so I'd love to hear what you think and how to make it better.</p>
                 <textarea id="feedback" name="feedback" maxlength="2000"></textarea>
               </div>
               <div class="am-datanote">
@@ -336,7 +336,7 @@
               </div>
               <div class="am-q" data-q="agreeData">
                 <label class="am-option"><input type="checkbox" id="agreeData" name="agreeData"> I agree that my answers are stored and used as described above, including any 🔒 topics I picked</label>
-                <p class="am-error">I need your consent to match you.</p>
+                <p class="am-error">I can only match you if you're OK with this.</p>
               </div>
             </div>
 
@@ -357,7 +357,7 @@
             <p>Thanks to everyone who joined round one! Matches go out by Friday 2 October. If we keep the format, a new invitation will follow.</p>
           </div>
         </div>
-        <p class="am-version">Awesome Autumn Meets form v0.11 · 14 Sep 2026</p>
+        <p class="am-version">Awesome Autumn Meets form v0.12 · 14 Sep 2026</p>
       </div>
     </div>
   </section>
