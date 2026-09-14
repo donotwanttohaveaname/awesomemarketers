@@ -17,6 +17,7 @@ The Awesome Marketers publishes original community research on Finnish marketing
 - [People](https://awesomemarketers.fi/people/): The volunteers behind the community.
 - [Manifesto](https://awesomemarketers.fi/manifesto/): What the community stands for.
 - [Events](https://awesomemarketers.fi/events/): Meetups, webinars, and afterworks.
+- [Awesome Autumn Meets](https://awesomemarketers.fi/awesome-meets/): New format, round one (October 2026): sign up and get matched with 1 or 2 marketers in Helsinki for lunch or an after-work coffee. Sign-ups close 28 September 2026.
 - [Resources](https://awesomemarketers.fi/resources/): All community tools and guides.
 - [Partners](https://awesomemarketers.fi/partners/): Tools we recommend.
 
