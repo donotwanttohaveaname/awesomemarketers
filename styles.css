@@ -1818,8 +1818,9 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; font-weight
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 130px;
+  min-width: 0;
   flex: 1;
+  padding: 0 6px;
   position: relative;
   text-align: center;
 }
@@ -1910,6 +1911,18 @@ h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; font-weight
     font-size: 0.85rem;
     max-width: none;
   }
+}
+
+/* Laptops and tablets: 8 milestones don't fit side by side, use the vertical timeline */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .timeline { overflow-x: visible; }
+  .timeline__track { flex-direction: column; align-items: flex-start; gap: 0; min-width: unset; padding: 0 0 0 24px; max-width: 720px; margin: 0 auto; }
+  .timeline__track::before { top: 0; bottom: 0; left: 29px; right: unset; width: 2px; height: auto; }
+  .timeline__item { flex-direction: row; align-items: flex-start; gap: 16px; min-width: unset; text-align: left; padding: 0 0 28px; }
+  .timeline__item:last-child { padding-bottom: 0; }
+  .timeline__year { min-width: 60px; margin-bottom: 0; padding-top: 2px; }
+  .timeline__dot { margin-bottom: 0; margin-top: 5px; flex-shrink: 0; }
+  .timeline__text { font-size: 0.9rem; max-width: none; }
 }
 
 /* ===== ABOUT TEXT (LLM-friendly) ===== */
