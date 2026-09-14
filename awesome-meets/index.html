@@ -46,7 +46,11 @@
     .am-timeline__label { display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gray-500); }
     .am-timeline__value { display: block; font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; color: var(--gray-900); margin-top: 4px; }
     .am-countdown { display: inline-block; margin-top: 18px; padding: 8px 18px; border-radius: 99px; background: var(--gradient); color: var(--white); font-family: var(--font-heading); font-weight: 600; font-size: 0.9rem; box-shadow: 0 4px 20px rgba(166, 21, 255, 0.25); }
+    .am-countdown-slot { min-height: 56px; }
     .am-countdown[hidden] { display: none; }
+    .am-q .form__hint, .am-version { color: var(--gray-500); }
+    .footer__copy { color: var(--gray-500); }
+    .footer__copy .link--subtle { color: var(--gray-700); text-decoration-color: var(--orange); }
     .am-letter .am-sign { font-family: var(--font-heading); font-weight: 600; margin-bottom: 0; }
     .am-step { display: none; }
     .am-step.is-active { display: block; }
@@ -166,6 +170,7 @@
     </div>
   </nav>
 
+  <main>
   <section class="page-hero">
     <div class="container">
       <span class="section__tag">✨ Brand new format · Round one</span>
@@ -176,7 +181,7 @@
         <div class="am-timeline__item"><span class="am-timeline__label">Get matched by</span><span class="am-timeline__value">Fri 2 Oct</span></div>
         <div class="am-timeline__item"><span class="am-timeline__label">Meet between</span><span class="am-timeline__value">12 and 30 Oct</span></div>
       </div>
-      <p class="am-countdown" id="amCountdown" hidden></p>
+      <div class="am-countdown-slot"><p class="am-countdown" id="amCountdown" hidden></p></div>
     </div>
   </section>
 
@@ -349,10 +354,12 @@
             <p>Thanks to everyone who joined round one! Matches go out by Friday 2 October. If we keep the format, a new invitation will follow.</p>
           </div>
         </div>
-        <p class="am-version">Awesome Autumn Meets form v0.5 · 14 Sep 2026</p>
+        <p class="am-version">Awesome Autumn Meets form v0.6 · 14 Sep 2026</p>
       </div>
     </div>
   </section>
+
+  </main>
 
   <footer class="footer">
     <div class="container">

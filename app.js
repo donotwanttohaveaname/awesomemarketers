@@ -137,6 +137,7 @@ const VIDEOS_COUNT = 3;
 
 async function loadYouTubeVideos() {
   const grid = document.getElementById('videosGrid');
+  if (!grid) return; // only pages with a video grid
 
   try {
     // Try YouTube RSS feed via public proxy
