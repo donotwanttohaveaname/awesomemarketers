@@ -90,6 +90,12 @@ PAGES = [
    q="need a freelance marketer for a launch. where do i even look?",
    title="Hire a marketing freelancer",
    meta="Tell us the brief, we match you with the right person from the community. No fees, no cut."),
+
+ dict(slug="awesome-meets", path="awesome-meets/index.html", ch="general",
+   q="how do i meet marketers here without another mixer? 🙃",
+   title="Awesome Autumn Meets", big="Round one",
+   meta="Brand new format. Sign up by 28 Sep, get matched with 1 or 2 marketers by 2 Oct.",
+   chips=["🥗 Lunch or after-work coffee", "📍 Helsinki", "🗓 Meet 12 to 30 Oct"]),
 ]
 
 TPL = """<!DOCTYPE html><html><head><meta charset="utf-8">
@@ -135,6 +141,9 @@ TPL = """<!DOCTYPE html><html><head><meta charset="utf-8">
    background:linear-gradient(135deg,#F0912B,#A615FF);-webkit-background-clip:text;
    background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
  .m{font-size:19px;line-height:1.45;color:#404040;max-width:880px}
+ .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+ .chip{padding:5px 14px;border-radius:999px;background:#F6F3FA;border:1px solid #EDE8F3;
+   font-size:16px;font-weight:600;color:#262626}
  .foot{flex:none;height:66px;display:flex;align-items:center;gap:10px;padding:0 34px;
    border-top:1px solid #F2EFF6}
  .rx{display:flex;gap:8px}
@@ -163,7 +172,7 @@ TPL = """<!DOCTYPE html><html><head><meta charset="utf-8">
    <div class="card">
     <div class="src"><img src="LOGO"><span>The Awesome Marketers</span></div>
     BIG<div class="t">TITLE</div>
-    <div class="m">META</div>
+    <div class="m">META</div>CHIPS
    </div>
   </div>
  </div>
@@ -189,7 +198,10 @@ def build(p, i, logo_uri):
     if p.get("big"):
         big = f'<div class="big">{esc(p["big"])}</div>'
         tsize, bgap = 27, 8
-    return (TPL.replace("CHANNEL", esc(p["ch"])).replace("TINT", tint)
+    chips = ""
+    if p.get("chips"):
+        chips = '<div class="chips">' + "".join(f'<span class="chip">{esc(c)}</span>' for c in p["chips"]) + "</div>"
+    return (TPL.replace("CHIPS", chips).replace("CHANNEL", esc(p["ch"])).replace("TINT", tint)
             .replace("EMOJI", emoji).replace("TIME", TIMES[i % len(TIMES)])
             .replace("QUESTION", esc(p["q"])).replace("BIG", big)
             .replace("TSIZE", str(tsize)).replace("BGAP", str(bgap))
