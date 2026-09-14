@@ -38,6 +38,15 @@
     .am-letter { background: var(--gradient-subtle); border-radius: var(--radius-md); padding: 24px 28px; margin-bottom: 32px; color: var(--gray-700); font-size: 0.97rem; }
     .am-letter p { margin-bottom: 12px; }
     .am-letter ul { list-style: disc; padding-left: 20px; margin-bottom: 12px; }
+    .am-letter ol { list-style: decimal; padding-left: 22px; margin-bottom: 12px; }
+    .am-letter li { margin-bottom: 4px; }
+    .am-hero-desc { max-width: 560px; }
+    .am-timeline { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 640px; margin: 28px auto 0; }
+    .am-timeline__item { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 12px; box-shadow: var(--shadow-sm); }
+    .am-timeline__label { display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gray-500); }
+    .am-timeline__value { display: block; font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; color: var(--gray-900); margin-top: 4px; }
+    .am-countdown { display: inline-block; margin-top: 18px; padding: 8px 18px; border-radius: 99px; background: var(--gradient); color: var(--white); font-family: var(--font-heading); font-weight: 600; font-size: 0.9rem; box-shadow: 0 4px 20px rgba(166, 21, 255, 0.25); }
+    .am-countdown[hidden] { display: none; }
     .am-letter .am-sign { font-family: var(--font-heading); font-weight: 600; margin-bottom: 0; }
     .am-step { display: none; }
     .am-step.is-active { display: block; }
@@ -128,6 +137,9 @@
     @media (max-width: 600px) {
       .am-card { padding: 24px 18px; border-radius: var(--radius-md); }
       .am-letter { padding: 18px 20px; }
+      .am-timeline { grid-template-columns: minmax(0, 1fr); gap: 8px; margin-top: 20px; }
+      .am-timeline__item { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; text-align: left; padding: 12px 16px; }
+      .am-timeline__value { margin-top: 0; font-size: 1rem; }
       .am-list--2 { grid-template-columns: minmax(0, 1fr); }
       .am-day { grid-template-columns: minmax(0, 1fr); gap: 8px; }
       .am-nav .btn { min-width: 0; flex: 1; }
@@ -156,9 +168,15 @@
 
   <section class="page-hero">
     <div class="container">
-      <span class="section__tag">First test round</span>
+      <span class="section__tag">✨ Brand new format · Round one</span>
       <h1 class="page-hero__title">Awesome Autumn <span class="gradient-text">Meets</span></h1>
-      <p class="page-hero__desc">Get matched with 1 or 2 marketers in Helsinki and meet over lunch or an after-work coffee.</p>
+      <p class="page-hero__desc am-hero-desc">We match you with 1 or 2 marketers in Helsinki. You meet over lunch or an after-work coffee. No name tags, no awkward mingling, just good people worth knowing.</p>
+      <div class="am-timeline">
+        <div class="am-timeline__item"><span class="am-timeline__label">Sign up by</span><span class="am-timeline__value">Mon 28 Sep, 4PM</span></div>
+        <div class="am-timeline__item"><span class="am-timeline__label">Get matched by</span><span class="am-timeline__value">Fri 2 Oct</span></div>
+        <div class="am-timeline__item"><span class="am-timeline__label">Meet between</span><span class="am-timeline__value">12 and 30 Oct</span></div>
+      </div>
+      <p class="am-countdown" id="amCountdown" hidden></p>
     </div>
   </section>
 
@@ -181,16 +199,22 @@
             <div class="am-step is-active" data-step="1">
               <div class="am-letter">
                 <p>Hey awesome marketers 🧡</p>
-                <p>Let's try something new. We've preached for years that networking is everything, and now after talking to so many of you, I wanna connect you in person.</p>
-                <p>The concept: you fill in this questionnaire and I match you with 1 or 2 marketers in Helsinki. You then meet that person (or two) over lunch or an after-work coffee in the next four weeks.</p>
-                <p>This is the first test. If we decide to keep the format, we'll send you a new invitation.</p>
-                <p>It's a very informal way to meet more people and grow your network.</p>
+                <p><strong>We're trying something completely new, and I'm so excited about this one.</strong></p>
+                <p>For years we've preached that networking is everything. After talking to so many of you, I wanna make it actually happen: in person, over food, with marketers you'd never bump into otherwise.</p>
+                <p>Here's how it works:</p>
+                <ol>
+                  <li>You fill in this questionnaire. It takes a few minutes.</li>
+                  <li>Sign-ups close on <strong>Monday 28 September at 4PM</strong>.</li>
+                  <li>By <strong>Friday 2 October</strong>, everyone gets matched with 1 or 2 marketers in Helsinki.</li>
+                  <li>You meet over lunch or an after-work coffee between 12 and 30 October.</li>
+                </ol>
+                <p>This is round one, and you get to shape it. If it works, we'll keep the format going and send you a new invitation.</p>
                 <p>About the survey:</p>
                 <ul>
                   <li>a few profiling questions on what kind of marketers you want to meet</li>
                   <li>your answers are only viewed by me (Anna) and Claude</li>
                 </ul>
-                <p class="am-sign">Anna</p>
+                <p class="am-sign">See you out there ✨<br>Anna</p>
               </div>
               <h2 class="am-step__title">About you</h2>
               <p class="am-step__intro">So I know who you are and how to reach you.</p>
@@ -247,10 +271,11 @@
               <h2 class="am-step__title">Over lunch, you could tell someone about…</h2>
               <p class="am-step__intro">Not expertise. Things you know from your day job or your own career: your industry, what your team tried, what you've been through.</p>
               <fieldset class="am-q" data-q="topics">
-                <legend>The topics you're passionate about (pick up to 5) <span class="am-q__opt">(optional)</span></legend>
+                <legend>The topics you're passionate about (pick up to 5)</legend>
                 <p class="form__hint">🔒 Personal topics are only shared with a match who picked the same topic.</p>
                 <div data-topics="topics"></div>
                 <p class="am-counter" data-counter="topics">0 of 5 picked</p>
+                <p class="am-error">Pick at least 1 topic.</p>
               </fieldset>
             </div>
 
@@ -265,7 +290,7 @@
               </fieldset>
               <fieldset class="am-q" data-q="availability">
                 <legend>These are the dates you could meet <span class="am-q__opt">(optional)</span></legend>
-                <p class="form__hint">Weekdays from 12 October to 6 November. Pick the times that work, or "Not this day".</p>
+                <p class="form__hint">Weekdays from 12 to 30 October. Pick the times that work, or "Not this day".</p>
                 <div class="am-tools">
                   <button type="button" class="am-tool" data-fill="lunch">Tick all 11AM to 1PM</button>
                   <button type="button" class="am-tool" data-fill="after">Tick all 4PM to 6PM</button>
@@ -299,7 +324,6 @@
                   <li><strong>🔒 topics:</strong> never shared with your match, unless you both picked the same one.</li>
                   <li><strong>Where it's stored:</strong> a private Google Sheet in The Awesome Marketers' Google Workspace.</li>
                   <li><strong>How long:</strong> deleted within 12 months, or sooner if you ask.</li>
-                  <li><strong>Your rights:</strong> this is based on your consent, which you can withdraw at any time. Ask me to see, correct or delete your answers at <a href="mailto:anna@awesomemarketers.fi">anna@awesomemarketers.fi</a>. You can also complain to the Finnish Data Protection Ombudsman.</li>
                 </ul>
               </div>
               <div class="am-q" data-q="agreeData">
@@ -311,17 +335,21 @@
             <div class="am-nav">
               <button type="button" class="btn btn--outline" id="amBack" hidden>Back</button>
               <button type="button" class="btn btn--primary" id="amNext">Next</button>
-              <button type="submit" class="btn btn--primary" id="amSubmit" hidden>Send my answers</button>
+              <button type="submit" class="btn btn--primary" id="amSubmit" hidden>Count me in 🧡</button>
             </div>
             <p class="am-status" id="amStatus" role="alert"></p>
           </form>
 
           <div class="am-done" id="amDone" hidden>
-            <h2>Thanks, your answers are in 🧡</h2>
-            <p>I'll be in touch by email with your match.</p>
+            <h2>You're in! 🧡</h2>
+            <p>Sign-ups close on Monday 28 September at 4PM. By Friday 2 October I'll send you your match on LinkedIn and by email, with the place, date and time.</p>
+          </div>
+          <div class="am-done" id="amClosed" hidden>
+            <h2>Sign-ups for October are closed</h2>
+            <p>Thanks to everyone who joined round one! Matches go out by Friday 2 October. If we keep the format, a new invitation will follow.</p>
           </div>
         </div>
-        <p class="am-version">Awesome Autumn Meets form v0.3 · 14 Sep 2026</p>
+        <p class="am-version">Awesome Autumn Meets form v0.5 · 14 Sep 2026</p>
       </div>
     </div>
   </section>
@@ -370,8 +398,7 @@
     var WEEKS = [
       ['Week 42', [['October 12, Monday', 'Mon 12 Oct'], ['October 13, Tuesday', 'Tue 13 Oct'], ['October 14, Wednesday', 'Wed 14 Oct'], ['October 15, Thursday', 'Thu 15 Oct'], ['October 16, Friday', 'Fri 16 Oct']]],
       ['Week 43', [['October 19, Monday', 'Mon 19 Oct'], ['October 20, Tuesday', 'Tue 20 Oct'], ['October 21, Wednesday', 'Wed 21 Oct'], ['October 22, Thursday', 'Thu 22 Oct'], ['October 23, Friday', 'Fri 23 Oct']]],
-      ['Week 44', [['October 26, Monday', 'Mon 26 Oct'], ['October 27, Tuesday', 'Tue 27 Oct'], ['October 28, Wednesday', 'Wed 28 Oct'], ['October 29, Thursday', 'Thu 29 Oct'], ['October 30, Friday', 'Fri 30 Oct']]],
-      ['Week 45', [['November 2, Monday', 'Mon 2 Nov'], ['November 3, Tuesday', 'Tue 3 Nov'], ['November 4, Wednesday', 'Wed 4 Nov'], ['November 5, Thursday', 'Thu 5 Nov'], ['November 6, Friday', 'Fri 6 Nov']]]
+      ['Week 44', [['October 26, Monday', 'Mon 26 Oct'], ['October 27, Tuesday', 'Tue 27 Oct'], ['October 28, Wednesday', 'Wed 28 Oct'], ['October 29, Thursday', 'Thu 29 Oct'], ['October 30, Friday', 'Fri 30 Oct']]]
     ];
     var TIMES = ['11AM', '12PM', '1PM', '4PM', '5PM', '6PM'];
     var NOT_THIS_DAY = 'Not this day';
@@ -494,7 +521,7 @@
         bad = setError('seniority', !checked('seniority').length) || bad;
         return !bad;
       },
-      3: function () { return true; },
+      3: function () { return !setError('topics', !checked('topics').length); },
       4: function () { return !setError('areas', !checked('areas').length); },
       5: function () { return !setError('agreeData', !document.getElementById('agreeData').checked); }
     };
@@ -515,6 +542,25 @@
     next.addEventListener('click', function () { if (checks[current + 1]()) show(current + 1, true); else focusFirstError(); });
     back.addEventListener('click', function () { show(current - 1, true); });
     show(0, false);
+
+    // Sign-ups close Mon 28 Sep 2026 at 16:00 Helsinki time (UTC+3).
+    var CLOSES_AT = Date.UTC(2026, 8, 28, 13, 0, 0);
+    var countdown = document.getElementById('amCountdown');
+    function updateDeadline() {
+      var left = CLOSES_AT - Date.now();
+      if (left <= 0) {
+        form.hidden = true;
+        document.getElementById('amDone').hidden = true;
+        document.getElementById('amClosed').hidden = false;
+        countdown.hidden = true;
+        return;
+      }
+      var days = Math.floor(left / 86400000), hours = Math.floor(left / 3600000);
+      countdown.textContent = days >= 2 ? 'Sign-ups close in ' + days + ' days' : (hours >= 1 ? 'Last chance: sign-ups close in ' + hours + ' hours' : 'Last chance: sign-ups close within the hour');
+      countdown.hidden = false;
+    }
+    updateDeadline();
+    setInterval(updateDeadline, 60000);
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -546,7 +592,7 @@
         meetingCriteria: checked('meetingCriteria'),
         feedback: value('feedback'),
         agreeData: true,
-        consentVersion: '2026-09-14-v2'
+        consentVersion: '2026-09-14-v3'
       };
       if (!ENDPOINT) {
         status.style.color = 'var(--gray-700)';
@@ -556,10 +602,20 @@
       submit.disabled = true;
       submit.textContent = 'Sending…';
       // Retrying is safe: the script ignores a repeat sign-up from the same email for 10 minutes.
+      // Each try gives up after 15 seconds. The last try doesn't wait to read Google's reply, which is the part that can hang.
       function send(attempt) {
-        fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(payload) })
-          .then(function (r) { return r.json(); })
+        var opts = { method: 'POST', body: JSON.stringify(payload) };
+        var timer = null;
+        if (window.AbortController) {
+          var ctrl = new AbortController();
+          opts.signal = ctrl.signal;
+          timer = setTimeout(function () { ctrl.abort(); }, 15000);
+        }
+        if (attempt === 3) opts.mode = 'no-cors';
+        fetch(ENDPOINT, opts)
+          .then(function (r) { return attempt === 3 ? { ok: true } : r.json(); })
           .then(function (res) {
+            clearTimeout(timer);
             if (res.ok) {
               form.hidden = true;
               document.getElementById('amDone').hidden = false;
@@ -570,13 +626,14 @@
             fail('Some answers could not be accepted (' + res.error + '). Please check them and try again.');
           })
           .catch(function () {
+            clearTimeout(timer);
             if (attempt < 3) setTimeout(function () { send(attempt + 1); }, 1500 * attempt);
             else fail('Something went wrong and your answers may not have been saved. Please try again, or email anna@awesomemarketers.fi.');
           });
       }
       function fail(message) {
         submit.disabled = false;
-        submit.textContent = 'Send my answers';
+        submit.textContent = 'Count me in 🧡';
         status.style.color = '';
         status.textContent = message;
       }
