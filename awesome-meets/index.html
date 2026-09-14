@@ -297,15 +297,16 @@
                 <p class="am-error">Pick at least one area that works for you.</p>
               </fieldset>
               <fieldset class="am-q" data-q="availability">
-                <legend>When could you meet? <span class="am-q__opt">(optional)</span></legend>
-                <p class="form__hint">Weekdays from 12 to 30 October. Tap the times that work, or "Not this day".</p>
+                <legend>When could you meet? <span class="am-q__opt">(pick at least 4 days)</span></legend>
+                <p class="form__hint">Weekdays from 12 to 30 October. Tap the times that work on at least 4 different days, and "Not this day" for days that don't.</p>
                 <div class="am-tools">
                   <button type="button" class="am-tool" data-fill="lunch">All lunch times</button>
                   <button type="button" class="am-tool" data-fill="after">All after-work times</button>
                   <button type="button" class="am-tool" data-fill="clear">Clear all</button>
                 </div>
                 <div id="amDays"></div>
-                <label class="am-option" style="margin-top:16px"><input type="checkbox" id="noneDays" name="noneOfTheseDays"> None of these days work for me</label>
+                <p class="am-counter" id="amDayCount">0 of 4 days picked</p>
+                <p class="am-error">Pick times on at least 4 different days, so there's room to find a slot that works for you and your match.</p>
               </fieldset>
             </div>
 
@@ -357,7 +358,7 @@
             <p>Thanks to everyone who joined round one! Matches go out by Friday 2 October. If we keep the format, a new invitation will follow.</p>
           </div>
         </div>
-        <p class="am-version">Awesome Autumn Meets form v0.13 · 14 Sep 2026</p>
+        <p class="am-version">Awesome Autumn Meets form v0.14 · 14 Sep 2026</p>
       </div>
     </div>
   </section>
@@ -413,6 +414,7 @@
     var TIMES = ['11AM', '12PM', '1PM', '4PM', '5PM', '6PM'];
     var NOT_THIS_DAY = 'Not this day';
     var LUNCH = ['11AM', '12PM', '1PM'], AFTER = ['4PM', '5PM', '6PM'];
+    var MIN_DAYS = 4;
     var MAX_TOPICS = 5, NO_CRITERIA = 'No criteria, match me with anyone';
     var OPPOSITES = [['I would prefer to meet people in my industry', 'I would prefer to meet people outside my industry']];
 
@@ -475,6 +477,17 @@
       return [].slice.call(form.querySelectorAll('input[name="' + name + '"]:checked')).map(function (i) { return i.value; });
     }
     function value(id) { return (document.getElementById(id).value || '').trim(); }
+    // A day counts when at least one real time is ticked ("Not this day" doesn't count).
+    function daysPicked() {
+      var n = 0;
+      WEEKS.forEach(function (week) { week[1].forEach(function (day) { if (checked('day:' + day[0]).some(function (v) { return v !== NOT_THIS_DAY; })) n++; }); });
+      return n;
+    }
+    function syncDays() {
+      var n = daysPicked(), el = document.getElementById('amDayCount');
+      el.textContent = n >= MIN_DAYS ? n + ' days picked ✓' : n + ' of ' + MIN_DAYS + ' days picked';
+      if (n >= MIN_DAYS) setError('availability', false);
+    }
 
     form.addEventListener('change', function (e) {
       var t = e.target;
@@ -488,11 +501,7 @@
           if (t.value === NOT_THIS_DAY ? i !== t : i.value === NOT_THIS_DAY) i.checked = false;
         });
       }
-      if (t.id === 'noneDays') {
-        days.classList.toggle('am-grid-off', t.checked);
-        form.querySelector('.am-tools').classList.toggle('am-grid-off', t.checked);
-        if (t.checked) [].forEach.call(days.querySelectorAll('input'), function (i) { i.checked = false; });
-      }
+      if (t.name && t.name.indexOf('day:') === 0) syncDays();
       if (t.name === 'meetingCriteria' && t.checked) {
         var boxes = [].slice.call(form.querySelectorAll('input[name="meetingCriteria"]'));
         if (t.value === NO_CRITERIA) boxes.forEach(function (b) { if (b !== t) b.checked = false; });
@@ -512,6 +521,7 @@
           else if ((mode === 'lunch' ? LUNCH : AFTER).indexOf(i.value) > -1) i.checked = true;
           else if (i.value === NOT_THIS_DAY) i.checked = false;
         });
+        syncDays();
       });
     });
 
@@ -532,7 +542,11 @@
         return !bad;
       },
       3: function () { return !setError('topics', !checked('topics').length); },
-      4: function () { return !setError('areas', !checked('areas').length); },
+      4: function () {
+        var bad = setError('areas', !checked('areas').length);
+        bad = setError('availability', daysPicked() < MIN_DAYS) || bad;
+        return !bad;
+      },
       5: function () { return !setError('agreeData', !document.getElementById('agreeData').checked); }
     };
 
@@ -598,7 +612,7 @@
         topics: checked('topics'),
         areas: checked('areas'),
         availability: availability,
-        noneOfTheseDays: document.getElementById('noneDays').checked,
+        noneOfTheseDays: false,
         meetingCriteria: checked('meetingCriteria'),
         feedback: value('feedback'),
         agreeData: true,
