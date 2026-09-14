@@ -108,11 +108,11 @@
     .am-day .am-chips { gap: 6px; }
     .am-day .am-chip span { padding: 7px 12px; font-size: 0.82rem; }
     .am-grid-off { opacity: 0.4; pointer-events: none; }
-    .am-privacy { font-size: 0.85rem; color: var(--gray-600); margin: 8px 0 24px; }
-    .am-privacy summary { cursor: pointer; font-weight: 600; color: var(--gray-700); }
-    .am-privacy p, .am-privacy ul { margin-top: 10px; }
-    .am-privacy ul { list-style: disc; padding-left: 20px; }
-    .am-privacy a { text-decoration: underline; }
+    .am-datanote { border: 2px solid var(--gray-200); border-radius: var(--radius-md); padding: 20px 24px; margin: 8px 0 20px; }
+    .am-datanote h3 { font-size: 1.05rem; margin-bottom: 10px; }
+    .am-datanote ul { list-style: disc; padding-left: 20px; color: var(--gray-700); font-size: 0.9rem; }
+    .am-datanote li { margin-bottom: 8px; }
+    .am-datanote a { text-decoration: underline; }
     .am-error { display: none; color: #B42318; font-size: 0.85rem; margin-top: 8px; }
     .am-q.has-error .am-error { display: block; }
     .am-q.has-error input[type="text"], .am-q.has-error input[type="email"], .am-q.has-error input[type="url"] { border-color: #D92D20; }
@@ -289,22 +289,23 @@
                 <p class="form__hint">I am testing this format and would love to hear what you think about it / how to improve it.</p>
                 <textarea id="feedback" name="feedback" maxlength="2000"></textarea>
               </div>
+              <div class="am-datanote">
+                <h3>Your data in Awesome Autumn Meets</h3>
+                <ul>
+                  <li><strong>Who has access:</strong> only me, Anna. No one else can see your answers. I use Claude, an AI assistant, to help me find good matches.</li>
+                  <li><strong>What it's used for:</strong> matching you with 1 or 2 marketers. Nothing else.</li>
+                  <li><strong>How you'll hear from me:</strong> when you're matched, I send you a message on LinkedIn and by email with the place, date and time. From there it's up to you and your match to continue.</li>
+                  <li><strong>After the meetup:</strong> I send you a short follow-up questionnaire asking for your feedback.</li>
+                  <li><strong>🔒 topics:</strong> never shared with your match, unless you both picked the same one.</li>
+                  <li><strong>Where it's stored:</strong> a private Google Sheet in The Awesome Marketers' Google Workspace.</li>
+                  <li><strong>How long:</strong> deleted within 12 months, or sooner if you ask.</li>
+                  <li><strong>Your rights:</strong> this is based on your consent, which you can withdraw at any time. Ask me to see, correct or delete your answers at <a href="mailto:anna@awesomemarketers.fi">anna@awesomemarketers.fi</a>. You can also complain to the Finnish Data Protection Ombudsman.</li>
+                </ul>
+              </div>
               <div class="am-q" data-q="agreeData">
-                <label class="am-option"><input type="checkbox" id="agreeData" name="agreeData"> I agree that my answers are stored and used to match me, including any 🔒 topics I picked</label>
+                <label class="am-option"><input type="checkbox" id="agreeData" name="agreeData"> I agree that my answers are stored and used as described above, including any 🔒 topics I picked</label>
                 <p class="am-error">I need your consent to match you.</p>
               </div>
-              <details class="am-privacy">
-                <summary>How your data is handled</summary>
-                <p>The Awesome Marketers (Anna Pogrebniak) collects these answers only to match you with other marketers for Awesome Autumn Meets.</p>
-                <ul>
-                  <li><strong>Where it's stored:</strong> a private Google Sheet in The Awesome Marketers' Google Workspace. Only Anna can open it.</li>
-                  <li><strong>Who works with it:</strong> Anna, who uses Claude (an AI assistant made by Anthropic) to help find good matches.</li>
-                  <li><strong>What your match sees:</strong> your name, job title, company, LinkedIn link and the topics you picked. Topics marked 🔒 are only shown to a match who picked the same topic.</li>
-                  <li><strong>Legal basis:</strong> your consent, which you can withdraw at any time.</li>
-                  <li><strong>How long:</strong> your answers are deleted within 12 months, or sooner if you ask.</li>
-                  <li><strong>Your rights:</strong> ask to see, correct or delete your answers at <a href="mailto:anna@awesomemarketers.fi">anna@awesomemarketers.fi</a>. You can also complain to the Finnish Data Protection Ombudsman.</li>
-                </ul>
-              </details>
             </div>
 
             <div class="am-nav">
@@ -320,7 +321,7 @@
             <p>I'll be in touch by email with your match.</p>
           </div>
         </div>
-        <p class="am-version">Awesome Autumn Meets form v0.2 · 14 Sep 2026</p>
+        <p class="am-version">Awesome Autumn Meets form v0.3 · 14 Sep 2026</p>
       </div>
     </div>
   </section>
@@ -545,7 +546,7 @@
         meetingCriteria: checked('meetingCriteria'),
         feedback: value('feedback'),
         agreeData: true,
-        consentVersion: '2026-09-14'
+        consentVersion: '2026-09-14-v2'
       };
       if (!ENDPOINT) {
         status.style.color = 'var(--gray-700)';
