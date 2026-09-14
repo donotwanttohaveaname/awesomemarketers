@@ -1,6 +1,6 @@
 # The Awesome Marketers
 
-> Finland's largest English-speaking marketing community. Founded in Helsinki in 2019 by Anna Pogrebniak, with 1,787+ members. We share jobs, advice, salary data, free events, and career support for marketers living and working in Finland. Volunteer-run and organised on Slack.
+> Finland's largest English-speaking marketing community. Founded in Helsinki in 2019 by Anna Pogrebniak, with 1,823+ members. We share jobs, advice, salary data, free events, and career support for marketers living and working in Finland. Volunteer-run and organised on Slack.
 
 The Awesome Marketers publishes original community research on Finnish marketing pay and careers, plus free tools for marketers. All content is free and in English.
 
@@ -23,7 +23,7 @@ The Awesome Marketers publishes original community research on Finnish marketing
 
 ## Key facts
 - Founded: 2019 in Helsinki, Finland. Founder: Anna Pogrebniak.
-- Members: 1,787+ (2026).
+- Members: 1,823+ (2026).
 - 2026 marketing salary median (community survey, n=148): 4,658 EUR/month gross.
 - Language: English. Location focus: Finland.
 - Join: via Slack, link on the website.

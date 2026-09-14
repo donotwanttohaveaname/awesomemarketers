@@ -17,8 +17,8 @@ CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 # slug, channel, the question a member asks, then the answer card
 PAGES = [
  dict(slug="home", path="index.html", ch="general",
-   q="wait, 1,787 marketers in one slack? how did i not know about this",
-   title="The Awesome Marketers", big="1,787",
+   q="wait, 1,823 marketers in one slack? how did i not know about this",
+   title="The Awesome Marketers", big="1,823",
    meta="Finland's largest English-speaking marketing community. Since 2019, free, and volunteer run."),
 
  dict(slug="people", path="people/index.html", ch="introductions",
@@ -54,7 +54,7 @@ PAGES = [
  dict(slug="firstjob", path="firstjob/index.html", ch="jobs",
    q="moved to finland, zero luck landing a marketing job. help?",
    title="First marketing job guide",
-   meta="Job boards, networking, salary data, unions, and advice from 1,787+ marketers."),
+   meta="Job boards, networking, salary data, unions, and advice from 1,823+ marketers."),
 
  dict(slug="freelance-calculator", path="freelance-calculator/index.html", ch="freelance",
    q="going freelance next month. what do i even charge?",
@@ -157,7 +157,7 @@ TPL = """<!DOCTYPE html><html><head><meta charset="utf-8">
  <div class="bar">
   <div class="dots"><i style="background:#FFB452"></i><i style="background:#E86A9A"></i><i style="background:#A615FF"></i></div>
   <div class="ch"><b>#</b>CHANNEL</div>
-  <div class="mem">1,787 members</div>
+  <div class="mem">1,823 members</div>
  </div>
  <div class="body">
   <div class="msg">
