@@ -8,10 +8,10 @@
   <link rel="shortcut icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
-  <title>Awesome Meets | The Awesome Marketers</title>
-  <meta name="description" content="Every month we match you with 1 or 2 marketers in Helsinki for lunch or an after-work drink.">
-  <meta property="og:title" content="Awesome Meets | The Awesome Marketers">
-  <meta property="og:description" content="Every month we match you with 1 or 2 marketers in Helsinki for lunch or an after-work drink.">
+  <title>Awesome Autumn Meets | The Awesome Marketers</title>
+  <meta name="description" content="A first test: get matched with 1 or 2 marketers in Helsinki and meet over lunch or an after-work coffee.">
+  <meta property="og:title" content="Awesome Autumn Meets | The Awesome Marketers">
+  <meta property="og:description" content="A first test: get matched with 1 or 2 marketers in Helsinki and meet over lunch or an after-work coffee.">
   <meta property="og:image" content="https://awesomemarketers.fi/thumbnail.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
@@ -23,7 +23,7 @@
   <script defer src="https://cloud.umami.is/script.js" data-website-id="03433979-1ae8-4c85-9096-8b4da9cf02b3"></script>
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="v+iaH6te11+I1abIeDwOEw" async></script>
   <style>
-    .am-wrap { max-width: 720px; margin: 0 auto; }
+    .am-wrap { max-width: 760px; margin: 0 auto; }
     .am-card {
       background: var(--white);
       border: 1px solid var(--gray-200);
@@ -35,6 +35,10 @@
     .am-progress__bar { flex: 1; height: 6px; background: var(--gray-100); border-radius: 99px; overflow: hidden; }
     .am-progress__fill { height: 100%; width: 0; background: var(--gradient); border-radius: 99px; transition: width 0.3s ease; }
     .am-progress__label { font-size: 0.8rem; color: var(--gray-500); white-space: nowrap; }
+    .am-letter { background: var(--gradient-subtle); border-radius: var(--radius-md); padding: 24px 28px; margin-bottom: 32px; color: var(--gray-700); font-size: 0.97rem; }
+    .am-letter p { margin-bottom: 12px; }
+    .am-letter ul { list-style: disc; padding-left: 20px; margin-bottom: 12px; }
+    .am-letter .am-sign { font-family: var(--font-heading); font-weight: 600; margin-bottom: 0; }
     .am-step { display: none; }
     .am-step.is-active { display: block; }
     .am-step__title { font-size: 1.5rem; margin-bottom: 6px; }
@@ -44,7 +48,7 @@
     .am-q__label, .am-q legend { display: block; font-weight: 600; font-size: 0.95rem; color: var(--gray-900); margin-bottom: 6px; }
     .am-q__opt { font-weight: 400; color: var(--gray-500); }
     .am-q .form__hint { margin: 0 0 12px; }
-    .am-q input[type="text"], .am-q input[type="email"], .am-q input[type="url"], .am-q select {
+    .am-q input[type="text"], .am-q input[type="email"], .am-q input[type="url"], .am-q textarea {
       width: 100%;
       padding: 12px 16px;
       border: 2px solid var(--gray-200);
@@ -55,7 +59,8 @@
       color: var(--gray-900);
       transition: border-color 0.2s;
     }
-    .am-q input:focus, .am-q select:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(166, 21, 255, 0.1); }
+    .am-q textarea { min-height: 120px; resize: vertical; }
+    .am-q input:focus, .am-q textarea:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(166, 21, 255, 0.1); }
     .am-list { display: grid; gap: 8px; }
     .am-list--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .am-option {
@@ -92,10 +97,17 @@
     .am-chip input:checked + span { border-color: var(--purple); background: var(--gradient-subtle); color: var(--purple); }
     .am-chip input:focus-visible + span { box-shadow: 0 0 0 3px rgba(166, 21, 255, 0.2); }
     .am-chip input:disabled + span { opacity: 0.4; cursor: not-allowed; }
+    .am-chip--no input:checked + span { border-color: var(--gray-700); background: var(--gray-100); color: var(--gray-900); }
     .am-counter { font-size: 0.82rem; color: var(--gray-500); margin-top: 12px; }
-    .am-code { background: var(--gradient-subtle); border-radius: var(--radius-md); padding: 20px 24px; margin-bottom: 20px; }
-    .am-code ul { list-style: disc; padding-left: 20px; color: var(--gray-700); font-size: 0.95rem; }
-    .am-code li { margin-bottom: 6px; }
+    .am-tools { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 8px; }
+    .am-tool { background: none; border: 1px solid var(--gray-200); border-radius: 99px; padding: 6px 14px; font-size: 0.8rem; color: var(--gray-600); cursor: pointer; font-family: var(--font-body); }
+    .am-tool:hover { border-color: var(--purple); color: var(--purple); }
+    .am-week { margin-top: 20px; }
+    .am-day { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; align-items: center; padding: 10px 0; border-top: 1px solid var(--gray-100); }
+    .am-day__label { font-family: var(--font-heading); font-weight: 600; font-size: 0.92rem; color: var(--gray-900); }
+    .am-day .am-chips { gap: 6px; }
+    .am-day .am-chip span { padding: 7px 12px; font-size: 0.82rem; }
+    .am-grid-off { opacity: 0.4; pointer-events: none; }
     .am-privacy { font-size: 0.85rem; color: var(--gray-600); margin: 8px 0 24px; }
     .am-privacy summary { cursor: pointer; font-weight: 600; color: var(--gray-700); }
     .am-privacy p, .am-privacy ul { margin-top: 10px; }
@@ -103,19 +115,21 @@
     .am-privacy a { text-decoration: underline; }
     .am-error { display: none; color: #B42318; font-size: 0.85rem; margin-top: 8px; }
     .am-q.has-error .am-error { display: block; }
-    .am-q.has-error input[type="text"], .am-q.has-error input[type="email"], .am-q.has-error input[type="url"], .am-q.has-error select { border-color: #D92D20; }
+    .am-q.has-error input[type="text"], .am-q.has-error input[type="email"], .am-q.has-error input[type="url"] { border-color: #D92D20; }
     .am-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 12px; }
     .am-nav .btn { min-width: 120px; }
     .am-nav .btn[hidden] { display: none; }
     .am-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-    .am-status { margin-top: 16px; font-size: 0.9rem; color: #B42318; }
+    .am-status { margin-top: 16px; font-size: 0.9rem; color: #B42318; word-break: break-word; }
     .am-done { text-align: center; padding: 24px 8px; }
     .am-done h2 { font-size: 1.6rem; margin-bottom: 10px; }
     .am-done p { color: var(--gray-500); }
     .am-version { text-align: center; font-size: 0.75rem; color: var(--gray-400); margin-top: 20px; }
     @media (max-width: 600px) {
       .am-card { padding: 24px 18px; border-radius: var(--radius-md); }
+      .am-letter { padding: 18px 20px; }
       .am-list--2 { grid-template-columns: minmax(0, 1fr); }
+      .am-day { grid-template-columns: minmax(0, 1fr); gap: 8px; }
       .am-nav .btn { min-width: 0; flex: 1; }
     }
   </style>
@@ -142,9 +156,9 @@
 
   <section class="page-hero">
     <div class="container">
-      <span class="section__tag">Awesome Meets</span>
-      <h1 class="page-hero__title">Meet 1 or 2 <span class="gradient-text">marketers</span> a month</h1>
-      <p class="page-hero__desc">Every month we match you with 1 or 2 marketers in Helsinki for lunch or an after-work drink. Takes about 3 minutes. No bio to write, no swiping. Nobody browses profiles: we match you. You don't need to be an expert or post on LinkedIn.</p>
+      <span class="section__tag">First test round</span>
+      <h1 class="page-hero__title">Awesome Autumn <span class="gradient-text">Meets</span></h1>
+      <p class="page-hero__desc">Get matched with 1 or 2 marketers in Helsinki and meet over lunch or an after-work coffee.</p>
     </div>
   </section>
 
@@ -155,7 +169,7 @@
           <form id="amForm" novalidate>
             <div class="am-progress" aria-hidden="true">
               <div class="am-progress__bar"><div class="am-progress__fill" id="amProgress"></div></div>
-              <span class="am-progress__label" id="amProgressLabel">Step 1 of 7</span>
+              <span class="am-progress__label" id="amProgressLabel">Step 1 of 5</span>
             </div>
 
             <div class="am-hp" aria-hidden="true">
@@ -165,23 +179,36 @@
 
             <!-- Step 1 -->
             <div class="am-step is-active" data-step="1">
+              <div class="am-letter">
+                <p>Hey awesome marketers 🧡</p>
+                <p>Let's try something new. We've preached for years that networking is everything, and now after talking to so many of you, I wanna connect you in person.</p>
+                <p>The concept: you fill in this questionnaire and I match you with 1 or 2 marketers in Helsinki. You then meet that person (or two) over lunch or an after-work coffee in the next four weeks.</p>
+                <p>This is the first test. If we decide to keep the format, we'll send you a new invitation.</p>
+                <p>It's a very informal way to meet more people and grow your network.</p>
+                <p>About the survey:</p>
+                <ul>
+                  <li>a few profiling questions on what kind of marketers you want to meet</li>
+                  <li>your answers are only viewed by me (Anna) and Claude</li>
+                </ul>
+                <p class="am-sign">Anna</p>
+              </div>
               <h2 class="am-step__title">About you</h2>
-              <p class="am-step__intro">So we know who you are and where to send your matches.</p>
+              <p class="am-step__intro">So I know who you are and how to reach you.</p>
               <div class="am-q" data-q="fullName">
                 <label class="am-q__label" for="fullName">Full name</label>
                 <input type="text" id="fullName" name="fullName" autocomplete="name" maxlength="120" required>
                 <p class="am-error">Please add your name.</p>
               </div>
               <div class="am-q" data-q="email">
-                <label class="am-q__label" for="email">Email</label>
-                <p class="form__hint">We'll send your matches here.</p>
+                <label class="am-q__label" for="email">Your email</label>
+                <p class="form__hint">I'll send you a message here.</p>
                 <input type="email" id="email" name="email" autocomplete="email" maxlength="160" required>
                 <p class="am-error">Please add a valid email address.</p>
               </div>
               <div class="am-q" data-q="linkedin">
-                <label class="am-q__label" for="linkedin">LinkedIn profile URL</label>
-                <p class="form__hint">Just so we know you're real.</p>
-                <input type="url" id="linkedin" name="linkedin" placeholder="linkedin.com/in/yourname" maxlength="300" required>
+                <label class="am-q__label" for="linkedin">LinkedIn profile URL <span class="am-q__opt">(optional)</span></label>
+                <p class="form__hint">I will connect you and your match via LinkedIn the first time. I will also send you a message via email.</p>
+                <input type="url" id="linkedin" name="linkedin" placeholder="linkedin.com/in/yourname" maxlength="300">
                 <p class="am-error">Paste your LinkedIn profile link, e.g. linkedin.com/in/yourname</p>
               </div>
             </div>
@@ -189,29 +216,25 @@
             <!-- Step 2 -->
             <div class="am-step" data-step="2">
               <h2 class="am-step__title">Your work</h2>
-              <p class="am-step__intro">Helps us find people you'll have something in common with.</p>
+              <p class="am-step__intro">Helps me find people you'll have something in common with.</p>
               <fieldset class="am-q" data-q="employmentType">
                 <legend>Employment type</legend>
                 <div class="am-list am-list--2" data-options="employmentType" data-type="radio"></div>
                 <p class="am-error">Please pick one.</p>
               </fieldset>
               <div class="am-q" data-q="jobTitle">
-                <label class="am-q__label" for="jobTitle" id="jobTitleLabel">Job title</label>
-                <input type="text" id="jobTitle" name="jobTitle" maxlength="120" required>
-                <p class="am-error">Please add your job title.</p>
+                <label class="am-q__label" for="jobTitle">Job title / Most recent job title <span class="am-q__opt">(optional)</span></label>
+                <input type="text" id="jobTitle" name="jobTitle" maxlength="120">
               </div>
-              <div class="am-q" data-q="company" id="companyQ">
-                <label class="am-q__label" for="company" id="companyLabel">Company</label>
-                <input type="text" id="company" name="company" autocomplete="organization" maxlength="120" required>
-                <p class="am-error">Please add your company.</p>
+              <div class="am-q" data-q="company">
+                <label class="am-q__label" for="company">Company <span class="am-q__opt">(optional)</span></label>
+                <input type="text" id="company" name="company" autocomplete="organization" maxlength="120">
               </div>
-              <div class="am-q" data-q="industry">
-                <label class="am-q__label" for="industry">Industry</label>
-                <select id="industry" name="industry" required>
-                  <option value="">Pick one</option>
-                </select>
+              <fieldset class="am-q" data-q="industry">
+                <legend>Industry</legend>
+                <div class="am-list am-list--2" data-options="industry" data-type="radio"></div>
                 <p class="am-error">Please pick your industry.</p>
-              </div>
+              </fieldset>
               <fieldset class="am-q" data-q="seniority">
                 <legend>Seniority</legend>
                 <div class="am-list am-list--2" data-options="seniority" data-type="radio"></div>
@@ -221,104 +244,64 @@
 
             <!-- Step 3 -->
             <div class="am-step" data-step="3">
-              <h2 class="am-step__title">Your strongest areas</h2>
-              <p class="am-step__intro">Not expertise. Things you know from your day job or your own career: your industry, what your team tried, what you've been through. Pick up to 5.</p>
-              <fieldset class="am-q" data-q="strongestAreas">
-                <legend class="sr-only">Your strongest areas</legend>
-                <div data-topics="strongestAreas"></div>
-                <p class="am-counter" data-counter="strongestAreas">0 of 5 picked</p>
+              <h2 class="am-step__title">Over lunch, you could tell someone about…</h2>
+              <p class="am-step__intro">Not expertise. Things you know from your day job or your own career: your industry, what your team tried, what you've been through.</p>
+              <fieldset class="am-q" data-q="topics">
+                <legend>The topics you're passionate about (pick up to 5) <span class="am-q__opt">(optional)</span></legend>
                 <p class="form__hint">🔒 Personal topics are only shared with a match who picked the same topic.</p>
-                <p class="am-error">Pick at least 1 topic.</p>
+                <div data-topics="topics"></div>
+                <p class="am-counter" data-counter="topics">0 of 5 picked</p>
               </fieldset>
             </div>
 
             <!-- Step 4 -->
             <div class="am-step" data-step="4">
-              <h2 class="am-step__title">You want to learn about…</h2>
-              <p class="am-step__intro">What would make a lunch useful for you? Pick up to 5.</p>
-              <fieldset class="am-q" data-q="wantToLearn">
-                <legend class="sr-only">You want to learn about</legend>
-                <div data-topics="wantToLearn"></div>
-                <p class="am-counter" data-counter="wantToLearn">0 of 5 picked</p>
-                <p class="form__hint">🔒 Personal topics are only shared with a match who picked the same topic.</p>
-                <p class="am-error">Pick at least 1 topic.</p>
+              <h2 class="am-step__title">Where and when</h2>
+              <p class="am-step__intro">Tick everything that could work. More options mean an easier match.</p>
+              <fieldset class="am-q" data-q="areas">
+                <legend>Where can you meet?</legend>
+                <div class="am-list am-list--2" data-options="areas" data-type="checkbox"></div>
+                <p class="am-error">Please pick at least one area.</p>
+              </fieldset>
+              <fieldset class="am-q" data-q="availability">
+                <legend>These are the dates you could meet <span class="am-q__opt">(optional)</span></legend>
+                <p class="form__hint">Weekdays from 12 October to 6 November. Pick the times that work, or "Not this day".</p>
+                <div class="am-tools">
+                  <button type="button" class="am-tool" data-fill="lunch">Tick all 11AM to 1PM</button>
+                  <button type="button" class="am-tool" data-fill="after">Tick all 4PM to 6PM</button>
+                  <button type="button" class="am-tool" data-fill="clear">Clear all</button>
+                </div>
+                <div id="amDays"></div>
+                <label class="am-option" style="margin-top:16px"><input type="checkbox" id="noneDays" name="noneOfTheseDays"> None of these days work</label>
               </fieldset>
             </div>
 
             <!-- Step 5 -->
             <div class="am-step" data-step="5">
-              <h2 class="am-step__title">Meeting</h2>
-              <p class="am-step__intro">Where, how often and who.</p>
-              <fieldset class="am-q" data-q="area">
-                <legend>Where can you meet?</legend>
-                <p class="form__hint">Pick one. We're starting in Helsinki center. Pick another area and we'll match you as soon as it opens.</p>
-                <div class="am-list am-list--2" data-options="area" data-type="radio"></div>
-                <p class="am-error">Please pick an area.</p>
-              </fieldset>
-              <fieldset class="am-q" data-q="meetingsPerMonth">
-                <legend>How many meetings a month can you commit to?</legend>
-                <div class="am-list am-list--2" data-options="meetingsPerMonth" data-type="radio"></div>
-                <p class="am-error">Please pick one.</p>
-              </fieldset>
-              <fieldset class="am-q" data-q="format">
-                <legend>What suits you?</legend>
-                <p class="form__hint">Both = more matches, faster.</p>
-                <div class="am-list" data-options="format" data-type="radio"></div>
-                <p class="am-error">Please pick one.</p>
-              </fieldset>
+              <h2 class="am-step__title">Last few things</h2>
+              <p class="am-step__intro">Both questions are optional.</p>
               <fieldset class="am-q" data-q="meetingCriteria">
-                <legend>Meeting criteria <span class="am-q__opt">(optional, up to 2)</span></legend>
-                <p class="form__hint">Every box you tick means fewer matches. Tick only what really matters.</p>
+                <legend>Meeting criteria <span class="am-q__opt">(optional)</span></legend>
                 <div class="am-list" data-options="meetingCriteria" data-type="checkbox"></div>
               </fieldset>
-            </div>
-
-            <!-- Step 6 -->
-            <div class="am-step" data-step="6">
-              <h2 class="am-step__title">Your first month</h2>
-              <p class="am-step__intro">You can change this every month.</p>
-              <fieldset class="am-q" data-q="focus">
-                <legend>What's your focus this month?</legend>
-                <div class="am-list" data-options="focus" data-type="radio"></div>
-                <p class="am-error">Please pick one.</p>
-              </fieldset>
-              <div class="am-q" data-q="workingOn">
-                <label class="am-q__label" for="workingOn">Right now I'm working on… <span class="am-q__opt">(optional)</span></label>
-                <p class="form__hint">One line, e.g. moving our blog to Webflow. It gives your match something to ask about.</p>
-                <input type="text" id="workingOn" name="workingOn" maxlength="120">
-                <p class="am-counter" id="workingOnCount">0 / 120</p>
-              </div>
-            </div>
-
-            <!-- Step 7 -->
-            <div class="am-step" data-step="7">
-              <h2 class="am-step__title">Meeting code</h2>
-              <p class="am-step__intro">The few rules that keep this nice for everyone.</p>
-              <div class="am-code">
-                <ul>
-                  <li>Show up. If something comes up, cancel at least 24 hours ahead.</li>
-                  <li>Lunch is 45 minutes. After-work is one drink or an hour.</li>
-                  <li>Everyone pays for themselves.</li>
-                  <li>No pitching.</li>
-                  <li>Use whatever language works for you both. Be curious, be kind.</li>
-                </ul>
-              </div>
-              <div class="am-q" data-q="agreeCode">
-                <label class="am-option"><input type="checkbox" id="agreeCode" name="agreeCode"> I agree to the meeting code</label>
-                <p class="am-error">Please agree to the meeting code.</p>
+              <div class="am-q" data-q="feedback">
+                <label class="am-q__label" for="feedback">Your feedback <span class="am-q__opt">(optional)</span></label>
+                <p class="form__hint">I am testing this format and would love to hear what you think about it / how to improve it.</p>
+                <textarea id="feedback" name="feedback" maxlength="2000"></textarea>
               </div>
               <div class="am-q" data-q="agreeData">
                 <label class="am-option"><input type="checkbox" id="agreeData" name="agreeData"> I agree that my answers are stored and used to match me, including any 🔒 topics I picked</label>
-                <p class="am-error">We need your consent to match you.</p>
+                <p class="am-error">I need your consent to match you.</p>
               </div>
               <details class="am-privacy">
-                <summary>How we handle your data</summary>
-                <p>The Awesome Marketers (Anna Pogrebniak) collects these answers only to match you with other members of Awesome Meets.</p>
+                <summary>How your data is handled</summary>
+                <p>The Awesome Marketers (Anna Pogrebniak) collects these answers only to match you with other marketers for Awesome Autumn Meets.</p>
                 <ul>
-                  <li><strong>Where it's stored:</strong> a private Google Sheet in The Awesome Marketers' Google Workspace. Only the organiser can open it.</li>
-                  <li><strong>Who sees what:</strong> your matches see your name, job title, company, LinkedIn link and the topics you picked. Topics marked 🔒 are only shown to a match who picked the same topic.</li>
+                  <li><strong>Where it's stored:</strong> a private Google Sheet in The Awesome Marketers' Google Workspace. Only Anna can open it.</li>
+                  <li><strong>Who works with it:</strong> Anna, who uses Claude (an AI assistant made by Anthropic) to help find good matches.</li>
+                  <li><strong>What your match sees:</strong> your name, job title, company, LinkedIn link and the topics you picked. Topics marked 🔒 are only shown to a match who picked the same topic.</li>
                   <li><strong>Legal basis:</strong> your consent, which you can withdraw at any time.</li>
-                  <li><strong>How long:</strong> until you leave Awesome Meets, and at most 12 months after your last meeting.</li>
+                  <li><strong>How long:</strong> your answers are deleted within 12 months, or sooner if you ask.</li>
                   <li><strong>Your rights:</strong> ask to see, correct or delete your answers at <a href="mailto:anna@awesomemarketers.fi">anna@awesomemarketers.fi</a>. You can also complain to the Finnish Data Protection Ombudsman.</li>
                 </ul>
               </details>
@@ -327,17 +310,17 @@
             <div class="am-nav">
               <button type="button" class="btn btn--outline" id="amBack" hidden>Back</button>
               <button type="button" class="btn btn--primary" id="amNext">Next</button>
-              <button type="submit" class="btn btn--primary" id="amSubmit" hidden>Join Awesome Meets</button>
+              <button type="submit" class="btn btn--primary" id="amSubmit" hidden>Send my answers</button>
             </div>
             <p class="am-status" id="amStatus" role="alert"></p>
           </form>
 
           <div class="am-done" id="amDone" hidden>
-            <h2>Thanks, you're on the list!</h2>
-            <p>We review every new member by hand. You'll get an email when you're in.</p>
+            <h2>Thanks, your answers are in 🧡</h2>
+            <p>I'll be in touch by email with your match.</p>
           </div>
         </div>
-        <p class="am-version">Awesome Meets sign-up v0.1 · 14 Sep 2026</p>
+        <p class="am-version">Awesome Autumn Meets form v0.2 · 14 Sep 2026</p>
       </div>
     </div>
   </section>
@@ -363,30 +346,36 @@
   <script>
   (function () {
     // Google Apps Script web app URL (Deploy > Web app). Leave empty to test: the payload is shown instead of sent.
-    var ENDPOINT = '';
+    var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxtaKFKri4vSEVKIYB3x26mPwqlUhfttJb2140a12CwglzSUaJkGkIJ9X_Kt9nRFGAW/exec';
 
     var OPTIONS = {
       employmentType: ['In-house', 'Agency', 'Freelance', 'Student or intern', 'Between jobs'],
       industry: ['B2B SaaS', 'B2B services', 'E-commerce and retail', 'Consumer brands', 'Finance and insurance', 'Health', 'Public sector and non-profit', 'Media and entertainment', 'Gaming', 'Industrial and manufacturing', 'Travel and hospitality', 'Agency', 'Other'],
       seniority: ['Junior', 'Mid', 'Senior', 'Lead', 'Head of / Director', 'CMO / VP', 'Founder'],
-      area: ['Helsinki center', 'Ruoholahti and Jätkäsaari', 'Espoo Keilaniemi', 'Vantaa Tikkurila', 'Pasila', 'Hakaniemi', 'Sörnäinen', 'Kalasatama'],
-      meetingsPerMonth: ['1', '2'],
-      format: ['Lunch', 'After-work', 'Both'],
+      areas: ['Helsinki center', 'Ruoholahti and Jätkäsaari', 'Espoo Keilaniemi', 'Vantaa Tikkurila', 'Pasila', 'Hakaniemi', 'Sörnäinen', 'Kalasatama'],
       meetingCriteria: [
         'I would prefer to meet people in my industry',
         'I would prefer to meet people outside my industry',
         'I would prefer to meet people around my seniority (one level up or down)',
         'Similar topics are the most important criteria for my choice of match',
         'No criteria, match me with anyone'
-      ],
-      focus: ['Swap ideas with a peer', 'Learn something specific', 'Find a mentor', 'Mentor someone', 'Hiring a marketer', 'Looking for my next role', 'Growing my freelance or agency business']
+      ]
     };
     var TOPICS = [
       ['Channels', ['SEO', 'AEO and AI search', 'LinkedIn Ads', 'Google Ads', 'Meta and TikTok Ads', 'Organic social', 'Content marketing', 'Email and CRM', 'Video and podcasts', 'Influencer and creator marketing', 'PR and comms', 'Events and webinars', 'ABM', 'Community building']],
       ['Strategy and craft', ['Brand', 'Positioning and messaging', 'Copywriting', 'Product marketing', 'Customer marketing and advocacy', 'Landing pages and CRO', 'Growth experiments', 'Market and customer research', 'Analytics and attribution', 'Marketing automation and ops', 'Using AI in marketing']],
       ['Career and leadership', ['Leading a marketing team', 'Being a marketing team of one', 'Hiring marketers', 'Job hunting in marketing', 'Changing careers', 'Freelancing and pricing', 'Budgets and reporting to management', 'Women in marketing careers 🔒', 'LGBTQ+ at work 🔒', 'Expat life and careers in Finland 🔒', 'Coming back from parental leave 🔒', 'Avoiding burnout 🔒']]
     ];
-    var MAX_TOPICS = 5, MAX_CRITERIA = 2, NO_CRITERIA = 'No criteria, match me with anyone';
+    var WEEKS = [
+      ['Week 42', [['October 12, Monday', 'Mon 12 Oct'], ['October 13, Tuesday', 'Tue 13 Oct'], ['October 14, Wednesday', 'Wed 14 Oct'], ['October 15, Thursday', 'Thu 15 Oct'], ['October 16, Friday', 'Fri 16 Oct']]],
+      ['Week 43', [['October 19, Monday', 'Mon 19 Oct'], ['October 20, Tuesday', 'Tue 20 Oct'], ['October 21, Wednesday', 'Wed 21 Oct'], ['October 22, Thursday', 'Thu 22 Oct'], ['October 23, Friday', 'Fri 23 Oct']]],
+      ['Week 44', [['October 26, Monday', 'Mon 26 Oct'], ['October 27, Tuesday', 'Tue 27 Oct'], ['October 28, Wednesday', 'Wed 28 Oct'], ['October 29, Thursday', 'Thu 29 Oct'], ['October 30, Friday', 'Fri 30 Oct']]],
+      ['Week 45', [['November 2, Monday', 'Mon 2 Nov'], ['November 3, Tuesday', 'Tue 3 Nov'], ['November 4, Wednesday', 'Wed 4 Nov'], ['November 5, Thursday', 'Thu 5 Nov'], ['November 6, Friday', 'Fri 6 Nov']]]
+    ];
+    var TIMES = ['11AM', '12PM', '1PM', '4PM', '5PM', '6PM'];
+    var NOT_THIS_DAY = 'Not this day';
+    var LUNCH = ['11AM', '12PM', '1PM'], AFTER = ['4PM', '5PM', '6PM'];
+    var MAX_TOPICS = 5, NO_CRITERIA = 'No criteria, match me with anyone';
     var OPPOSITES = [['I would prefer to meet people in my industry', 'I would prefer to meet people outside my industry']];
 
     var form = document.getElementById('amForm');
@@ -400,58 +389,74 @@
       if (text) n.textContent = text;
       return n;
     }
+    function chip(name, value, label, extraClass) {
+      var l = el('label', { 'class': 'am-chip' + (extraClass ? ' ' + extraClass : '') });
+      l.appendChild(el('input', { type: 'checkbox', name: name, value: value }));
+      l.appendChild(el('span', {}, label || value));
+      return l;
+    }
 
-    // Build option lists
     [].forEach.call(form.querySelectorAll('[data-options]'), function (box) {
       var name = box.getAttribute('data-options');
       var type = box.getAttribute('data-type');
       OPTIONS[name].forEach(function (value) {
         var label = el('label', { 'class': 'am-option' });
-        var input = el('input', { type: type, name: name, value: value });
-        label.appendChild(input);
+        label.appendChild(el('input', { type: type, name: name, value: value }));
         label.appendChild(document.createTextNode(' ' + value));
         box.appendChild(label);
       });
     });
-    var industry = document.getElementById('industry');
-    OPTIONS.industry.forEach(function (v) { industry.appendChild(el('option', { value: v }, v)); });
 
-    // Build topic chips
     [].forEach.call(form.querySelectorAll('[data-topics]'), function (box) {
       var name = box.getAttribute('data-topics');
       TOPICS.forEach(function (group) {
         box.appendChild(el('p', { 'class': 'am-group-title' }, group[0]));
         var chips = el('div', { 'class': 'am-chips' });
-        group[1].forEach(function (topic) {
-          var label = el('label', { 'class': 'am-chip' });
-          label.appendChild(el('input', { type: 'checkbox', name: name, value: topic }));
-          label.appendChild(el('span', {}, topic));
-          chips.appendChild(label);
-        });
+        group[1].forEach(function (topic) { chips.appendChild(chip(name, topic)); });
         box.appendChild(chips);
       });
+    });
+
+    var days = document.getElementById('amDays');
+    WEEKS.forEach(function (week) {
+      var w = el('div', { 'class': 'am-week' });
+      w.appendChild(el('p', { 'class': 'am-group-title' }, week[0]));
+      week[1].forEach(function (day) {
+        var row = el('div', { 'class': 'am-day', 'data-day': day[0] });
+        row.appendChild(el('span', { 'class': 'am-day__label' }, day[1]));
+        var chips = el('div', { 'class': 'am-chips' });
+        TIMES.forEach(function (t) { chips.appendChild(chip('day:' + day[0], t)); });
+        chips.appendChild(chip('day:' + day[0], NOT_THIS_DAY, NOT_THIS_DAY, 'am-chip--no'));
+        row.appendChild(chips);
+        w.appendChild(row);
+      });
+      days.appendChild(w);
     });
 
     function checked(name) {
       return [].slice.call(form.querySelectorAll('input[name="' + name + '"]:checked')).map(function (i) { return i.value; });
     }
+    function value(id) { return (document.getElementById(id).value || '').trim(); }
 
-    // Topic limits
-    function syncTopics(name) {
-      var picked = checked(name).length;
-      form.querySelector('[data-counter="' + name + '"]').textContent = picked + ' of ' + MAX_TOPICS + ' picked';
-      [].forEach.call(form.querySelectorAll('input[name="' + name + '"]'), function (i) { i.disabled = !i.checked && picked >= MAX_TOPICS; });
-    }
-    ['strongestAreas', 'wantToLearn'].forEach(function (name) {
-      form.addEventListener('change', function (e) { if (e.target.name === name) syncTopics(name); });
-    });
-
-    // Criteria rules: "No criteria" is exclusive, opposites cancel, max 2
     form.addEventListener('change', function (e) {
-      if (e.target.name !== 'meetingCriteria') return;
-      var boxes = [].slice.call(form.querySelectorAll('input[name="meetingCriteria"]'));
       var t = e.target;
-      if (t.checked) {
+      if (t.name === 'topics') {
+        var picked = checked('topics').length;
+        form.querySelector('[data-counter="topics"]').textContent = picked + ' of ' + MAX_TOPICS + ' picked';
+        [].forEach.call(form.querySelectorAll('input[name="topics"]'), function (i) { i.disabled = !i.checked && picked >= MAX_TOPICS; });
+      }
+      if (t.name && t.name.indexOf('day:') === 0 && t.checked) {
+        [].forEach.call(form.querySelectorAll('input[name="' + t.name + '"]'), function (i) {
+          if (t.value === NOT_THIS_DAY ? i !== t : i.value === NOT_THIS_DAY) i.checked = false;
+        });
+      }
+      if (t.id === 'noneDays') {
+        days.classList.toggle('am-grid-off', t.checked);
+        form.querySelector('.am-tools').classList.toggle('am-grid-off', t.checked);
+        if (t.checked) [].forEach.call(days.querySelectorAll('input'), function (i) { i.checked = false; });
+      }
+      if (t.name === 'meetingCriteria' && t.checked) {
+        var boxes = [].slice.call(form.querySelectorAll('input[name="meetingCriteria"]'));
         if (t.value === NO_CRITERIA) boxes.forEach(function (b) { if (b !== t) b.checked = false; });
         else boxes.forEach(function (b) { if (b.value === NO_CRITERIA) b.checked = false; });
         OPPOSITES.forEach(function (pair) {
@@ -459,63 +464,42 @@
           if (i > -1) boxes.forEach(function (b) { if (b.value === pair[1 - i]) b.checked = false; });
         });
       }
-      var picked = boxes.filter(function (b) { return b.checked && b.value !== NO_CRITERIA; }).length;
-      boxes.forEach(function (b) { b.disabled = !b.checked && b.value !== NO_CRITERIA && picked >= MAX_CRITERIA; });
     });
 
-    // Employment type changes the job questions
-    form.addEventListener('change', function (e) {
-      if (e.target.name !== 'employmentType') return;
-      var v = e.target.value;
-      document.getElementById('jobTitleLabel').textContent = v === 'Between jobs' ? 'Most recent job title' : (v === 'Student or intern' ? 'Your role' : 'Job title');
-      document.getElementById('companyLabel').textContent = v === 'Student or intern' ? 'School or company' : 'Company';
-      document.getElementById('companyQ').hidden = v === 'Between jobs';
+    [].forEach.call(form.querySelectorAll('[data-fill]'), function (b) {
+      b.addEventListener('click', function () {
+        var mode = b.getAttribute('data-fill');
+        [].forEach.call(days.querySelectorAll('input'), function (i) {
+          if (mode === 'clear') i.checked = false;
+          else if ((mode === 'lunch' ? LUNCH : AFTER).indexOf(i.value) > -1) i.checked = true;
+          else if (i.value === NOT_THIS_DAY) i.checked = false;
+        });
+      });
     });
 
-    var workingOn = document.getElementById('workingOn');
-    workingOn.addEventListener('input', function () { document.getElementById('workingOnCount').textContent = workingOn.value.length + ' / 120'; });
-
-    // Validation per step
     function setError(q, bad) { var n = form.querySelector('[data-q="' + q + '"]'); if (n) n.classList.toggle('has-error', bad); return bad; }
-    function value(id) { return (document.getElementById(id).value || '').trim(); }
     var checks = {
       1: function () {
         var bad = false;
         bad = setError('fullName', value('fullName').length < 2) || bad;
         bad = setError('email', !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value('email'))) || bad;
-        bad = setError('linkedin', !/linkedin\.com\/.+/i.test(value('linkedin'))) || bad;
+        bad = setError('linkedin', value('linkedin') !== '' && !/linkedin\.com\/.+/i.test(value('linkedin'))) || bad;
         return !bad;
       },
       2: function () {
         var bad = false;
-        var type = checked('employmentType')[0];
-        bad = setError('employmentType', !type) || bad;
-        bad = setError('jobTitle', value('jobTitle').length < 2) || bad;
-        bad = setError('company', type !== 'Between jobs' && value('company').length < 2) || bad;
-        bad = setError('industry', !value('industry')) || bad;
+        bad = setError('employmentType', !checked('employmentType').length) || bad;
+        bad = setError('industry', !checked('industry').length) || bad;
         bad = setError('seniority', !checked('seniority').length) || bad;
         return !bad;
       },
-      3: function () { return !setError('strongestAreas', !checked('strongestAreas').length); },
-      4: function () { return !setError('wantToLearn', !checked('wantToLearn').length); },
-      5: function () {
-        var bad = false;
-        bad = setError('area', !checked('area').length) || bad;
-        bad = setError('meetingsPerMonth', !checked('meetingsPerMonth').length) || bad;
-        bad = setError('format', !checked('format').length) || bad;
-        return !bad;
-      },
-      6: function () { return !setError('focus', !checked('focus').length); },
-      7: function () {
-        var bad = false;
-        bad = setError('agreeCode', !document.getElementById('agreeCode').checked) || bad;
-        bad = setError('agreeData', !document.getElementById('agreeData').checked) || bad;
-        return !bad;
-      }
+      3: function () { return true; },
+      4: function () { return !setError('areas', !checked('areas').length); },
+      5: function () { return !setError('agreeData', !document.getElementById('agreeData').checked); }
     };
 
     var back = document.getElementById('amBack'), next = document.getElementById('amNext'), submit = document.getElementById('amSubmit');
-    function show(i) {
+    function show(i, scroll) {
       steps[current].classList.remove('is-active');
       current = i;
       steps[current].classList.add('is-active');
@@ -524,39 +508,42 @@
       submit.hidden = current !== steps.length - 1;
       document.getElementById('amProgress').style.width = ((current + 1) / steps.length * 100) + '%';
       document.getElementById('amProgressLabel').textContent = 'Step ' + (current + 1) + ' of ' + steps.length;
-      form.closest('.am-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (scroll) form.closest('.am-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-    function focusFirstError() { var q = steps[current].querySelector('.has-error input, .has-error select'); if (q) q.focus(); }
-    next.addEventListener('click', function () { if (checks[current + 1]()) show(current + 1); else focusFirstError(); });
-    back.addEventListener('click', function () { show(current - 1); });
-    show(0);
+    function focusFirstError() { var q = steps[current].querySelector('.has-error input, .has-error textarea'); if (q) q.focus(); }
+    next.addEventListener('click', function () { if (checks[current + 1]()) show(current + 1, true); else focusFirstError(); });
+    back.addEventListener('click', function () { show(current - 1, true); });
+    show(0, false);
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var status = document.getElementById('amStatus');
       status.textContent = '';
-      if (!checks[7]()) { focusFirstError(); return; }
-      var type = checked('employmentType')[0];
+      if (!checks[5]()) { focusFirstError(); return; }
+      var availability = {};
+      WEEKS.forEach(function (week) {
+        week[1].forEach(function (day) {
+          var picked = checked('day:' + day[0]);
+          if (picked.length) availability[day[0]] = picked;
+        });
+      });
       var payload = {
         website: value('amWebsite'),
         startedAt: startedAt,
         fullName: value('fullName'),
         email: value('email'),
         linkedin: value('linkedin'),
-        employmentType: type,
+        employmentType: checked('employmentType')[0],
         jobTitle: value('jobTitle'),
-        company: type === 'Between jobs' ? '' : value('company'),
-        industry: value('industry'),
+        company: value('company'),
+        industry: checked('industry')[0],
         seniority: checked('seniority')[0],
-        strongestAreas: checked('strongestAreas'),
-        wantToLearn: checked('wantToLearn'),
-        area: checked('area')[0],
-        meetingsPerMonth: checked('meetingsPerMonth')[0],
-        format: checked('format')[0],
+        topics: checked('topics'),
+        areas: checked('areas'),
+        availability: availability,
+        noneOfTheseDays: document.getElementById('noneDays').checked,
         meetingCriteria: checked('meetingCriteria'),
-        focus: checked('focus')[0],
-        workingOn: value('workingOn'),
-        agreeCode: true,
+        feedback: value('feedback'),
         agreeData: true,
         consentVersion: '2026-09-14'
       };
@@ -567,20 +554,32 @@
       }
       submit.disabled = true;
       submit.textContent = 'Sending…';
-      fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(payload) })
-        .then(function (r) { return r.json(); })
-        .then(function (res) {
-          if (!res.ok) throw new Error(res.error || 'error');
-          form.hidden = true;
-          document.getElementById('amDone').hidden = false;
-          document.getElementById('amDone').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        })
-        .catch(function () {
-          submit.disabled = false;
-          submit.textContent = 'Join Awesome Meets';
-          status.style.color = '';
-          status.textContent = 'Something went wrong and your answers were not saved. Please try again, or email anna@awesomemarketers.fi.';
-        });
+      // Retrying is safe: the script ignores a repeat sign-up from the same email for 10 minutes.
+      function send(attempt) {
+        fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(payload) })
+          .then(function (r) { return r.json(); })
+          .then(function (res) {
+            if (res.ok) {
+              form.hidden = true;
+              document.getElementById('amDone').hidden = false;
+              document.getElementById('amDone').scrollIntoView({ behavior: 'smooth', block: 'center' });
+              return;
+            }
+            if (res.error === 'server') throw new Error('server');
+            fail('Some answers could not be accepted (' + res.error + '). Please check them and try again.');
+          })
+          .catch(function () {
+            if (attempt < 3) setTimeout(function () { send(attempt + 1); }, 1500 * attempt);
+            else fail('Something went wrong and your answers may not have been saved. Please try again, or email anna@awesomemarketers.fi.');
+          });
+      }
+      function fail(message) {
+        submit.disabled = false;
+        submit.textContent = 'Send my answers';
+        status.style.color = '';
+        status.textContent = message;
+      }
+      send(1);
     });
   })();
   </script>
