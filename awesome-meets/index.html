@@ -288,10 +288,22 @@
 
             <!-- Step 4 -->
             <div class="am-step" data-step="4">
-              <h2 class="am-step__title">Where and when works for you?</h2>
+              <h2 class="am-step__title">What, where and when?</h2>
               <p class="am-step__intro">Tick everything that could work. More options mean an easier match.</p>
+              <fieldset class="am-q" data-q="activities">
+                <legend>What would you like to do?</legend>
+                <p class="form__hint">Pick everything that sounds good.</p>
+                <div class="am-list" data-options="activities" data-type="checkbox"></div>
+                <p class="am-error">Pick at least one.</p>
+              </fieldset>
+              <fieldset class="am-q" data-q="preferredArea">
+                <legend>Which area suits you best?</legend>
+                <div class="am-list am-list--2" data-options="preferredArea" data-type="radio"></div>
+                <p class="am-error">Pick the area that suits you best.</p>
+              </fieldset>
               <fieldset class="am-q" data-q="areas">
-                <legend>Where's easy for you to meet?</legend>
+                <legend>All areas that work for you</legend>
+                <p class="form__hint">Your favourite is ticked for you. Add any others you could easily get to.</p>
                 <div class="am-list am-list--2" data-options="areas" data-type="checkbox"></div>
                 <p class="am-error">Pick at least one area that works for you.</p>
               </fieldset>
@@ -357,7 +369,7 @@
             <p>Thanks to everyone who joined round one! Matches go out by Friday 2 October. If we keep the format, a new invitation will follow.</p>
           </div>
         </div>
-        <p class="am-version">Awesome Autumn Meets form v0.16 · 14 Sep 2026</p>
+        <p class="am-version">Awesome Autumn Meets form v0.17 · 15 Sep 2026</p>
       </div>
     </div>
   </section>
@@ -391,13 +403,15 @@
       employmentType: ['In-house', 'Agency', 'Freelance', 'Student or intern', 'Between jobs'],
       industry: ['B2B SaaS', 'B2B services', 'E-commerce and retail', 'Consumer brands', 'Finance and insurance', 'Health', 'Public sector and non-profit', 'Media and entertainment', 'Gaming', 'Industrial and manufacturing', 'Travel and hospitality', 'Agency', 'Other'],
       seniority: ['Junior', 'Mid', 'Senior', 'Lead', 'Head of / Director', 'CMO / VP', 'Founder'],
+      activities: ['Have lunch', 'After-work coffee', 'Walk and talk'],
+      preferredArea: ['Helsinki center', 'Ruoholahti and Jätkäsaari', 'Espoo Keilaniemi', 'Vantaa Tikkurila', 'Pasila', 'Hakaniemi', 'Sörnäinen', 'Kalasatama'],
       areas: ['Helsinki center', 'Ruoholahti and Jätkäsaari', 'Espoo Keilaniemi', 'Vantaa Tikkurila', 'Pasila', 'Hakaniemi', 'Sörnäinen', 'Kalasatama'],
       meetingCriteria: [
         'I would prefer to meet people in my industry',
         'I would prefer to meet people outside my industry',
         'I would prefer to meet people around my seniority (one level up or down)',
         'Similar topics are the most important criteria for my choice of match',
-        'No criteria, match me with anyone'
+        'No criteria, match me with anyone as long as they\'re awesome'
       ]
     };
     var TOPICS = [
@@ -414,7 +428,7 @@
     var NOT_THIS_DAY = 'Not this day';
     var LUNCH = ['11AM', '12PM', '1PM'], AFTER = ['4PM', '5PM', '6PM'];
     var MIN_DAYS = 4;
-    var MAX_TOPICS = 5, NO_CRITERIA = 'No criteria, match me with anyone';
+    var MAX_TOPICS = 5, NO_CRITERIA = 'No criteria, match me with anyone as long as they\'re awesome';
     var OPPOSITES = [['I would prefer to meet people in my industry', 'I would prefer to meet people outside my industry']];
 
     var form = document.getElementById('amForm');
@@ -501,6 +515,11 @@
         });
       }
       if (t.name && t.name.indexOf('day:') === 0) syncDays();
+      if (t.name === 'preferredArea' && t.checked) {
+        var match = [].slice.call(form.querySelectorAll('input[name="areas"]')).filter(function (i) { return i.value === t.value; })[0];
+        if (match) match.checked = true;
+        setError('areas', false);
+      }
       if (t.name === 'meetingCriteria' && t.checked) {
         var boxes = [].slice.call(form.querySelectorAll('input[name="meetingCriteria"]'));
         if (t.value === NO_CRITERIA) boxes.forEach(function (b) { if (b !== t) b.checked = false; });
@@ -542,7 +561,9 @@
       },
       3: function () { return !setError('topics', !checked('topics').length); },
       4: function () {
-        var bad = setError('areas', !checked('areas').length);
+        var bad = setError('activities', !checked('activities').length);
+        bad = setError('preferredArea', !checked('preferredArea').length) || bad;
+        bad = setError('areas', !checked('areas').length) || bad;
         bad = setError('availability', daysPicked() < MIN_DAYS) || bad;
         return !bad;
       },
@@ -609,7 +630,9 @@
         industry: checked('industry')[0],
         seniority: checked('seniority')[0],
         topics: checked('topics'),
+        preferredArea: checked('preferredArea')[0],
         areas: checked('areas'),
+        activities: checked('activities'),
         availability: availability,
         noneOfTheseDays: false,
         meetingCriteria: checked('meetingCriteria'),
