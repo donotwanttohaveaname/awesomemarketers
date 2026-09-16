@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanks | Awesome Autumn Meets</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <style>
+    .amt { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 24px; }
+    .amt__card { max-width: 560px; text-align: center; }
+    .amt__emoji { font-size: 3rem; line-height: 1; margin-bottom: 16px; }
+    .amt__title { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; margin-bottom: 14px; }
+    .amt__text { color: var(--gray-700); font-size: 1.05rem; line-height: 1.65; margin-bottom: 26px; }
+    .amt__links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    @media (max-width: 600px) { .amt__title { font-size: 1.6rem; } }
+  </style>
+</head>
+<body>
+
+  <main class="amt">
+    <div class="amt__card">
+      <div class="amt__emoji" id="amtEmoji">🧡</div>
+      <h1 class="amt__title" id="amtTitle">One moment…</h1>
+      <p class="amt__text" id="amtText">Saving your answer.</p>
+      <div class="amt__links" id="amtLinks" style="display:none">
+        <a href="/awesome-meets/" class="btn btn--outline">Awesome Autumn Meets</a>
+        <a href="/events/" class="btn btn--primary">Upcoming events</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // One-click answer to "how many marketers would you like to meet in October?".
+    // The email links here instead of straight to the Apps Script web app: a Google link opened while
+    // signed into several Google accounts shows a Drive error (Anna, 16 Sep 2026). This page posts the
+    // answer to the same backend the sign-up form uses. The token is an HMAC of the email, no personal
+    // data in the link, and it only writes the "How many to meet" cell of that one row.
+    var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxtaKFKri4vSEVKIYB3x26mPwqlUhfttJb2140a12CwglzSUaJkGkIJ9X_Kt9nRFGAW/exec';
+    var params = new URLSearchParams(location.search);
+    var token = params.get('t') || '';
+    var n = params.get('n') || '';
+    var emoji = document.getElementById('amtEmoji');
+    var title = document.getElementById('amtTitle');
+    var text = document.getElementById('amtText');
+    var links = document.getElementById('amtLinks');
+
+    function show(e, t, html) {
+      emoji.textContent = e;
+      title.textContent = t;
+      text.innerHTML = html;
+      links.style.display = 'flex';
+    }
+    function oops() {
+      show('🙈', 'Something went wrong', 'Just reply to my email with <strong>1</strong> or <strong>2</strong> and I will add it by hand. Anna');
+    }
+
+    if (!token || (n !== '1' && n !== '2')) {
+      oops();
+    } else {
+      var ctrl = new AbortController();
+      var timer = setTimeout(function () { ctrl.abort(); }, 15000);
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ askToken: token, askN: n }),
+        signal: ctrl.signal
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          clearTimeout(timer);
+          if (res && res.ok) {
+            show('🧡', 'Got it, thank you!', 'You are down for <strong>' + (n === '2' ? '2 marketers' : '1 marketer') +
+              '</strong> in October.<br>Changed your mind? Just reply to my email.<br><br>See you out there ✨<br>Anna');
+          } else if (res && res.error === 'unknown_link') {
+            show('🤔', 'That link has expired', 'Please reply to my email with <strong>1</strong> or <strong>2</strong> and I will add it by hand. Anna');
+          } else {
+            oops();
+          }
+        })
+        .catch(function () { clearTimeout(timer); oops(); });
+    }
+  </script>
+</body>
+</html>
