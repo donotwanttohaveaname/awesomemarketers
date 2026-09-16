@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Build per-page OG cards (1200x630) for awesomemarketers.fi.
 
+Square-safe: Slack's compact unfurl CROPS to a centre square rather than
+scaling, so the whole Slack window sits inside the middle 630x630.
+
 Concept: the community lives on Slack, so every card is a Slack moment.
 A real community question, answered by what that page offers.
 
@@ -96,54 +99,55 @@ TPL = """<!DOCTYPE html><html><head><meta charset="utf-8">
  *{margin:0;padding:0;box-sizing:border-box}
  body{width:1200px;height:630px;overflow:hidden;font-family:'Inter',system-ui,sans-serif;
   -webkit-font-smoothing:antialiased;
-  background:
-   radial-gradient(ellipse 55% 55% at 2% -6%, rgba(255,159,69,0.52), transparent 62%),
-   radial-gradient(ellipse 60% 62% at 101% 104%, rgba(166,21,255,0.40), transparent 62%),
-   #FFFCF9;}
- .win{position:absolute;left:44px;top:40px;right:44px;bottom:40px;background:#fff;
-  border-radius:28px;box-shadow:0 26px 74px rgba(88,26,133,0.20),0 2px 8px rgba(0,0,0,.05);
+  background:linear-gradient(122deg,#FFB65E 0%,#F2588B 48%,#A615FF 100%);}
+ .halo{position:absolute;inset:0;
+  background:radial-gradient(ellipse 46% 58% at 50% 46%, rgba(255,255,255,.30), transparent 68%)}
+ /* 620 wide, centred: survives a centre-square crop (the 630x630 middle) */
+ .win{position:absolute;left:290px;top:36px;width:620px;height:558px;background:#fff;
+  border-radius:24px;box-shadow:0 28px 66px rgba(72,18,110,0.30),0 2px 10px rgba(0,0,0,.08);
   overflow:hidden;display:flex;flex-direction:column}
- .bar{height:74px;flex:none;display:flex;align-items:center;gap:13px;padding:0 34px;
+ .bar{height:54px;flex:none;display:flex;align-items:center;gap:10px;padding:0 22px;
   border-bottom:1px solid #EFECF4}
  .dots{display:flex;gap:8px;margin-right:5px}
- .dots i{width:13px;height:13px;border-radius:50%;display:block}
- .ch{font-family:'Space Grotesk';font-weight:700;font-size:28px;color:#141414;letter-spacing:-.02em}
+ .dots i{width:10px;height:10px;border-radius:50%;display:block}
+ .ch{font-family:'Space Grotesk';font-weight:700;font-size:21px;color:#141414;letter-spacing:-.02em}
  .ch b{color:#B9B4C2;font-weight:600}
- .mem{margin-left:auto;font-size:19px;font-weight:600;color:#8A8A90}
- .body{flex:1;padding:20px 36px;display:flex;flex-direction:column;justify-content:center}
- .msg{display:flex;gap:18px;align-items:flex-start}
- .av{width:60px;height:60px;border-radius:16px;flex:none;display:flex;align-items:center;
-  justify-content:center;font-size:32px;background:TINT}
- .who{font-family:'Space Grotesk';font-weight:700;font-size:20px;color:#8A8A90;margin-bottom:7px}
- .q{font-family:'Space Grotesk';font-weight:600;font-size:QSIZEpx;line-height:1.24;color:#141414;
-  letter-spacing:-.022em;max-width:960px}
- .ans{margin-top:18px;padding-left:78px}
+ .mem{margin-left:auto;font-size:14px;font-weight:600;color:#8A8A90}
+ .body{flex:1;padding:18px 22px;display:flex;flex-direction:column;justify-content:center}
+ .msg{display:flex;gap:13px;align-items:flex-start}
+ .av{width:44px;height:44px;border-radius:12px;flex:none;display:flex;align-items:center;
+  justify-content:center;font-size:24px;background:TINT}
+ .who{font-family:'Space Grotesk';font-weight:700;font-size:15px;color:#8A8A90;margin-bottom:5px}
+ .q{font-family:'Space Grotesk';font-weight:600;font-size:QSIZEpx;line-height:1.26;color:#141414;
+  letter-spacing:-.022em}
+ .ans{margin-top:16px}
  .card{border:1px solid #EDE8F2;border-left:7px solid transparent;border-radius:18px;
-  padding:18px 30px 20px;background:#fff;
+  padding:15px 20px 17px;background:#fff;
   background-image:linear-gradient(#fff,#fff),linear-gradient(165deg,#FF9F45,#F2588B 55%,#A615FF);
   background-origin:border-box;background-clip:padding-box,border-box;
   box-shadow:0 8px 22px rgba(88,26,133,.08)}
  .src{display:flex;align-items:center;gap:10px;margin-bottom:10px}
- .src img{width:26px;height:26px;border-radius:7px;display:block}
- .src span{font-family:'Space Grotesk';font-weight:600;font-size:19px;color:#8A8A90}
+ .src img{width:20px;height:20px;border-radius:6px;display:block}
+ .src span{font-family:'Space Grotesk';font-weight:600;font-size:15px;color:#8A8A90}
  .big{font-family:'Space Grotesk';font-weight:700;font-size:BSIZEpx;line-height:1.0;
   letter-spacing:-.045em;padding-bottom:4px;
   background:linear-gradient(112deg,#E8841B 4%,#E0439A 50%,#9B12EC 92%);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
- .line{margin-top:10px;font-family:'Space Grotesk';font-weight:600;font-size:27px;line-height:1.3;
+ .line{margin-top:8px;font-family:'Space Grotesk';font-weight:600;font-size:20px;line-height:1.3;
   color:#33313A;letter-spacing:-.015em;max-width:900px}
  .chips{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
- .chips i{font-style:normal;padding:8px 16px;border-radius:999px;background:#FAF7FD;
-  border:1.5px solid #ECE5F4;font-family:'Space Grotesk';font-weight:600;font-size:19px;color:#3A3742}
- .foot{flex:none;height:66px;display:flex;align-items:center;gap:10px;padding:0 34px;
+ .chips i{font-style:normal;padding:6px 12px;border-radius:999px;background:#FAF7FD;
+  border:1.5px solid #ECE5F4;font-family:'Space Grotesk';font-weight:600;font-size:15px;color:#3A3742}
+ .foot{flex:none;height:54px;display:flex;align-items:center;gap:8px;padding:0 22px;
   border-top:1px solid #F4F1F8}
  .rx{display:flex;gap:9px}
- .rx i{font-style:normal;padding:6px 15px;border-radius:999px;background:#F7F4FB;
-  border:1px solid #EEE9F5;font-size:20px}
+ .rx i{font-style:normal;padding:5px 11px;border-radius:999px;background:#F7F4FB;
+  border:1px solid #EEE9F5;font-size:16px}
  .url{margin-left:auto;display:flex;align-items:center;gap:10px}
- .url img{width:30px;height:30px;border-radius:9px;display:block}
- .url span{font-family:'Space Grotesk';font-weight:700;font-size:21px;color:#141414}
+ .url img{width:23px;height:23px;border-radius:7px;display:block}
+ .url span{font-family:'Space Grotesk';font-weight:700;font-size:16px;color:#141414}
 </style></head><body>
+<div class="halo"></div>
 <div class="win">
  <div class="bar">
   <div class="dots"><i style="background:#FF9F45"></i><i style="background:#F2588B"></i><i style="background:#A615FF"></i></div>
@@ -175,8 +179,8 @@ def esc(s):
 def build(p, i, logo_uri):
     tint, emoji = AV[i % len(AV)]
     n = len(p["big"])
-    bs = 104 if n <= 6 else 90 if n <= 9 else 80 if n <= 12 else 70
-    qs = 42 if len(p["q"]) <= 40 else 38
+    bs = 70 if n <= 6 else 62 if n <= 9 else 54 if n <= 12 else 46
+    qs = 29 if len(p["q"]) <= 40 else 26
     chips = ""
     if p.get("chips"):
         chips = '<div class="chips">' + "".join(f"<i>{esc(c)}</i>" for c in p["chips"]) + "</div>"
