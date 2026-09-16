@@ -88,7 +88,7 @@ PAGES = [
 
  dict(slug="awesome-meets", path="awesome-meets/index.html", ch="general",
    q="how do i meet people without another mixer? 🙃",
-   big="Round one", line="Get matched with 1 or 2 marketers in Helsinki.",
+   big="Awesome Meets", line="Get matched with 1 or 2 marketers in Helsinki.",
    chips=["🗓 Sign up by 28 Sep", "🥗 Lunch or coffee", "📍 Helsinki"]),
 ]
 
@@ -179,7 +179,7 @@ def esc(s):
 def build(p, i, logo_uri):
     tint, emoji = AV[i % len(AV)]
     n = len(p["big"])
-    bs = 70 if n <= 6 else 62 if n <= 9 else 54 if n <= 12 else 46
+    bs = 70 if n <= 6 else 62 if n <= 9 else 56 if n <= 12 else 50
     qs = 29 if len(p["q"]) <= 40 else 26
     chips = ""
     if p.get("chips"):
