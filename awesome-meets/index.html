@@ -47,13 +47,20 @@
     .am-timeline__item { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 12px; box-shadow: var(--shadow-sm); }
     .am-timeline__label { display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gray-500); }
     .am-timeline__value { display: block; font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; color: var(--gray-900); margin-top: 4px; }
-    .am-countdown { display: inline-block; margin-top: 18px; padding: 8px 18px; border-radius: 99px; background: var(--gradient); color: var(--white); font-family: var(--font-heading); font-weight: 600; font-size: 0.9rem; box-shadow: 0 4px 20px rgba(166, 21, 255, 0.25); }
-    .am-countdown-slot { min-height: 56px; }
-    .am-tracker { display: inline-flex; align-items: center; gap: 8px; margin: 12px auto 0; padding: 7px 16px; border-radius: 99px; background: var(--white); border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); font-weight: 600; font-size: 0.9rem; color: var(--gray-700); }
-    .am-tracker[hidden] { display: none; }
-    .am-tracker__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 4px rgba(255, 180, 82, 0.25); }
-    .am-tracker b { color: var(--gray-900); }
-    .am-countdown[hidden] { display: none; }
+    .am-live { max-width: 560px; margin: 26px auto 0; padding: 18px 24px 16px; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); box-shadow: 0 8px 30px rgba(166, 21, 255, 0.08); }
+    .am-live__row { display: flex; align-items: stretch; justify-content: center; gap: 20px; }
+    .am-live__item { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1 1 0; min-width: 0; }
+    .am-live__item[hidden] { display: none; }
+    .am-live__num { font-family: var(--font-heading); font-weight: 700; font-size: 2.1rem; line-height: 1.05; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .am-live__label { margin-top: 4px; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray-500); text-align: center; }
+    .am-live__sep { width: 1px; background: var(--gray-200); }
+    .am-live__sep[hidden] { display: none; }
+    .am-live__bar { height: 6px; border-radius: 99px; background: var(--gray-100); margin-top: 16px; overflow: hidden; }
+    .am-live__fill { display: block; height: 100%; width: 0; border-radius: 99px; background: var(--gradient); transition: width 0.8s ease; }
+    .am-live__foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; font-size: 0.73rem; font-weight: 600; letter-spacing: 0.02em; color: var(--gray-500); }
+    .am-live__pulse { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); margin-right: 6px; vertical-align: 1px; animation: amPulse 2.4s ease-in-out infinite; }
+    @keyframes amPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 180, 82, 0.55); } 50% { box-shadow: 0 0 0 6px rgba(255, 180, 82, 0); } }
+    @media (max-width: 520px) { .am-live { padding: 16px 16px 14px; } .am-live__row { gap: 12px; } .am-live__num { font-size: 1.65rem; } .am-live__label { font-size: 0.66rem; letter-spacing: 0.05em; } }
     .am-q .form__hint, .am-version { color: var(--gray-500); }
     .footer__copy { color: var(--gray-500); }
     .footer__copy .link--subtle { color: var(--gray-700); text-decoration-color: var(--orange); }
@@ -187,8 +194,21 @@
         <div class="am-timeline__item"><span class="am-timeline__label">Get matched by</span><span class="am-timeline__value">Fri 2 Oct</span></div>
         <div class="am-timeline__item"><span class="am-timeline__label">Meet between</span><span class="am-timeline__value">12 and 30 Oct</span></div>
       </div>
-      <div class="am-countdown-slot"><p class="am-countdown" id="amCountdown" hidden></p></div>
-      <p class="am-tracker" id="amTracker" hidden><span class="am-tracker__dot" aria-hidden="true"></span><span id="amTrackerText"></span></p>
+      <div class="am-live" id="amLive">
+        <div class="am-live__row">
+          <div class="am-live__item" id="amCountItem" hidden>
+            <span class="am-live__num" id="amCountNum">0</span>
+            <span class="am-live__label" id="amCountLabel">marketers signed up</span>
+          </div>
+          <span class="am-live__sep" id="amLiveSep" hidden aria-hidden="true"></span>
+          <div class="am-live__item" id="amLeftItem">
+            <span class="am-live__num" id="amLeftNum">&nbsp;</span>
+            <span class="am-live__label" id="amLeftLabel">&nbsp;</span>
+          </div>
+        </div>
+        <div class="am-live__bar" aria-hidden="true"><span class="am-live__fill" id="amLiveFill"></span></div>
+        <p class="am-live__foot"><span><span class="am-live__pulse" aria-hidden="true"></span>Sign-ups open</span><span id="amLiveClose">Closes Mon 28 Sep, 4PM</span></p>
+      </div>
     </div>
   </section>
 
@@ -379,7 +399,7 @@
             <p>Thanks to everyone who joined round one! Matches go out by Friday 2 October. If we keep the format, a new invitation will follow.</p>
           </div>
         </div>
-        <p class="am-version">Awesome Autumn Meets form v0.20 · 17 Sep 2026</p>
+        <p class="am-version">Awesome Autumn Meets form v0.21 · 17 Sep 2026</p>
       </div>
     </div>
   </section>
@@ -601,22 +621,33 @@
 
     // Sign-ups close Mon 28 Sep 2026 at 16:00 Helsinki time (UTC+3).
     var CLOSES_AT = Date.UTC(2026, 8, 28, 13, 0, 0);
-    var countdown = document.getElementById('amCountdown');
+    // Sign-ups opened Mon 14 Sep 2026, ~18:30 Helsinki. Used for the progress bar only.
+    var OPENED_AT = Date.UTC(2026, 8, 14, 15, 30, 0);
+    var leftNum = document.getElementById('amLeftNum'), leftLabel = document.getElementById('amLeftLabel');
+    var liveFill = document.getElementById('amLiveFill'), liveClose = document.getElementById('amLiveClose');
+    var countLabel = document.getElementById('amCountLabel');
     function updateDeadline() {
-      var left = CLOSES_AT - Date.now();
+      var now = Date.now(), left = CLOSES_AT - now;
       if (left <= 0) {
         form.hidden = true;
         document.getElementById('amDone').hidden = true;
         document.getElementById('amClosed').hidden = false;
-        countdown.hidden = true;
+        document.getElementById('amLeftItem').hidden = true;
+        document.getElementById('amLiveSep').hidden = true;
+        countLabel.textContent = 'marketers signed up for round one';
+        liveFill.style.width = '100%';
+        liveClose.textContent = 'Closed Mon 28 Sep, 4PM';
         return;
       }
-      var days = Math.floor(left / 86400000), hours = Math.floor(left / 3600000);
-      countdown.textContent = days >= 2 ? 'Sign-ups close in ' + days + ' days' : (hours >= 1 ? 'Last chance: sign-ups close in ' + hours + ' hours' : 'Last chance: sign-ups close within the hour');
-      countdown.hidden = false;
+      var days = Math.floor(left / 86400000), hours = Math.floor(left / 3600000), mins = Math.ceil(left / 60000);   // never promise more time than there is
+      if (left > 172800000) { leftNum.textContent = days; leftLabel.textContent = days === 1 ? 'day left to join' : 'days left to join'; }
+      else if (hours >= 1) { leftNum.textContent = hours; leftLabel.textContent = hours === 1 ? 'hour left to join' : 'hours left to join'; }
+      else { leftNum.textContent = mins; leftLabel.textContent = 'minutes left to join'; }
+      var done = (now - OPENED_AT) / (CLOSES_AT - OPENED_AT);
+      liveFill.style.width = Math.max(4, Math.min(100, done * 100)).toFixed(1) + '%';
     }
     updateDeadline();
-    setInterval(updateDeadline, 60000);
+    setInterval(updateDeadline, 30000);
 
     // Live sign-up counter (Anna 2026-09-17). Counts real marketers only: one per email, test rows and
     // Anna's own rows left out, cached a minute in the script. Stays hidden below MIN_TRACKER, so an
@@ -624,7 +655,7 @@
     var MIN_TRACKER = 5;
     (function loadCount() {
       if (!ENDPOINT) return;
-      var tracker = document.getElementById('amTracker'), label = document.getElementById('amTrackerText');
+      var item = document.getElementById('amCountItem'), num = document.getElementById('amCountNum');
       var ctrl = new AbortController();
       var timer = setTimeout(function () { ctrl.abort(); }, 10000);
       fetch(ENDPOINT + '?count=1', { signal: ctrl.signal })
@@ -633,9 +664,15 @@
           clearTimeout(timer);
           var n = res && res.count;
           if (typeof n !== 'number' || n < MIN_TRACKER) return;
-          var open = CLOSES_AT - Date.now() > 0;
-          label.innerHTML = '<b>' + n + ' marketers</b> ' + (open ? 'have signed up so far' : 'signed up for round one');
-          tracker.hidden = false;
+          // count up, so the number catches the eye when it lands
+          var step = Math.max(1, Math.round(n / 18)), shown = Math.max(0, n - step * 18);
+          item.hidden = false;
+          document.getElementById('amLiveSep').hidden = CLOSES_AT - Date.now() <= 0;
+          (function tick() {
+            shown = Math.min(n, shown + step);
+            num.textContent = shown;
+            if (shown < n) setTimeout(tick, 40);
+          })();
         })
         .catch(function () { clearTimeout(timer); });
     })();
