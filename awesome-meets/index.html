@@ -49,6 +49,10 @@
     .am-timeline__value { display: block; font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; color: var(--gray-900); margin-top: 4px; }
     .am-countdown { display: inline-block; margin-top: 18px; padding: 8px 18px; border-radius: 99px; background: var(--gradient); color: var(--white); font-family: var(--font-heading); font-weight: 600; font-size: 0.9rem; box-shadow: 0 4px 20px rgba(166, 21, 255, 0.25); }
     .am-countdown-slot { min-height: 56px; }
+    .am-tracker { display: inline-flex; align-items: center; gap: 8px; margin: 12px auto 0; padding: 7px 16px; border-radius: 99px; background: var(--white); border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); font-weight: 600; font-size: 0.9rem; color: var(--gray-700); }
+    .am-tracker[hidden] { display: none; }
+    .am-tracker__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 4px rgba(255, 180, 82, 0.25); }
+    .am-tracker b { color: var(--gray-900); }
     .am-countdown[hidden] { display: none; }
     .am-q .form__hint, .am-version { color: var(--gray-500); }
     .footer__copy { color: var(--gray-500); }
@@ -184,6 +188,7 @@
         <div class="am-timeline__item"><span class="am-timeline__label">Meet between</span><span class="am-timeline__value">12 and 30 Oct</span></div>
       </div>
       <div class="am-countdown-slot"><p class="am-countdown" id="amCountdown" hidden></p></div>
+      <p class="am-tracker" id="amTracker" hidden><span class="am-tracker__dot" aria-hidden="true"></span><span id="amTrackerText"></span></p>
     </div>
   </section>
 
@@ -374,7 +379,7 @@
             <p>Thanks to everyone who joined round one! Matches go out by Friday 2 October. If we keep the format, a new invitation will follow.</p>
           </div>
         </div>
-        <p class="am-version">Awesome Autumn Meets form v0.19 · 15 Sep 2026</p>
+        <p class="am-version">Awesome Autumn Meets form v0.20 · 17 Sep 2026</p>
       </div>
     </div>
   </section>
@@ -612,6 +617,28 @@
     }
     updateDeadline();
     setInterval(updateDeadline, 60000);
+
+    // Live sign-up counter (Anna 2026-09-17). Counts real marketers only: one per email, test rows and
+    // Anna's own rows left out, cached a minute in the script. Stays hidden below MIN_TRACKER, so an
+    // empty-looking round never puts anyone off, and it never blocks the form if the request fails.
+    var MIN_TRACKER = 5;
+    (function loadCount() {
+      if (!ENDPOINT) return;
+      var tracker = document.getElementById('amTracker'), label = document.getElementById('amTrackerText');
+      var ctrl = new AbortController();
+      var timer = setTimeout(function () { ctrl.abort(); }, 10000);
+      fetch(ENDPOINT + '?count=1', { signal: ctrl.signal })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          clearTimeout(timer);
+          var n = res && res.count;
+          if (typeof n !== 'number' || n < MIN_TRACKER) return;
+          var open = CLOSES_AT - Date.now() > 0;
+          label.innerHTML = '<b>' + n + ' marketers</b> ' + (open ? 'have signed up so far' : 'signed up for round one');
+          tracker.hidden = false;
+        })
+        .catch(function () { clearTimeout(timer); });
+    })();
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
