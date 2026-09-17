@@ -399,7 +399,7 @@
             <p>Thanks to everyone who joined round one! Matches go out by Friday 2 October. If we keep the format, a new invitation will follow.</p>
           </div>
         </div>
-        <p class="am-version">Awesome Autumn Meets form v0.21 · 17 Sep 2026</p>
+        <p class="am-version">Awesome Autumn Meets form v0.22 · 17 Sep 2026</p>
       </div>
     </div>
   </section>
@@ -652,29 +652,51 @@
     // Live sign-up counter (Anna 2026-09-17). Counts real marketers only: one per email, test rows and
     // Anna's own rows left out, cached a minute in the script. Stays hidden below MIN_TRACKER, so an
     // empty-looking round never puts anyone off, and it never blocks the form if the request fails.
-    var MIN_TRACKER = 5;
+    var MIN_TRACKER = 5, COUNT_KEY = 'amCount';
     (function loadCount() {
       if (!ENDPOINT) return;
       var item = document.getElementById('amCountItem'), num = document.getElementById('amCountNum');
-      var ctrl = new AbortController();
-      var timer = setTimeout(function () { ctrl.abort(); }, 10000);
-      fetch(ENDPOINT + '?count=1', { signal: ctrl.signal })
-        .then(function (r) { return r.json(); })
-        .then(function (res) {
-          clearTimeout(timer);
-          var n = res && res.count;
-          if (typeof n !== 'number' || n < MIN_TRACKER) return;
-          // count up, so the number catches the eye when it lands
-          var step = Math.max(1, Math.round(n / 18)), shown = Math.max(0, n - step * 18);
-          item.hidden = false;
-          document.getElementById('amLiveSep').hidden = CLOSES_AT - Date.now() <= 0;
-          (function tick() {
-            shown = Math.min(n, shown + step);
-            num.textContent = shown;
-            if (shown < n) setTimeout(tick, 40);
-          })();
-        })
-        .catch(function () { clearTimeout(timer); });
+      var painted = false;
+
+      function paint(n, animate) {
+        item.hidden = false;
+        document.getElementById('amLiveSep').hidden = CLOSES_AT - Date.now() <= 0;
+        if (!animate) { num.textContent = n; painted = true; return; }
+        var step = Math.max(1, Math.round(n / 18)), shown = Math.max(0, n - step * 18);
+        (function tick() {
+          shown = Math.min(n, shown + step);
+          num.textContent = shown;
+          if (shown < n) setTimeout(tick, 40);
+        })();
+        painted = true;
+      }
+
+      // Last known number first, so the strip is complete the moment the page paints. The Apps Script
+      // web app cold-starts after a quiet spell and can take 15 seconds or more on the first request of
+      // the day, which used to leave the count blank until you refreshed (Anna 2026-09-17).
+      try {
+        var c = JSON.parse(localStorage.getItem(COUNT_KEY) || 'null');
+        if (c && typeof c.n === 'number' && c.n >= MIN_TRACKER && Date.now() - c.t < 86400000) paint(c.n, false);
+      } catch (e) {}
+
+      function ask(attempt) {
+        var ctrl = new AbortController();
+        var timer = setTimeout(function () { ctrl.abort(); }, 25000);
+        fetch(ENDPOINT + '?count=1', { signal: ctrl.signal })
+          .then(function (r) { return r.json(); })
+          .then(function (res) {
+            clearTimeout(timer);
+            var n = res && res.count;
+            if (typeof n !== 'number') throw new Error('no count');
+            try { localStorage.setItem(COUNT_KEY, JSON.stringify({ n: n, t: Date.now() })); } catch (e) {}
+            if (n >= MIN_TRACKER) paint(n, !painted);
+          })
+          .catch(function () {
+            clearTimeout(timer);
+            if (attempt < 3) setTimeout(function () { ask(attempt + 1); }, attempt * 2000);
+          });
+      }
+      ask(1);
     })();
 
     form.addEventListener('submit', function (e) {
