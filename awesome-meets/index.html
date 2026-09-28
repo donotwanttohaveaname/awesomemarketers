@@ -148,6 +148,15 @@
     .am-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
     .am-status { margin-top: 16px; font-size: 0.9rem; color: #B42318; word-break: break-word; }
     .am-done { text-align: center; padding: 24px 8px; }
+    .am-wait { margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--gray-200); }
+    .am-wait h3 { font-size: 1.15rem; margin-bottom: 6px; }
+    .am-wait__form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 16px auto 0; max-width: 460px; }
+    .am-wait__form input[type="email"] { flex: 1 1 240px; min-width: 0; padding: 12px 16px; border: 1px solid var(--gray-300); border-radius: var(--radius-md); font-family: inherit; font-size: 0.95rem; }
+    .am-wait__form input[type="email"]:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(166, 21, 255, 0.12); }
+    .am-wait__note { margin-top: 12px; font-size: 0.8rem; color: var(--gray-500); }
+    .am-wait__done { display: none; }
+    .am-wait.is-done .am-wait__form, .am-wait.is-done .am-wait__note, .am-wait.is-done .am-wait__intro { display: none; }
+    .am-wait.is-done .am-wait__done { display: block; color: var(--gray-700); }
     .am-done h2 { font-size: 1.6rem; margin-bottom: 10px; }
     .am-done p { color: var(--gray-500); }
     .am-version { text-align: center; font-size: 0.75rem; color: var(--gray-500); margin-top: 20px; }
@@ -397,9 +406,21 @@
           <div class="am-done" id="amClosed" hidden>
             <h2>Sign-ups for October are closed</h2>
             <p>Thanks to everyone who joined round one! Matches go out by Friday 2 October. If we keep the format, a new invitation will follow.</p>
+            <div class="am-wait" id="amWait">
+              <h3>Want in for November?</h3>
+              <p class="am-wait__intro">Leave your email and you'll be first to know when the next round opens.</p>
+              <form class="am-wait__form" id="amWaitForm" novalidate>
+                <label class="am-hp" aria-hidden="true">Leave this empty<input type="text" id="amWaitTrap" tabindex="-1" autocomplete="off"></label>
+                <input type="email" id="amWaitEmail" placeholder="you@company.com" autocomplete="email" aria-label="Your email">
+                <button type="submit" class="btn btn--primary" id="amWaitBtn">Keep me posted 🧡</button>
+              </form>
+              <p class="am-wait__note">Only your email, in the same private Sheet, used only to send that invitation. Ask me any time to take it off.</p>
+              <p class="am-wait__done" id="amWaitDone">You're on the list 🧡 I'll email you when November opens.</p>
+              <p class="am-status" id="amWaitStatus" role="alert"></p>
+            </div>
           </div>
         </div>
-        <p class="am-version">Awesome Autumn Meets form v0.22 · 17 Sep 2026</p>
+        <p class="am-version">Awesome Autumn Meets form v0.23 · 28 Sep 2026</p>
       </div>
     </div>
   </section>
@@ -697,6 +718,54 @@
           });
       }
       ask(1);
+    })();
+
+    // November waitlist: email only, straight into its own tab in the Sheet (Anna 2026-09-28).
+    (function waitlist() {
+      var wForm = document.getElementById('amWaitForm');
+      if (!wForm) return;
+      var wrap = document.getElementById('amWait'), input = document.getElementById('amWaitEmail');
+      var btn = document.getElementById('amWaitBtn'), status = document.getElementById('amWaitStatus');
+      wForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        status.textContent = '';
+        var email = input.value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+          status.textContent = "That email doesn't look quite right. Mind checking it?";
+          input.focus();
+          return;
+        }
+        if (!ENDPOINT) { wrap.classList.add('is-done'); return; }
+        btn.disabled = true;
+        var label = btn.textContent;
+        btn.textContent = 'Saving…';
+        var body = JSON.stringify({
+          waitlistEmail: email,
+          website: document.getElementById('amWaitTrap').value,
+          startedAt: startedAt
+        });
+        // the backend ignores anything sent within 5 seconds of page load (bot guard), so hold briefly
+        var wait = Math.max(0, 5500 - (Date.now() - startedAt));
+        function send(attempt) {
+          var ctrl = new AbortController();
+          var timer = setTimeout(function () { ctrl.abort(); }, 20000);
+          fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: body, signal: ctrl.signal })
+            .then(function (r) { return r.json(); })
+            .then(function (res) {
+              clearTimeout(timer);
+              if (!res || !res.ok) throw new Error((res && res.error) || 'failed');
+              wrap.classList.add('is-done');
+            })
+            .catch(function () {
+              clearTimeout(timer);
+              if (attempt < 3) { setTimeout(function () { send(attempt + 1); }, attempt * 1500); return; }
+              btn.disabled = false;
+              btn.textContent = label;
+              status.textContent = 'That did not save. Please email anna@awesomemarketers.fi and I will add you by hand.';
+            });
+        }
+        setTimeout(function () { send(1); }, wait);
+      });
     })();
 
     form.addEventListener('submit', function (e) {
