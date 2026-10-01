@@ -43,6 +43,10 @@
     .am-letter ol { list-style: decimal; padding-left: 22px; margin-bottom: 12px; }
     .am-letter li { margin-bottom: 4px; }
     .am-hero-desc { max-width: 560px; }
+    .am-moved { max-width: 640px; margin: 24px auto 0; padding: 20px 24px; border-radius: 16px; background: var(--white, #fff); border: 1px solid var(--gray-200); text-align: center; }
+    .am-moved p { margin: 0 0 14px; color: var(--gray-700); text-wrap: balance; }
+    .am-moved__line { margin-top: 12px; }
+    .am-moved__line a { color: #A615FF; font-weight: 600; }
     .am-timeline { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 640px; margin: 28px auto 0; }
     .am-timeline__item { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 12px; box-shadow: var(--shadow-sm); }
     .am-timeline__label { display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gray-500); }
@@ -198,6 +202,11 @@
       <span class="section__tag">✨ Brand new format · Round one</span>
       <h1 class="page-hero__title">Awesome Autumn <span class="gradient-text">Meets</span></h1>
       <p class="page-hero__desc am-hero-desc">We match you with 1 or 2 marketers in Helsinki, and you get to know each other over lunch or an after-work coffee.</p>
+      <!-- Awesome Meets has its own website since 30 Sep 2026 (Anna, 1 Oct: "link them from this page to the new website") -->
+      <div class="am-moved">
+        <p><strong>Awesome Meets has its own website now.</strong> The next round and the waitlist for November live there.</p>
+        <a class="btn btn--primary" href="https://awesomemeets.com/">Visit awesomemeets.com →</a>
+      </div>
       <div class="am-timeline">
         <div class="am-timeline__item"><span class="am-timeline__label">Sign up by</span><span class="am-timeline__value">Mon 28 Sep, 4PM</span></div>
         <div class="am-timeline__item"><span class="am-timeline__label">Get matched by</span><span class="am-timeline__value">Fri 2 Oct</span></div>
@@ -406,6 +415,7 @@
           <div class="am-done" id="amClosed" hidden>
             <h2>Sign-ups for October are closed</h2>
             <p>Thanks to everyone who joined round one! Matches go out by Friday 2 October. If we keep the format, a new invitation will follow.</p>
+            <p class="am-moved__line">Everything about what comes next is on the new Awesome Meets website: <a href="https://awesomemeets.com/">awesomemeets.com</a></p>
             <div class="am-wait" id="amWait">
               <h3>Want in for November?</h3>
               <p class="am-wait__intro">Leave your email and you'll be first to know when the next round opens.</p>
@@ -420,7 +430,7 @@
             </div>
           </div>
         </div>
-        <p class="am-version">Awesome Autumn Meets form v0.23 · 28 Sep 2026</p>
+        <p class="am-version">Awesome Autumn Meets form v0.24 · 1 Oct 2026</p>
       </div>
     </div>
   </section>
