@@ -417,20 +417,14 @@
             <p>Thanks to everyone who joined round one! Matches go out by Friday 2 October. If we keep the format, a new invitation will follow.</p>
             <p class="am-moved__line">Everything about what comes next is on the new Awesome Meets website: <a href="https://awesomemeets.com/">awesomemeets.com</a></p>
             <div class="am-wait" id="amWait">
-              <h3>Want in for November?</h3>
-              <p class="am-wait__intro">Leave your email and you'll be first to know when the next round opens.</p>
-              <form class="am-wait__form" id="amWaitForm" novalidate>
-                <label class="am-hp" aria-hidden="true">Leave this empty<input type="text" id="amWaitTrap" tabindex="-1" autocomplete="off"></label>
-                <input type="email" id="amWaitEmail" placeholder="you@company.com" autocomplete="email" aria-label="Your email">
-                <button type="submit" class="btn btn--primary" id="amWaitBtn">Keep me posted 🧡</button>
-              </form>
-              <p class="am-wait__note">Only your email, in the same private Sheet, used only to send that invitation. Ask me any time to take it off.</p>
-              <p class="am-wait__done" id="amWaitDone">You're on the list 🧡 I'll email you when November opens.</p>
-              <p class="am-status" id="amWaitStatus" role="alert"></p>
+              <h3>November is open</h3>
+              <p class="am-wait__intro">Sign-ups for the November round are live on the new site, and they close on Monday 26 October at 4PM.</p>
+              <a class="btn btn--primary" href="https://awesomemeets.com/join/">Sign up for November 🧡</a>
+              <p class="am-wait__note">It takes a few minutes. Same idea, same people, new home at awesomemeets.com.</p>
             </div>
           </div>
         </div>
-        <p class="am-version">Awesome Autumn Meets form v0.24 · 1 Oct 2026</p>
+        <p class="am-version">Awesome Autumn Meets form v0.25 · 14 Oct 2026</p>
       </div>
     </div>
   </section>
@@ -730,53 +724,6 @@
       ask(1);
     })();
 
-    // November waitlist: email only, straight into its own tab in the Sheet (Anna 2026-09-28).
-    (function waitlist() {
-      var wForm = document.getElementById('amWaitForm');
-      if (!wForm) return;
-      var wrap = document.getElementById('amWait'), input = document.getElementById('amWaitEmail');
-      var btn = document.getElementById('amWaitBtn'), status = document.getElementById('amWaitStatus');
-      wForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        status.textContent = '';
-        var email = input.value.trim();
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
-          status.textContent = "That email doesn't look quite right. Mind checking it?";
-          input.focus();
-          return;
-        }
-        if (!ENDPOINT) { wrap.classList.add('is-done'); return; }
-        btn.disabled = true;
-        var label = btn.textContent;
-        btn.textContent = 'Saving…';
-        var body = JSON.stringify({
-          waitlistEmail: email,
-          website: document.getElementById('amWaitTrap').value,
-          startedAt: startedAt
-        });
-        // the backend ignores anything sent within 5 seconds of page load (bot guard), so hold briefly
-        var wait = Math.max(0, 5500 - (Date.now() - startedAt));
-        function send(attempt) {
-          var ctrl = new AbortController();
-          var timer = setTimeout(function () { ctrl.abort(); }, 20000);
-          fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: body, signal: ctrl.signal })
-            .then(function (r) { return r.json(); })
-            .then(function (res) {
-              clearTimeout(timer);
-              if (!res || !res.ok) throw new Error((res && res.error) || 'failed');
-              wrap.classList.add('is-done');
-            })
-            .catch(function () {
-              clearTimeout(timer);
-              if (attempt < 3) { setTimeout(function () { send(attempt + 1); }, attempt * 1500); return; }
-              btn.disabled = false;
-              btn.textContent = label;
-              status.textContent = 'That did not save. Please email anna@awesomemarketers.fi and I will add you by hand.';
-            });
-        }
-        setTimeout(function () { send(1); }, wait);
-      });
-    })();
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
