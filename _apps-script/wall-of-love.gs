@@ -1,19 +1,18 @@
 /**
  * Wall of Love backend for awesomemarketers.fi/wall-of-love/
  *
- * Setup, once:
- *  1. Open the sheet "Wall of Love responses (private)" in Drive. It already
- *     exists, with the right headers, and is separate from the Awesome Meets sheet.
- *  2. Extensions > Apps Script, delete the placeholder code, paste this file in.
- *     SHEET_ID is already filled in below, nothing to change.
- *  3. Deploy > New deployment > Web app.
- *       Execute as: Me
- *       Who has access: Anyone
- *  4. Copy the /exec URL it gives you and paste it into ENDPOINT
- *     in wall-of-love/index.html, then push the site.
+ * DEPLOYED 2026-10-14. This file is the source of truth; the live copy is the
+ * Apps Script project "Wall of Love backend" in anna@awesomemarketers.fi:
+ *   https://script.google.com/u/0/home/projects/1TuaPXhNGgzKxpnlnQNA9n_oJNXt0P62LeQUIsl8R1yLLGx3iPZrWY3FF/edit
+ * Web app, Execute as: Me (anna@awesomemarketers.fi), Who has access: Anyone.
+ * Its /exec URL is wired into ENDPOINT in wall-of-love/index.html.
+ * Responses land in the sheet "Wall of Love responses (private)", separate from
+ * the Awesome Meets sheet.
  *
- * Re-deploy (Manage deployments > edit > new version) after any change here,
- * otherwise the live URL keeps running the old code.
+ * After ANY change here: paste the file back into that project, save, then
+ * Deploy > Manage deployments > edit (pencil) > Version: New version > Deploy.
+ * Editing the code alone does nothing; the live URL keeps running the old
+ * version until you cut a new one. The /exec URL itself does not change.
  */
 
 var SHEET_ID = '1deoNMOJNTH_e4v1rERXtRL1pfNSk1eXojPoZr9x_hI8';  // 'Wall of Love responses (private)'
