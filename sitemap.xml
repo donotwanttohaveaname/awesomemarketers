@@ -35,6 +35,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://awesomemarketers.fi/wall-of-love/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://awesomemarketers.fi/resources/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

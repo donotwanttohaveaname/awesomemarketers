@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wall of Love | The Awesome Marketers</title>
+  <meta name="description" content="Tell us how The Awesome Marketers has been for you. One rating, a couple of optional questions, and your words might end up on our wall of love.">
+  <meta property="og:title" content="Wall of Love | The Awesome Marketers">
+  <meta property="og:description" content="Tell us how the community has been for you.">
+  <meta property="og:image" content="https://awesomemarketers.fi/og/wall-of-love.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://awesomemarketers.fi/og/wall-of-love.png">
+  <link rel="canonical" href="https://awesomemarketers.fi/wall-of-love/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="03433979-1ae8-4c85-9096-8b4da9cf02b3"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "The Awesome Marketers",
+  "alternateName": "Awesome Marketers",
+  "url": "https://awesomemarketers.fi",
+  "logo": "https://awesomemarketers.fi/logo.jpg",
+  "image": "https://awesomemarketers.fi/og/resources.png",
+  "description": "Finland's largest English-speaking marketing community. Founded in Helsinki in 2019, with 1,823+ members sharing jobs, advice, salary data, events, and career support for marketers in Finland.",
+  "foundingDate": "2019",
+  "foundingLocation": {
+    "@type": "Place",
+    "name": "Helsinki, Finland"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Finland"
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Anna Pogrebniak",
+    "url": "https://www.linkedin.com/in/annapogrebniak/"
+  },
+  "knowsLanguage": "en"
+}
+</script>
+  <style>
+    .resource-hub__card { position: relative; }
+    .resource-hub__type {
+      position: absolute; top: 16px; right: 16px;
+      font-family: var(--font-heading); font-size: 0.66rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 4px 12px; border-radius: 100px;
+      background: var(--gradient-subtle); color: var(--purple);
+    }
+    .resource-hub__type--calc { background: rgba(255, 180, 82, 0.16); color: #b45309; }
+    .resource-hub__type--guide { background: #ecfdf5; color: #059669; }
+    .resource-hub__type--service { background: var(--gradient); color: var(--white); }
+    .resource-hub__type--data { background: var(--gray-100); color: var(--gray-600); }
+  </style>
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="v+iaH6te11+I1abIeDwOEw" async></script>
+
+  <style>
+    .wol { max-width: 680px; margin: 0 auto; padding: 0 24px 90px; }
+    .wol__card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl);
+      padding: 38px 36px 34px; box-shadow: var(--shadow-md); }
+    .wol__q { font-family: var(--font-heading); font-weight: 700; font-size: 1.3rem; color: var(--gray-900);
+      letter-spacing: -0.02em; margin-bottom: 6px; }
+    .wol__hint { font-size: 0.95rem; color: var(--gray-500); margin-bottom: 20px; line-height: 1.5; }
+    .wol__scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .wol__opt { position: relative; }
+    .wol__opt input { position: absolute; opacity: 0; inset: 0; cursor: pointer; margin: 0; }
+    .wol__opt span { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 16px 6px 13px;
+      border: 2px solid var(--gray-200); border-radius: var(--radius-md); cursor: pointer; transition: all .18s;
+      font-family: var(--font-heading); font-weight: 700; font-size: 1.5rem; color: var(--gray-800); background: var(--white); }
+    .wol__opt em { font-style: normal; font-family: var(--font-body); font-weight: 500; font-size: 0.72rem;
+      color: var(--gray-500); text-align: center; line-height: 1.2; min-height: 2.1em; }
+    .wol__opt input:hover + span { border-color: var(--purple); }
+    .wol__opt input:focus-visible + span { outline: 3px solid rgba(166,21,255,.35); outline-offset: 2px; }
+    .wol__opt input:checked + span { border-color: transparent; background: var(--gradient); color: var(--white); }
+    .wol__opt input:checked + span em { color: rgba(255,255,255,.92); }
+    .wol__step { display: none; margin-top: 30px; padding-top: 28px; border-top: 1px solid var(--gray-100); }
+    .wol__step.is-on { display: block; animation: wolIn .28s ease both; }
+    @keyframes wolIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .wol__label { display: block; font-family: var(--font-heading); font-weight: 600; font-size: 0.95rem;
+      color: var(--gray-800); margin-bottom: 7px; }
+    .wol__label span { font-weight: 500; color: var(--gray-400); }
+    .wol textarea, .wol input[type=text], .wol input[type=url] { width: 100%; font-family: var(--font-body);
+      font-size: 1rem; color: var(--gray-900); background: var(--white); border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-md); padding: 13px 15px; transition: border-color .15s; }
+    .wol textarea { min-height: 118px; resize: vertical; line-height: 1.5; }
+    .wol textarea:focus, .wol input:focus { outline: none; border-color: var(--purple); }
+    .wol__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+    .wol__check { display: flex; gap: 12px; align-items: flex-start; margin-top: 20px; padding: 16px 18px;
+      background: var(--gray-50); border: 1.5px solid var(--gray-200); border-radius: var(--radius-md); cursor: pointer; }
+    .wol__check:hover { border-color: var(--purple); }
+    .wol__check input { width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--purple); flex: none; cursor: pointer; }
+    .wol__check div { font-size: 0.95rem; color: var(--gray-800); line-height: 1.45; }
+    .wol__check small { display: block; color: var(--gray-500); font-size: 0.85rem; margin-top: 3px; }
+    .wol__send { margin-top: 26px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .wol__note { font-size: 0.85rem; color: var(--gray-500); line-height: 1.5; margin-top: 22px; }
+    .wol__err { display: none; color: #b42318; font-size: 0.92rem; font-weight: 500; }
+    .wol__err.is-on { display: block; }
+    .wol__done { display: none; text-align: center; padding: 20px 10px 6px; }
+    .wol__done h2 { font-family: var(--font-heading); font-size: 1.6rem; color: var(--gray-900); margin-bottom: 10px; }
+    .wol__done p { color: var(--gray-600); line-height: 1.6; }
+    .is-sent .wol__form { display: none; }
+    .is-sent .wol__done { display: block; }
+    .wol__trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    @media (max-width: 560px) {
+      .wol__card { padding: 28px 20px 26px; }
+      .wol__grid { grid-template-columns: 1fr; }
+      .wol__opt span { font-size: 1.25rem; padding: 13px 3px 10px; }
+      .wol__opt em { font-size: 0.65rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav__banner">
+      <span class="nav__banner-emoji">✨</span>
+      <span class="nav__banner-text">Awesome Autumn Meets is full: 40 marketers signed up for October. Want in for November? Leave your email.</span>
+      <a href="/awesome-meets/" class="nav__banner-btn">Join the waitlist →</a>
+    </div>
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">
+        <img src="../logo.jpg" alt="The Awesome Marketers" class="nav__logo-img">
+        <span class="nav__logo-text">The Awesome Marketers</span>
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="/people/">Who We Are</a></li>
+        <li><a href="/manifesto/">Manifesto</a></li>
+        <li><a href="/events/">Events</a></li>
+        <li class="nav__dropdown">
+          <button class="nav__dropdown-toggle active" aria-expanded="false">Other important things <span class="nav__dropdown-arrow">▾</span></button>
+          <div class="nav__dropdown-menu">
+            <a href="/events/" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🎪</span>
+              <div><span class="nav__dropdown-title">Events</span><span class="nav__dropdown-desc">Meetups, webinars, afterworks</span></div>
+            </a>
+            <a href="/videos/" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🎬</span>
+              <div><span class="nav__dropdown-title">Videos</span><span class="nav__dropdown-desc">Recorded webinars and talks</span></div>
+            </a>
+                        <a href="/marketing-salary-finland-2026/" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">👩🏻‍💻</span>
+              <div><span class="nav__dropdown-title">Salary Report 2026</span><span class="nav__dropdown-desc">Fresh data from 148 Finnish marketers</span></div>
+            </a>
+            <a href="/marketing-salaries-finland/" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">📊</span>
+              <div><span class="nav__dropdown-title">Salary Reports</span><span class="nav__dropdown-desc">What marketers in Finland earn</span></div>
+            </a>
+            <a href="/firstjob/" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🎯</span>
+              <div><span class="nav__dropdown-title">First Job Guide</span><span class="nav__dropdown-desc">Land your first marketing job</span></div>
+            </a>
+            <a href="/freelance-calculator/" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🧮</span>
+              <div><span class="nav__dropdown-title">Freelance Rate Calculator</span><span class="nav__dropdown-desc">Figure out your daily rate</span></div>
+            </a>
+            <a href="/remote-salary-calculator/" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🌍</span>
+              <div><span class="nav__dropdown-title">Remote Job Salary Calculator</span><span class="nav__dropdown-desc">What to charge remote companies</span></div>
+            </a>
+            <a href="/partners/" class="nav__dropdown-item">
+              <span class="nav__dropdown-icon">🤝</span>
+              <div><span class="nav__dropdown-title">Partners & Affiliates</span><span class="nav__dropdown-desc">Tools we use and recommend</span></div>
+            </a>
+          </div>
+        </li>
+        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfyjguXFCgPrUyPbQ4mBCfclsmtTqfpHeGxoVPj0baR7Tj9NA/viewform" target="_blank" class="btn btn--nav">Join us on Slack</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section__tag">Wall of Love</span>
+      <h1 class="page-hero__title">How are we <span class="gradient-text">doing</span>?</h1>
+      <p class="page-hero__desc">One question, then a couple of optional ones. Takes about a minute. If you have something nice to say, we would love to put it on the site.</p>
+    </div>
+  </section>
+
+  <section class="wol">
+    <div class="wol__card" id="wolCard">
+      <form class="wol__form" id="wolForm" novalidate>
+
+        <div class="wol__q">How happy are you with The Awesome Marketers?</div>
+        <p class="wol__hint">1 is not great, 5 is love it.</p>
+        <div class="wol__scale" role="radiogroup" aria-label="Rating from 1 to 5">
+          <label class="wol__opt"><input type="radio" name="rating" value="1" required><span>1<em>Not great</em></span></label>
+          <label class="wol__opt"><input type="radio" name="rating" value="2"><span>2<em>Meh</em></span></label>
+          <label class="wol__opt"><input type="radio" name="rating" value="3"><span>3<em>It is fine</em></span></label>
+          <label class="wol__opt"><input type="radio" name="rating" value="4"><span>4<em>Really good</em></span></label>
+          <label class="wol__opt"><input type="radio" name="rating" value="5"><span>5<em>Love it</em></span></label>
+        </div>
+
+        <div class="wol__step" id="wolComment">
+          <label class="wol__label" for="wolText" id="wolTextLabel">What made it that score? <span>(optional)</span></label>
+          <textarea id="wolText" name="comment" maxlength="1200" placeholder=""></textarea>
+        </div>
+
+        <div class="wol__step" id="wolPublish">
+          <label class="wol__check" for="wolOk">
+            <input type="checkbox" id="wolOk" name="mayPublish">
+            <div>Yes, you can publish this on awesomemarketers.fi
+              <small>Under your name, next to the other kind words. We will never publish anything you have not ticked here.</small>
+            </div>
+          </label>
+
+          <div class="wol__step" id="wolWho">
+            <label class="wol__label" for="wolFirst">First name</label>
+            <input type="text" id="wolFirst" name="firstName" maxlength="80" autocomplete="given-name">
+            <div class="wol__grid">
+              <div>
+                <label class="wol__label" for="wolLast">Last name <span>(optional)</span></label>
+                <input type="text" id="wolLast" name="lastName" maxlength="80" autocomplete="family-name">
+              </div>
+              <div>
+                <label class="wol__label" for="wolCompany">Company <span>(optional)</span></label>
+                <input type="text" id="wolCompany" name="company" maxlength="120" autocomplete="organization">
+              </div>
+            </div>
+            <div style="margin-top:16px">
+              <label class="wol__label" for="wolTitle">Job title <span>(optional)</span></label>
+              <input type="text" id="wolTitle" name="jobTitle" maxlength="120" autocomplete="organization-title">
+            </div>
+
+            <label class="wol__check" for="wolPhoto">
+              <input type="checkbox" id="wolPhoto" name="mayUsePhoto">
+              <div>You can use my photo from LinkedIn
+                <small>Optional. Just so your face can sit next to your words.</small>
+              </div>
+            </label>
+            <div class="wol__step" id="wolLi">
+              <label class="wol__label" for="wolLink">Your LinkedIn <span>(optional, so we can find the right photo)</span></label>
+              <input type="url" id="wolLink" name="linkedin" maxlength="300" placeholder="linkedin.com/in/yourname">
+            </div>
+          </div>
+        </div>
+
+        <div class="wol__trap" aria-hidden="true">
+          <label for="wolTrap">Leave this empty</label>
+          <input type="text" id="wolTrap" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="wol__send">
+          <button type="submit" class="btn btn--primary" id="wolBtn">Send it</button>
+          <span class="wol__err" id="wolErr"></span>
+        </div>
+        <p class="wol__note">We keep this to improve the community and, if you tick the box, to quote you on the site. Nothing else, no list, no sharing. Change your mind any time: <a href="mailto:anna@awesomemarketers.fi">anna@awesomemarketers.fi</a>.</p>
+      </form>
+
+      <div class="wol__done" id="wolDone">
+        <h2>Thank you 🧡</h2>
+        <p id="wolDoneText">That genuinely helps. If you said we could publish it, we will get in touch before anything goes live.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <img src="../logo.jpg" alt="The Awesome Marketers" class="nav__logo-img"> The Awesome Marketers
+        </div>
+        <div class="footer__links">
+          <a href="/people/">People behind the community</a>
+          <a href="/manifesto/">Manifesto</a>
+          <a href="/events/">Events</a>
+          <a href="/resources/">Resources</a>
+        </div>
+        <p class="footer__copy">Made with ❤️ in Helsinki. © 2019–2026 by <a href="https://awesomemarketer.fi" target="_blank" class="link--subtle">Anna Pogrebniak</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../app.js"></script>
+
+  <script>
+    (function () {
+      // Paste the Apps Script web app URL here after deploying _apps-script/wall-of-love.gs
+      var ENDPOINT = '';
+      var startedAt = Date.now();
+      var form = document.getElementById('wolForm');
+      var card = document.getElementById('wolCard');
+      var btn = document.getElementById('wolBtn');
+      var err = document.getElementById('wolErr');
+      var stepComment = document.getElementById('wolComment');
+      var stepPublish = document.getElementById('wolPublish');
+      var stepWho = document.getElementById('wolWho');
+      var stepLi = document.getElementById('wolLi');
+      var okBox = document.getElementById('wolOk');
+      var photoBox = document.getElementById('wolPhoto');
+      var textLabel = document.getElementById('wolTextLabel');
+      var text = document.getElementById('wolText');
+      var first = document.getElementById('wolFirst');
+
+      function show(el, on) { el.classList.toggle('is-on', !!on); }
+
+      form.addEventListener('change', function (e) {
+        if (e.target.name === 'rating') {
+          var r = parseInt(e.target.value, 10);
+          var happy = r >= 4;
+          show(stepComment, true);
+          textLabel.innerHTML = happy
+            ? 'What would you tell another marketer about us? <span>(optional)</span>'
+            : 'What would make it better? <span>(optional)</span>';
+          text.placeholder = happy ? 'Anything you like. A sentence is plenty.' : 'Be blunt, it is the only way we fix things.';
+          show(stepPublish, happy);
+          if (!happy) { okBox.checked = false; show(stepWho, false); }
+          else { show(stepWho, okBox.checked); }
+        }
+        if (e.target === okBox) { show(stepWho, okBox.checked); if (!okBox.checked) { photoBox.checked = false; show(stepLi, false); } }
+        if (e.target === photoBox) { show(stepLi, photoBox.checked); }
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        err.classList.remove('is-on');
+        var rating = form.querySelector('input[name=rating]:checked');
+        if (!rating) { err.textContent = 'Pick a number first.'; err.classList.add('is-on'); return; }
+        if (okBox.checked && !first.value.trim()) {
+          err.textContent = 'We need a first name to publish it under.';
+          err.classList.add('is-on'); first.focus(); return;
+        }
+        var body = JSON.stringify({
+          rating: rating.value,
+          comment: text.value.trim(),
+          mayPublish: okBox.checked,
+          firstName: first.value.trim(),
+          lastName: document.getElementById('wolLast').value.trim(),
+          company: document.getElementById('wolCompany').value.trim(),
+          jobTitle: document.getElementById('wolTitle').value.trim(),
+          linkedin: document.getElementById('wolLink').value.trim(),
+          mayUsePhoto: photoBox.checked,
+          website: document.getElementById('wolTrap').value,
+          startedAt: startedAt
+        });
+        if (!ENDPOINT) { card.classList.add('is-sent'); return; }
+        btn.disabled = true; btn.textContent = 'Sending…';
+        var wait = Math.max(0, 5500 - (Date.now() - startedAt));
+        function send(attempt) {
+          var ctrl = new AbortController();
+          var timer = setTimeout(function () { ctrl.abort(); }, 20000);
+          fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: body, signal: ctrl.signal })
+            .then(function (r) { return r.json(); })
+            .then(function (res) {
+              clearTimeout(timer);
+              if (!res || !res.ok) throw new Error((res && res.error) || 'failed');
+              card.classList.add('is-sent');
+            })
+            .catch(function () {
+              clearTimeout(timer);
+              if (attempt < 3) { setTimeout(function () { send(attempt + 1); }, 1200 * attempt); return; }
+              btn.disabled = false; btn.textContent = 'Send it';
+              err.textContent = 'That did not go through. Try again, or email anna@awesomemarketers.fi.';
+              err.classList.add('is-on');
+            });
+        }
+        setTimeout(function () { send(1); }, wait);
+      });
+    })();
+  </script>
+
+</body>
+</html>

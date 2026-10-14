@@ -90,6 +90,9 @@ PAGES = [
    q="how do i meet people without another mixer? 🙃",
    big="Awesome Meets", line="Get matched with 1 or 2 marketers in Helsinki.",
    chips=["🗓 Sign up by 28 Sep", "🥗 Lunch or coffee", "📍 Helsinki"]),
+ dict(slug="wall-of-love", path="wall-of-love/index.html", ch="general",
+   q="how do i tell you this place actually helped?",
+   big="Wall of love", line="Rate us 1 to 5. Say something nice and it might land on the site."),
 ]
 
 TPL = """<!DOCTYPE html><html><head><meta charset="utf-8">
