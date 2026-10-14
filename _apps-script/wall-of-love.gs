@@ -2,8 +2,10 @@
  * Wall of Love backend for awesomemarketers.fi/wall-of-love/
  *
  * Setup, once:
- *  1. Create a Google Sheet. Open Extensions > Apps Script and paste this file in.
- *  2. Put the sheet id in SHEET_ID below (the long string in the sheet URL).
+ *  1. Open the sheet "Wall of Love responses (private)" in Drive. It already
+ *     exists, with the right headers, and is separate from the Awesome Meets sheet.
+ *  2. Extensions > Apps Script, delete the placeholder code, paste this file in.
+ *     SHEET_ID is already filled in below, nothing to change.
  *  3. Deploy > New deployment > Web app.
  *       Execute as: Me
  *       Who has access: Anyone
@@ -14,8 +16,8 @@
  * otherwise the live URL keeps running the old code.
  */
 
-var SHEET_ID = '';            // <- paste the sheet id
-var SHEET_NAME = 'Responses';
+var SHEET_ID = '1deoNMOJNTH_e4v1rERXtRL1pfNSk1eXojPoZr9x_hI8';  // 'Wall of Love responses (private)'
+var SHEET_NAME = 'Sheet1';   // the tab the headers are already on
 var MIN_FILL_MS = 5000;       // anything submitted faster than this is a bot
 
 function doPost(e) {

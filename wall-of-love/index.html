@@ -351,7 +351,11 @@
           website: document.getElementById('wolTrap').value,
           startedAt: startedAt
         });
-        if (!ENDPOINT) { card.classList.add('is-sent'); return; }
+        if (!ENDPOINT) {
+          // not wired to the backend yet: never fake a thank-you, it would lose the answer
+          err.textContent = 'This form is not live just yet. Email anna@awesomemarketers.fi and it will reach me.';
+          err.classList.add('is-on'); return;
+        }
         btn.disabled = true; btn.textContent = 'Sending…';
         var wait = Math.max(0, 5500 - (Date.now() - startedAt));
         function send(attempt) {
