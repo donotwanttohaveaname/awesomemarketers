@@ -187,7 +187,7 @@
     <div class="container">
       <span class="section__tag">Wall of Love</span>
       <h1 class="page-hero__title">How are we <span class="gradient-text">doing</span>?</h1>
-      <p class="page-hero__desc">One question, then a couple of optional ones. Takes about a minute. If you have something nice to say, we would love to put it on the site.</p>
+      <p class="page-hero__desc">Two quick questions, then a couple of optional ones. Takes about a minute. If you have something nice to say, we would love to put it on the site.</p>
     </div>
   </section>
 
@@ -206,7 +206,7 @@
         </div>
 
         <div class="wol__step" id="wolComment">
-          <label class="wol__label" for="wolText" id="wolTextLabel">What made it that score? <span>(optional)</span></label>
+          <label class="wol__label" for="wolText" id="wolTextLabel">What made it that score?</label>
           <textarea id="wolText" name="comment" maxlength="1200" placeholder=""></textarea>
         </div>
 
@@ -314,8 +314,8 @@
           var happy = r >= 4;
           show(stepComment, true);
           textLabel.innerHTML = happy
-            ? 'What would you tell another marketer about us? <span>(optional)</span>'
-            : 'What would make it better? <span>(optional)</span>';
+            ? 'What would you tell another marketer about us?'
+            : 'What would make it better?';
           text.placeholder = happy ? 'Anything you like. A sentence is plenty.' : 'Be blunt, it is the only way we fix things.';
           show(stepPublish, happy);
           if (!happy) { okBox.checked = false; show(stepWho, false); }
@@ -330,6 +330,10 @@
         err.classList.remove('is-on');
         var rating = form.querySelector('input[name=rating]:checked');
         if (!rating) { err.textContent = 'Pick a number first.'; err.classList.add('is-on'); return; }
+        if (!text.value.trim()) {
+          err.textContent = 'Tell us a little about why, even one line.';
+          err.classList.add('is-on'); text.focus(); return;
+        }
         if (okBox.checked && !first.value.trim()) {
           err.textContent = 'We need a first name to publish it under.';
           err.classList.add('is-on'); first.focus(); return;
