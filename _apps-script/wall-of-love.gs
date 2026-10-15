@@ -17,7 +17,7 @@
 
 var SHEET_ID = '1deoNMOJNTH_e4v1rERXtRL1pfNSk1eXojPoZr9x_hI8';  // 'Wall of Love responses (private)'
 var SHEET_NAME = 'Sheet1';   // the tab the headers are already on
-var MIN_FILL_MS = 5000;       // anything submitted faster than this is a bot
+var MIN_FILL_MS = 2500;       // anything submitted faster than this is a bot
 
 function doPost(e) {
   try {
@@ -26,8 +26,13 @@ function doPost(e) {
     // honeypot: real people never see this field
     if (d.website) return out({ ok: true });
 
-    // bot guard: forms filled within 5 seconds are not filled by humans
-    if (d.startedAt && (Date.now() - Number(d.startedAt)) < MIN_FILL_MS) {
+    // bot guard: nobody reads the question and writes a sentence this fast.
+    // elapsedMs is measured on the visitor's own clock, so a phone whose clock runs
+    // fast cannot have a real answer thrown away. startedAt is the fallback for a
+    // page that was cached before the form started sending elapsedMs.
+    var elapsed = d.elapsedMs != null ? Number(d.elapsedMs)
+                : (d.startedAt ? Date.now() - Number(d.startedAt) : null);
+    if (elapsed !== null && elapsed >= 0 && elapsed < MIN_FILL_MS) {
       return out({ ok: false, error: 'too fast' });
     }
 

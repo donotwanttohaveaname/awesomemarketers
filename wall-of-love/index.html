@@ -106,6 +106,8 @@
     .wol__send { margin-top: 26px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
     .wol__note { font-size: 0.85rem; color: var(--gray-500); line-height: 1.5; margin-top: 22px; }
     .wol__err { display: none; color: #b42318; font-size: 0.92rem; font-weight: 500; }
+    .wol__wait { display: none; color: var(--gray-500); font-size: 0.92rem; }
+    .wol__wait.is-on { display: block; }
     .wol__err.is-on { display: block; }
     .wol__done { display: none; text-align: center; padding: 20px 10px 6px; }
     .wol__done h2 { font-family: var(--font-heading); font-size: 1.6rem; color: var(--gray-900); margin-bottom: 10px; }
@@ -214,7 +216,7 @@
           <label class="wol__check" for="wolOk">
             <input type="checkbox" id="wolOk" name="mayPublish">
             <div>Yes, you can publish this on awesomemarketers.fi
-              <small>Under your name, next to the other kind words. We will never publish anything you have not ticked here.</small>
+              <small>Under your name, next to the other kind words. Ticking the box is the go-ahead, so we will not chase you for a second one. Nothing you have not ticked ever goes on the site.</small>
             </div>
           </label>
 
@@ -257,13 +259,14 @@
         <div class="wol__send">
           <button type="submit" class="btn btn--primary" id="wolBtn">Send it</button>
           <span class="wol__err" id="wolErr"></span>
+          <span class="wol__wait" id="wolWait"></span>
         </div>
         <p class="wol__note">We keep this to improve the community and, if you tick the box, to quote you on the site. Nothing else, no list, no sharing. Change your mind any time: <a href="mailto:anna@awesomemarketers.fi">anna@awesomemarketers.fi</a>.</p>
       </form>
 
       <div class="wol__done" id="wolDone">
         <h2>Thank you 🧡</h2>
-        <p id="wolDoneText">That genuinely helps. If you said we could publish it, we will get in touch before anything goes live.</p>
+        <p id="wolDoneText">That genuinely helps. If you ticked the box, your words may turn up on the site under your name.</p>
       </div>
     </div>
   </section>
@@ -296,6 +299,7 @@
       var card = document.getElementById('wolCard');
       var btn = document.getElementById('wolBtn');
       var err = document.getElementById('wolErr');
+      var waitMsg = document.getElementById('wolWait');
       var stepComment = document.getElementById('wolComment');
       var stepPublish = document.getElementById('wolPublish');
       var stepWho = document.getElementById('wolWho');
@@ -338,7 +342,7 @@
           err.textContent = 'We need a first name to publish it under.';
           err.classList.add('is-on'); first.focus(); return;
         }
-        var body = JSON.stringify({
+        var answer = {
           rating: rating.value,
           comment: text.value.trim(),
           mayPublish: okBox.checked,
@@ -350,33 +354,47 @@
           mayUsePhoto: photoBox.checked,
           website: document.getElementById('wolTrap').value,
           startedAt: startedAt
-        });
+        };
         if (!ENDPOINT) {
           // not wired to the backend yet: never fake a thank-you, it would lose the answer
           err.textContent = 'This form is not live just yet. Email anna@awesomemarketers.fi and it will reach me.';
           err.classList.add('is-on'); return;
         }
         btn.disabled = true; btn.textContent = 'Sending…';
-        var wait = Math.max(0, 5500 - (Date.now() - startedAt));
+        // the backend throws away anything filled in under a couple of seconds, so hold
+        // just past that line and no longer. Anything above this is dead waiting.
+        var hold = Math.max(0, 3000 - (Date.now() - startedAt));
+        // Apps Script can sit there for a few seconds on a cold start. Say so rather
+        // than leave someone staring at a dead button wondering if it took.
+        var patience = setTimeout(function () {
+          waitMsg.textContent = 'Still sending. This can take a few seconds, your answer is not lost.';
+          waitMsg.classList.add('is-on');
+        }, 1800);
+        function done() { clearTimeout(patience); waitMsg.classList.remove('is-on'); }
         function send(attempt) {
           var ctrl = new AbortController();
           var timer = setTimeout(function () { ctrl.abort(); }, 20000);
-          fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: body, signal: ctrl.signal })
+          // measured on this visitor's own clock, so a device running fast cannot get
+          // a real answer thrown away by the server-side guard
+          answer.elapsedMs = Date.now() - startedAt;
+          fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(answer), signal: ctrl.signal })
             .then(function (r) { return r.json(); })
             .then(function (res) {
               clearTimeout(timer);
               if (!res || !res.ok) throw new Error((res && res.error) || 'failed');
+              done();
               card.classList.add('is-sent');
             })
             .catch(function () {
               clearTimeout(timer);
               if (attempt < 3) { setTimeout(function () { send(attempt + 1); }, 1200 * attempt); return; }
+              done();
               btn.disabled = false; btn.textContent = 'Send it';
               err.textContent = 'That did not go through. Try again, or email anna@awesomemarketers.fi.';
               err.classList.add('is-on');
             });
         }
-        setTimeout(function () { send(1); }, wait);
+        setTimeout(function () { send(1); }, hold);
       });
     })();
   </script>
