@@ -402,38 +402,99 @@
       transform: translateY(-1px);
     }
 
-    /* What people say */
+    /* What people say: a corkboard of LinkedIn posts, each one taped up at a slight angle */
     .events-social {
-      padding: 60px 24px;
+      position: relative;
+      padding: 90px 24px 100px;
+      overflow: hidden;
+    }
+    .events-social::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 8% 10%, rgba(255, 180, 82, 0.16), transparent 70%),
+        radial-gradient(ellipse 55% 45% at 92% 90%, rgba(166, 21, 255, 0.12), transparent 70%);
+      pointer-events: none;
+    }
+    .events-social > * { position: relative; }
+    .events-social__head {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 48px;
     }
     .events-social__title {
       font-family: var(--font-heading);
-      font-size: 1.6rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.02em;
       font-weight: 700;
-      color: var(--gray-800);
-      text-align: center;
-      margin-bottom: 32px;
+      color: var(--gray-900);
+      margin: 14px 0 12px;
+    }
+    .events-social__sub {
+      color: var(--gray-500);
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin: 0;
     }
     .events__posts-grid {
       max-width: 1200px;
       margin: 0 auto;
       columns: 3;
-      column-gap: 14px;
+      column-gap: 22px;
+      padding-top: 14px;
     }
     .events__post {
+      --tilt: -1.1deg;
+      position: relative;
       break-inside: avoid;
-      margin: 0 0 14px;
+      margin: 0 0 26px;
       width: 100%;
+      padding: 10px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 18px;
+      box-shadow: 0 10px 40px rgba(166, 21, 255, 0.08);
+      transform: rotate(var(--tilt));
+      transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s ease, box-shadow 0.3s ease;
+    }
+    .is-animated .events__post { opacity: 0; transform: translateY(18px) rotate(var(--tilt)); }
+    .events__post:nth-child(3n + 2) { --tilt: 0.9deg; }
+    .events__post:nth-child(3n + 3) { --tilt: -0.5deg; }
+    .events__post:nth-child(4n + 1) { --tilt: 1.3deg; }
+    .is-animated .events__post.is-in { opacity: 1; transform: rotate(var(--tilt)); }
+    .events__post:hover, .is-animated .events__post.is-in:hover {
+      transform: rotate(0deg) translateY(-6px);
+      box-shadow: 0 18px 60px rgba(166, 21, 255, 0.18);
+      z-index: 2;
+    }
+    /* the strip of tape */
+    .events__post::before {
+      content: "";
+      position: absolute;
+      top: -11px; left: 50%;
+      width: 92px; height: 24px;
+      margin-left: -46px;
+      background: linear-gradient(135deg, rgba(255, 180, 82, 0.9), rgba(166, 21, 255, 0.8));
+      border-radius: 3px;
+      transform: rotate(-3deg);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      z-index: 2;
+    }
+    .events__post:nth-child(even)::before { transform: rotate(3deg); background: linear-gradient(135deg, rgba(166, 21, 255, 0.8), rgba(255, 180, 82, 0.9)); }
+    .events__post iframe {
+      display: block;
+      width: 100%;
+      min-height: 300px;
+      border-radius: 12px;
+      border: 0;
+      background: var(--gray-50);
     }
     @media (min-width: 769px) and (max-width: 1099px) {
       .events__posts-grid { columns: 2; max-width: 800px; }
     }
-    .events__post iframe {
-      width: 100%;
-      min-height: 300px;
-      border-radius: 12px;
-      border: 1px solid var(--gray-100);
-      background: var(--gray-50);
+    @media (prefers-reduced-motion: reduce) {
+      .events__post, .is-animated .events__post { opacity: 1; transform: none; transition: none; }
+      .events__post:hover { transform: none; }
     }
 
     /* Empty state for community events */
@@ -451,6 +512,8 @@
       .events__posts-grid {
         columns: 1;
       }
+      .events__post { --tilt: 0deg !important; margin-bottom: 22px; }
+      .events-social { padding: 64px 20px 72px; }
       .events-types {
         flex-direction: column;
         gap: 20px;
@@ -1363,7 +1426,11 @@
 
   <!-- What people say -->
   <section class="events-social" id="what-people-say">
-    <h2 class="events-social__title">What people <span class="gradient-text">say</span></h2>
+    <div class="events-social__head">
+      <span class="section__tag">Fresh from LinkedIn</span>
+      <h2 class="events-social__title">What people <span class="gradient-text">say</span></h2>
+      <p class="events-social__sub">Written after our events, by the people who were in the room. 18 posts and counting.</p>
+    </div>
     <div class="events__posts-grid">
       <div class="events__post">
         <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7523359773430337536" style="height:916px;" loading="lazy" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
@@ -1477,6 +1544,29 @@
         msg.textContent = 'No upcoming events right now. Check back soon or follow us on LinkedIn.';
         document.getElementById('eventsList').appendChild(msg);
       }
+    })();
+  </script>
+  <script>
+    // Corkboard entrance: a post fades in once it scrolls into view. A plain scroll check, so it needs no observer.
+    (function () {
+      var wall = document.getElementById('what-people-say');
+      var posts = Array.prototype.slice.call(document.querySelectorAll('.events__post'));
+      if (!wall || !posts.length) return;
+      wall.classList.add('is-animated');
+      var timer = null;
+      function reveal() {
+        var limit = window.innerHeight * 1.08;
+        posts = posts.filter(function (p) {
+          if (p.getBoundingClientRect().top > limit) return true;
+          p.classList.add('is-in'); return false;
+        });
+        if (!posts.length) { window.removeEventListener('scroll', reveal); clearInterval(timer); }
+      }
+      window.addEventListener('scroll', reveal, { passive: true });
+      window.addEventListener('resize', reveal);
+      // scroll events ride on animation frames, which some browsers pause; a slow timer catches what they miss
+      timer = setInterval(reveal, 400);
+      reveal();
     })();
   </script>
 </body>
