@@ -353,6 +353,44 @@
     </div>
   </section>
 
+  <!-- What people say: the newest posts from the LinkedIn wall on /events/ -->
+  <section class="section wall" id="what-people-say">
+    <div class="container">
+      <div class="section__header wall__header">
+        <span class="section__tag">Fresh from LinkedIn</span>
+        <h2 class="section__title">What marketers <span class="gradient-text">say</span> about us</h2>
+        <p class="section__desc">Real posts by people who came to an event and went home with something to write about. Scroll sideways.</p>
+      </div>
+    </div>
+    <div class="wall__scroller" id="wallScroller" tabindex="0" aria-label="LinkedIn posts about The Awesome Marketers, scroll sideways">
+      <div class="wall__track">
+        <div class="wall__card">
+          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7523359773430337536" loading="lazy" title="LinkedIn post" allowfullscreen=""></iframe>
+        </div>
+        <div class="wall__card">
+          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7522039188595322880" loading="lazy" title="LinkedIn post" allowfullscreen=""></iframe>
+        </div>
+        <div class="wall__card">
+          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7522006634714378240" loading="lazy" title="LinkedIn post" allowfullscreen=""></iframe>
+        </div>
+        <div class="wall__card">
+          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7522019646095384576" loading="lazy" title="LinkedIn post" allowfullscreen=""></iframe>
+        </div>
+        <div class="wall__card">
+          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7522168252492525568" loading="lazy" title="LinkedIn post" allowfullscreen=""></iframe>
+        </div>
+        <div class="wall__card">
+          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7459465047728230400" loading="lazy" title="LinkedIn post" allowfullscreen=""></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="wall__controls">
+      <button class="wall__btn" type="button" data-dir="-1" aria-label="Previous posts">&larr;</button>
+      <button class="wall__btn" type="button" data-dir="1" aria-label="Next posts">&rarr;</button>
+      <a href="/events/#what-people-say" class="btn btn--outline">All 18 posts on the events page &rarr;</a>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
@@ -372,5 +410,22 @@
   </footer>
 
   <script src="app.js"></script>
+  <script>
+    // Homepage LinkedIn wall: the arrows scroll one card at a time; the strip itself snaps.
+    (function () {
+      var sc = document.getElementById('wallScroller');
+      if (!sc) return;
+      document.querySelectorAll('.wall__btn').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var card = sc.querySelector('.wall__card');
+          var step = card ? card.getBoundingClientRect().width + 18 : 380;
+          var target = sc.scrollLeft + step * Number(b.dataset.dir);
+          sc.scrollTo({ left: target, behavior: 'smooth' });
+          // a smooth scroll inside a snap container can be swallowed (hidden tab, reduced motion, old Safari): jump instead
+          setTimeout(function () { if (Math.abs(sc.scrollLeft - target) > step / 2) sc.scrollLeft = target; }, 450);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
