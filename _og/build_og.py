@@ -71,11 +71,11 @@ PAGES = [
 
  dict(slug="marketing-salary-finland-2026", path="marketing-salary-finland-2026/index.html", ch="salaries",
    q="is €4,200 good for a mid-level marketer?",
-   big="€4,658", line="Median marketing salary in Finland, 2026. 148 marketers."),
+   big="€4,667", line="Median marketing salary in Finland, 2026. 151 marketers."),
 
  dict(slug="marketing-salary-finland-2026-report", path="marketing-salary-finland-2026-report/index.html",
    ch="salaries", q="can i just read the whole thing?",
-   big="€4,658", line="The full 2026 salary report, in plain text."),
+   big="€4,667", line="The full 2026 salary report, in plain text."),
 
  dict(slug="freelance-marketing-consultant-rates-finland",
    path="freelance-marketing-consultant-rates-finland/index.html", ch="freelance",

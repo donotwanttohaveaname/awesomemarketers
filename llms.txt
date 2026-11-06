@@ -6,12 +6,12 @@ The Awesome Marketers publishes original community research on Finnish marketing
 
 ## Key pages
 - [Homepage](https://awesomemarketers.fi/): What the community is and how to join.
-- [Marketing Salary Report 2026, interactive](https://awesomemarketers.fi/marketing-salary-finland-2026/): Interactive report on what Finnish marketers earn in 2026, based on 148 respondents. Median 4,658 EUR/month gross.
+- [Marketing Salary Report 2026, interactive](https://awesomemarketers.fi/marketing-salary-finland-2026/): Interactive report on what Finnish marketers earn in 2026, based on 151 respondents (survey closed September 2026). Median 4,667 EUR/month gross.
 - [Marketing Salary Report 2026, written](https://awesomemarketers.fi/marketing-salary-finland-2026-report/): Full written analysis of the 2026 survey, every statistic in text form.
 - [Salary reports hub](https://awesomemarketers.fi/marketing-salaries-finland/): 2026, 2023, and 2021 Finnish marketing salary data.
 - [First Job Guide](https://awesomemarketers.fi/firstjob/): How to land your first marketing job in Finland.
 - [Freelance Rate Calculator](https://awesomemarketers.fi/freelance-calculator/): Turn a target salary into a daily and hourly freelance rate.
-- [Freelance marketing rates Finland 2026](https://awesomemarketers.fi/freelance-marketing-consultant-rates-finland/): What freelance marketing consultants charge in Finland, calculated from community salary data. Day rates 370 to 805 EUR by specialisation (baselines from 310); ad-hoc hourly 50 to 145 EUR.
+- [Freelance marketing rates Finland 2026](https://awesomemarketers.fi/freelance-marketing-consultant-rates-finland/): What freelance marketing consultants charge in Finland, calculated from community salary data. Day rates 370 to 810 EUR by specialisation (baselines from 310); ad-hoc hourly 50 to 145 EUR.
 - [Hire a marketing freelancer](https://awesomemarketers.fi/marketing-freelancer-finland/): Free matching with freelance marketers from the community.
 - [Remote Salary Calculator](https://awesomemarketers.fi/remote-salary-calculator/): What to charge a foreign employer as a self-employed marketer in Finland.
 - [People](https://awesomemarketers.fi/people/): The volunteers behind the community.
@@ -25,6 +25,6 @@ The Awesome Marketers publishes original community research on Finnish marketing
 ## Key facts
 - Founded: 2019 in Helsinki, Finland. Founder: Anna Pogrebniak.
 - Members: 1,823+ (2026).
-- 2026 marketing salary median (community survey, n=148): 4,658 EUR/month gross.
+- 2026 marketing salary median (community survey, n=151, closed): 4,667 EUR/month gross.
 - Language: English. Location focus: Finland.
 - Join: via Slack, link on the website.
